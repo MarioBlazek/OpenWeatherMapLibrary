@@ -1,0 +1,23 @@
+{
+    "name": "marioblazek/open-weather-map-library",
+    "description": "PHP wrapper for Open Weather Map API",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mario Blažek",
+            "email": "blazek.mario@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Marek\\OpenWeatherLibrary\\": "lib",
+            "Marek\\OpenWeatherLibrary\\Tests\\": "tests"
+        }
+    },
+    "require": {
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    }
+}
