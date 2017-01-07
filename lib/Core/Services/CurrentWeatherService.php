@@ -16,7 +16,7 @@ class CurrentWeatherService implements CurrentWeather
      * @var HttpClientInterface
      */
     protected $client;
-    
+
     /**
      * @var UrlFactory
      */
@@ -35,7 +35,7 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function byCityName(CityName $cityName)
     {
-        $params = new InputParameterBag('/weather');
+        $params = $this->urlFactory->buildBag('/weather');
         $params->setParameter('q', $cityName);
 
         $url = $this->urlFactory->build($params);

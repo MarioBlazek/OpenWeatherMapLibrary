@@ -37,4 +37,9 @@ class UrlFactory
             '&appid=' . $this->appid .
             '&units=' . $this->units;
     }
+
+    public function buildBag($uri)
+    {
+        return new InputParameterBag($uri);
+    }
 }
