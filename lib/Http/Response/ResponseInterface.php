@@ -4,6 +4,10 @@ namespace Marek\OpenWeatherLibrary\Http\Response;
 
 interface ResponseInterface
 {
+    const HTTP_ERROR = '401';
+
+    const HTTP_SUCCESS = '200';
+
     /**
      * Returns HTTP status code.
      *
