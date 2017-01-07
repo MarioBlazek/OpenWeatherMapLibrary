@@ -3,17 +3,17 @@
 namespace Marek\OpenWeatherLibrary\API\Services;
 
 use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
+use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 
 interface CurrentWeather
 {
     /**
-     * @param string $cityName
-     * @param string|null $countryCode
+     * @param CityName $cityName
      *
      * @return mixed
      */
-    public function byCityName($cityName, $countryCode = null);
+    public function byCityName(CityName $cityName);
 
     /**
      * @param int $cityId

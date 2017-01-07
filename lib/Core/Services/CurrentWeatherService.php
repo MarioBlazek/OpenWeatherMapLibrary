@@ -5,18 +5,44 @@ namespace Marek\OpenWeatherLibrary\Core\Services;
 use Marek\OpenWeatherLibrary\API\Services\CurrentWeather;
 use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
+use Marek\OpenWeatherLibrary\API\Value\CityName;
+use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
+use Marek\OpenWeatherLibrary\Factory\UrlFactory;
+use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
 
 class CurrentWeatherService implements CurrentWeather
 {
     /**
-     * @param string $cityName
-     * @param string|null $countryCode
+     * @var HttpClientInterface
+     */
+    protected $client;
+    
+    /**
+     * @var UrlFactory
+     */
+    protected $urlFactory;
+
+    public function __construct(HttpClientInterface $client, UrlFactory $urlFactory)
+    {
+        $this->client = $client;
+        $this->urlFactory = $urlFactory;
+    }
+
+    /**
+     * @param CityName $cityName
      *
      * @return mixed
      */
-    public function byCityName($cityName, $countryCode = null)
+    public function byCityName(CityName $cityName)
     {
-        // TODO: Implement byCityName() method.
+        $params = new InputParameterBag('/weather');
+        $params->setParameter('q', $cityName);
+
+        $url = $this->urlFactory->build($params);
+
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**

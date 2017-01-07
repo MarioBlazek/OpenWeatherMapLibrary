@@ -48,4 +48,5 @@
 */Entity/*~
 
 /.idea/
-composer.lock
+/composer.lock
+/index.php
