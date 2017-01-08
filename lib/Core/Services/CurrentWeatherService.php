@@ -22,10 +22,16 @@ class CurrentWeatherService implements CurrentWeather
      */
     protected $urlFactory;
 
+    /**
+     * @var InputParameterBag
+     */
+    protected $params;
+
     public function __construct(HttpClientInterface $client, UrlFactory $urlFactory)
     {
         $this->client = $client;
         $this->urlFactory = $urlFactory;
+        $this->params = $this->urlFactory->buildBag('/weather');
     }
 
     /**
@@ -35,10 +41,9 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function byCityName(CityName $cityName)
     {
-        $params = $this->urlFactory->buildBag('/weather');
-        $params->setParameter('q', $cityName);
+        $this->params->setParameter('q', $cityName);
 
-        $url = $this->urlFactory->build($params);
+        $url = $this->urlFactory->build($this->params);
 
         $response = $this->client->get($url);
 
@@ -52,7 +57,13 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function byCityId($cityId)
     {
-        // TODO: Implement byCityId() method.
+        $this->params->setParameter('id', $cityId);
+
+        $url = $this->urlFactory->build($this->params);
+
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**

@@ -41,6 +41,8 @@ class InputParameterBag
     {
         $query = http_build_query($this->parameters);
 
+        $this->parameters = [];
+
         return $this->uri . '?' . $query;
     }
 }
