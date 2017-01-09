@@ -12,7 +12,7 @@ class CityName implements InputParameterInterface
     protected $name;
 
     /**
-     * @var int|null
+     * @var string|null
      */
     protected $code;
 
@@ -20,7 +20,7 @@ class CityName implements InputParameterInterface
      * CityName constructor.
      *
      * @param string $name
-     * @param int|null $code
+     * @param string|null $code
      */
     public function __construct($name, $code = null)
     {

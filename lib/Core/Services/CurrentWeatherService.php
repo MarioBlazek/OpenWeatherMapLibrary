@@ -7,6 +7,7 @@ use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
+use Marek\OpenWeatherLibrary\API\Value\ZipCode;
 use Marek\OpenWeatherLibrary\Factory\UrlFactory;
 use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
 
@@ -73,18 +74,28 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function byGeographicCoordinates(GeographicCoordinates $coordinates)
     {
-        // TODO: Implement byGeographicCoordinates() method.
+        $this->params->setParameter('lat', $coordinates->getLatitude());
+        $this->params->setParameter('lon', $coordinates->getLongitude());
+
+        $url = $this->urlFactory->build($this->params);
+
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**
-     * @param int $zipCode
-     * @param string $countryCode
-     *
-     * @return mixed
+     * @inheritdoc
      */
-    public function byZipCode($zipCode, $countryCode)
+    public function byZipCode(ZipCode $zipCode)
     {
-        // TODO: Implement byZipCode() method.
+        $this->params->setParameter('zip', $zipCode);
+
+        $url = $this->urlFactory->build($this->params);
+        var_dump($url);
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**
@@ -95,7 +106,15 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function withinARectangleZone(BoundingBox $bbox, $cluster = 'yes')
     {
-        // TODO: Implement withinARectangleZone() method.
+        $params = $this->urlFactory->buildBag('/box/city');
+        $params->setParameter('bbox', $bbox);
+        $params->setParameter('cluster', $cluster);
+
+        $url = $this->urlFactory->build($params);
+        var_dump($url);
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**
@@ -107,7 +126,17 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function inCycle(GeographicCoordinates $coordinates, $cluster = 'yes', $cnt = 10)
     {
-        // TODO: Implement inCycle() method.
+        $params = $this->urlFactory->buildBag('/find');
+        $params->setParameter('lat', $coordinates->getLatitude());
+        $params->setParameter('lon', $coordinates->getLongitude());
+        $params->setParameter('cluster', $cluster);
+        $params->setParameter('cnt', $cnt);
+
+        $url = $this->urlFactory->build($params);
+
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 
     /**
@@ -117,6 +146,13 @@ class CurrentWeatherService implements CurrentWeather
      */
     public function severalCityIds(array $cityIds)
     {
-        // TODO: Implement severalCityIds() method.
+        $params = $this->urlFactory->buildBag('/group');
+        $params->setParameter('id', implode(',', $cityIds));
+
+        $url = $this->urlFactory->build($params);
+
+        $response = $this->client->get($url);
+
+        var_dump($response);
     }
 }

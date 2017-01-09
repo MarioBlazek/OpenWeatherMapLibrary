@@ -5,6 +5,7 @@ namespace Marek\OpenWeatherLibrary\API\Services;
 use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
+use Marek\OpenWeatherLibrary\API\Value\ZipCode;
 
 interface CurrentWeather
 {
@@ -30,12 +31,11 @@ interface CurrentWeather
     public function byGeographicCoordinates(GeographicCoordinates $coordinates);
 
     /**
-     * @param int $zipCode
-     * @param string $countryCode
+     * @param ZipCode $zipCode
      *
      * @return mixed
      */
-    public function byZipCode($zipCode, $countryCode);
+    public function byZipCode(ZipCode $zipCode);
 
     /**
      * @param BoundingBox $bbox

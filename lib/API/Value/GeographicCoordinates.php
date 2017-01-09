@@ -2,7 +2,9 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value;
 
-class GeographicCoordinates
+use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterInterface;
+
+class GeographicCoordinates implements InputParameterInterface
 {
     /**
      * @var float
@@ -40,5 +42,14 @@ class GeographicCoordinates
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString()
+    {
+        return "lat=" . $this->getLatitude()
+            . "&lon=" . $this->getLongitude();
     }
 }
