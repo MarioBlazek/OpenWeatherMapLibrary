@@ -16,6 +16,12 @@ class ZipCode implements InputParameterInterface
      */
     protected $countryCode;
 
+    /**
+     * ZipCode constructor.
+     *
+     * @param int $zip
+     * @param string|null $countryCode
+     */
     public function __construct($zip, $countryCode = null)
     {
         $this->zip = $zip;

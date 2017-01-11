@@ -8,6 +8,7 @@ use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
 use Marek\OpenWeatherLibrary\API\Value\ZipCode;
+use Marek\OpenWeatherLibrary\Converter\CurrentWeatherConverter;
 use Marek\OpenWeatherLibrary\Factory\UrlFactory;
 use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
 
@@ -28,17 +29,21 @@ class CurrentWeatherService implements CurrentWeather
      */
     protected $params;
 
-    public function __construct(HttpClientInterface $client, UrlFactory $urlFactory)
+    /**
+     * @var CurrentWeatherConverter
+     */
+    protected $converter;
+
+    public function __construct(HttpClientInterface $client, UrlFactory $urlFactory, CurrentWeatherConverter $converter)
     {
         $this->client = $client;
         $this->urlFactory = $urlFactory;
         $this->params = $this->urlFactory->buildBag('/weather');
+        $this->converter = $converter;
     }
 
     /**
-     * @param CityName $cityName
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function byCityName(CityName $cityName)
     {
@@ -48,13 +53,14 @@ class CurrentWeatherService implements CurrentWeather
 
         $response = $this->client->get($url);
 
-        var_dump($response);
+        var_dump($response->getData()['clouds']);
+        var_dump($response->getData());
+
+        return $this->converter->convertByCityNameResult($response);
     }
 
     /**
-     * @param int $cityId
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function byCityId($cityId)
     {
@@ -68,9 +74,7 @@ class CurrentWeatherService implements CurrentWeather
     }
 
     /**
-     * @param GeographicCoordinates $coordinates
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function byGeographicCoordinates(GeographicCoordinates $coordinates)
     {
@@ -99,10 +103,7 @@ class CurrentWeatherService implements CurrentWeather
     }
 
     /**
-     * @param BoundingBox $bbox
-     * @param string $cluster
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function withinARectangleZone(BoundingBox $bbox, $cluster = 'yes')
     {
@@ -118,11 +119,7 @@ class CurrentWeatherService implements CurrentWeather
     }
 
     /**
-     * @param GeographicCoordinates $coordinates
-     * @param string $cluster
-     * @param int $cnt
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function inCycle(GeographicCoordinates $coordinates, $cluster = 'yes', $cnt = 10)
     {
@@ -140,9 +137,7 @@ class CurrentWeatherService implements CurrentWeather
     }
 
     /**
-     * @param array $cityIds
-     *
-     * @return mixed
+     * @inheritdoc
      */
     public function severalCityIds(array $cityIds)
     {
