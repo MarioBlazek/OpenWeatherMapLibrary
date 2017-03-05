@@ -4,23 +4,10 @@ namespace Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather;
 
 class Weather
 {
-    /**
-     * @var int
-     */
-    public $id;
+    public $weathers;
 
-    /**
-     * @var string
-     */
-    public $main;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $icon;
+    public function add(\Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Weather\Weather $weather)
+    {
+        $this->weathers[] = $weather;
+    }
 }

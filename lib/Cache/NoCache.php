@@ -9,7 +9,7 @@ class NoCache implements HandlerInterface
      */
     public function has($cacheKey)
     {
-        // TODO: Implement has() method.
+        return false;
     }
 
     /**
@@ -17,14 +17,13 @@ class NoCache implements HandlerInterface
      */
     public function get($cacheKey)
     {
-        // TODO: Implement get() method.
+        return null;
     }
 
     /**
      * @inheritdoc
      */
-    public function set($cacheKey, $data, $ttl)
+    public function set($cacheKey, $data)
     {
-        // TODO: Implement set() method.
     }
 }

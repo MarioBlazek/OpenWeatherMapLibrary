@@ -8,6 +8,7 @@ use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
 use Marek\OpenWeatherLibrary\API\Value\ZipCode;
+use Marek\OpenWeatherLibrary\Cache\HandlerInterface;
 use Marek\OpenWeatherLibrary\Converter\CurrentWeatherConverter;
 use Marek\OpenWeatherLibrary\Factory\UrlFactory;
 use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
@@ -34,12 +35,23 @@ class CurrentWeatherService implements CurrentWeather
      */
     protected $converter;
 
-    public function __construct(HttpClientInterface $client, UrlFactory $urlFactory, CurrentWeatherConverter $converter)
+    /**
+     * @var HandlerInterface
+     */
+    protected $cache;
+
+    public function __construct(
+        HttpClientInterface $client,
+        UrlFactory $urlFactory,
+        CurrentWeatherConverter $converter,
+        HandlerInterface $cache
+    )
     {
         $this->client = $client;
         $this->urlFactory = $urlFactory;
         $this->params = $this->urlFactory->buildBag('/weather');
         $this->converter = $converter;
+        $this->cache = $cache;
     }
 
     /**
@@ -50,6 +62,10 @@ class CurrentWeatherService implements CurrentWeather
         $this->params->setParameter('q', $cityName);
 
         $url = $this->urlFactory->build($this->params);
+
+        if ($this->cache->has($url)) {
+            return $this->cache->get($url);
+        }
 
         $response = $this->client->get($url);
 

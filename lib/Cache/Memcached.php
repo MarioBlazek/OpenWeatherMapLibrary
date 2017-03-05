@@ -23,7 +23,7 @@ class Memcached implements HandlerInterface
     /**
      * @inheritdoc
      */
-    public function set($cacheKey, $data, $ttl)
+    public function set($cacheKey, $data)
     {
         // TODO: Implement set() method.
     }

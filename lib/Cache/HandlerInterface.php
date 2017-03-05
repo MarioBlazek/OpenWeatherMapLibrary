@@ -7,7 +7,7 @@ interface HandlerInterface
     /**
      * @const string
      */
-    const CACHE_KEY_PREFIX = 'marek-openweathermap-';
+    const CACHE_KEY_PREFIX = 'marek-openweathermap';
 
     /**
      * Returns if there is a valid cache entry for provided cache key.
