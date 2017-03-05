@@ -4,8 +4,6 @@ namespace Marek\OpenWeatherLibrary\Hydrator;
 
 class ObjectPropertyTreeHydrator implements HydratorInterface
 {
-    protected $path = 'Marek\\OpenWeatherLibrary\\API\\Value\\Response\\CurrentWeather\\';
-
     /**
      * @inheritdoc
      */
@@ -37,10 +35,17 @@ class ObjectPropertyTreeHydrator implements HydratorInterface
 
             self::hydrate($datum, $classInstance);
         }
-        var_dump($object);
+
         return $object;
     }
 
+    /**
+     * Transforms snake case to camel case
+     *
+     * @param string $name
+     *
+     * @return string
+     */
     protected function transformPropertyName($name)
     {
         return preg_replace_callback(
@@ -52,6 +57,15 @@ class ObjectPropertyTreeHydrator implements HydratorInterface
         );
     }
 
+    /**
+     * Transforms snake case class name to camel case
+     * with fully qualified domain name
+     *
+     * @param string $name
+     * @param string $classNamespace
+     *
+     * @return string
+     */
     protected function transformClassName($name, $classNamespace)
     {
         $name[0] = strtoupper($name[0]);
