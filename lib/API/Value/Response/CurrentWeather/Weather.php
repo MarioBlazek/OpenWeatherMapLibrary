@@ -2,12 +2,25 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather;
 
-class Weather
+use Marek\OpenWeatherLibrary\API\ContainerInterface;
+use Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Weather as AggregatedWeather;
+
+class Weather implements ContainerInterface
 {
+    /**
+     * @var AggregatedWeather[]
+     */
     public $weathers;
 
-    public function add(\Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Weather\Weather $weather)
+    /**
+     * @param AggregatedWeather $weather
+     */
+    public function add($weather)
     {
-        $this->weathers[] = $weather;
+        if ($weather instanceof AggregatedWeather) {
+            $this->weathers[] = $weather;
+        }
+
+        throw new \RuntimeException('Wrong parameter passed');
     }
 }

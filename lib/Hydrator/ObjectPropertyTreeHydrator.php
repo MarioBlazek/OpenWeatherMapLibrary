@@ -2,6 +2,8 @@
 
 namespace Marek\OpenWeatherLibrary\Hydrator;
 
+use Marek\OpenWeatherLibrary\API\ContainerInterface;
+
 class ObjectPropertyTreeHydrator implements HydratorInterface
 {
     /**
@@ -26,7 +28,11 @@ class ObjectPropertyTreeHydrator implements HydratorInterface
                 $classNamespace = $classNamespace . "\\" .substr(strrchr($classNamespace, "\\"), 1);
 
                 $classInstance = new $classNamespace;
-                $object->add($classInstance);
+                if ($object instanceof ContainerInterface) {
+                    $object->add($classInstance);
+                }
+
+                throw new \RuntimeException("Object should be instance of ContainerInterface");
             } else {
                 $classInstance = new $className;
                 $object->$key = $classInstance;
