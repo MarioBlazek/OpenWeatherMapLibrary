@@ -9,7 +9,7 @@ use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
 use Marek\OpenWeatherLibrary\API\Value\ZipCode;
 use Marek\OpenWeatherLibrary\Cache\HandlerInterface;
-use Marek\OpenWeatherLibrary\Converter\CurrentWeatherConverter;
+use Marek\OpenWeatherLibrary\Converter\ConverterInterface;
 use Marek\OpenWeatherLibrary\Factory\UrlFactory;
 use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
 
@@ -31,7 +31,7 @@ class CurrentWeatherService implements CurrentWeather
     protected $params;
 
     /**
-     * @var CurrentWeatherConverter
+     * @var ConverterInterface
      */
     protected $converter;
 
@@ -43,7 +43,7 @@ class CurrentWeatherService implements CurrentWeather
     public function __construct(
         HttpClientInterface $client,
         UrlFactory $urlFactory,
-        CurrentWeatherConverter $converter,
+        ConverterInterface $converter,
         HandlerInterface $cache
     )
     {

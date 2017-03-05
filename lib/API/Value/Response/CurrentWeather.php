@@ -11,7 +11,7 @@ use Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Sys;
 use Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Weather;
 use Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather\Wind;
 
-class CurrentWeather
+class CurrentWeather extends Response
 {
     /**
      * @var int
