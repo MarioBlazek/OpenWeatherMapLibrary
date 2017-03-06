@@ -2,7 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\Cache;
 
-class Memcached implements HandlerInterface
+class Memcached implements CacheHandlerInterface
 {
     /**
      * @inheritdoc

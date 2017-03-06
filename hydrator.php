@@ -9,3 +9,4 @@ $data = json_decode($data, true);
 $hydrator = new \Marek\OpenWeatherLibrary\Hydrator\ObjectPropertyTreeHydrator();
 /** @var \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather $result */
 $result = $hydrator->hydrate($data, new \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather());
+var_dump($result);

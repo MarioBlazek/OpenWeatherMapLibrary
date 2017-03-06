@@ -2,7 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\Cache;
 
-class Stash implements HandlerInterface
+class Stash implements CacheHandlerInterface
 {
     /**
      * @inheritdoc

@@ -2,7 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\Cache;
 
-class Redis implements HandlerInterface
+class Redis implements CacheHandlerInterface
 {
     /**
      * @inheritdoc

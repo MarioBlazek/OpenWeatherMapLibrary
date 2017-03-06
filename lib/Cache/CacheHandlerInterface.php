@@ -2,7 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\Cache;
 
-interface HandlerInterface
+interface CacheHandlerInterface
 {
     /**
      * @const string

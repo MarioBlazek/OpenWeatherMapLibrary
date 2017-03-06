@@ -30,9 +30,10 @@ class ObjectPropertyTreeHydrator implements HydratorInterface
                 $classInstance = new $classNamespace;
                 if ($object instanceof ContainerInterface) {
                     $object->add($classInstance);
+                } else {
+                    throw new \RuntimeException("Object should be instance of ContainerInterface");
                 }
 
-                throw new \RuntimeException("Object should be instance of ContainerInterface");
             } else {
                 $classInstance = new $className;
                 $object->$key = $classInstance;

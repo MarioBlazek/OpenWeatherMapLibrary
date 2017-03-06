@@ -2,7 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\Cache;
 
-class NoCache implements HandlerInterface
+class NoCache implements CacheHandlerInterface
 {
     /**
      * @inheritdoc
