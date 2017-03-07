@@ -3,6 +3,7 @@
 namespace Marek\OpenWeatherLibrary\API\Services;
 
 use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
+use Marek\OpenWeatherLibrary\API\Value\Cluster;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\Response\Response;
 
@@ -26,12 +27,12 @@ interface WeatherStations
      * Call current weather from several stations by rectangle zone.
      *
      * @param BoundingBox $boundingBox
-     * @param string $cluster
+     * @param Cluster $cluster
      * @param int $numberOfStations
      *
      * @return Response
      */
-    public function fetchFromSeveralByRectangleZone(BoundingBox $boundingBox, $cluster = 'yes', $numberOfStations = 10);
+    public function fetchFromSeveralByRectangleZone(BoundingBox $boundingBox, Cluster $cluster, $numberOfStations = 10);
 
     /**
      * Call current weather from several stations by geo point.

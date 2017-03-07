@@ -2,6 +2,7 @@
 
 namespace Marek\OpenWeatherLibrary\API\Services;
 
+use Marek\OpenWeatherLibrary\API\Value\CityId;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\Response\Response;
@@ -25,11 +26,11 @@ interface HourForecast
     /**
      * Call 5 day / 3 hour forecast data by city id.
      *
-     * @param int $cityId
+     * @param CityId $cityId
      *
      * @return Response
      */
-    public function fetchForecastByCityId($cityId);
+    public function fetchForecastByCityId(CityId $cityId);
 
     /**
      * Call 5 day / 3 hour forecast data by geographic coordinates.

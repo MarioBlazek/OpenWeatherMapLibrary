@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\API\Value\Response\AirPollution;
+namespace Marek\OpenWeatherLibrary\API\Value\Response;
 
 class Location
 {

@@ -14,6 +14,17 @@ class UltravioletIndexService extends BaseService implements UltravioletIndex
      */
     public function fetchUltravioletIndex(GeographicCoordinates $coordinates, Datetime $datetime)
     {
-        // TODO: Implement fetchUltravioletIndex() method.
+        $params = $this->factory
+            ->buildBag('/{location}/{datetime}.json');
+
+        $params->setParameter($coordinates);
+        $params->setParameter($datetime);
+
+        $url = $this->factory
+            ->build($params);
+
+        $data = $this->get($url);
+
+        return $this->hydrator->hydrate($data, new \Marek\OpenWeatherLibrary\API\Value\Response\UltravioletIndex());
     }
 }
