@@ -42,7 +42,7 @@ interface CurrentWeather
      * @param BoundingBox $bbox
      * @param string $cluster
      *
-     * @return mixed
+     * @return Response
      */
     public function withinARectangleZone(BoundingBox $bbox, $cluster = 'yes');
 
