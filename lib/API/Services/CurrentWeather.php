@@ -2,63 +2,83 @@
 
 namespace Marek\OpenWeatherLibrary\API\Services;
 
-use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
-use Marek\OpenWeatherLibrary\API\Value\CityName;
-use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
-use Marek\OpenWeatherLibrary\API\Value\Response\Response;
-use Marek\OpenWeatherLibrary\API\Value\ZipCode;
-
 interface CurrentWeather
 {
     /**
-     * @param CityName $cityName
-     *
-     * @return Response
+     * Base URL for current weather.
      */
-    public function byCityName(CityName $cityName);
+    const BASE_URL = 'http://api.openweathermap.org/data/2.5';
 
     /**
-     * @param int $cityId
+     * Call current weather data for one location by city name.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\CityName $cityName
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function byCityId($cityId);
+    public function byCityName(\Marek\OpenWeatherLibrary\API\Value\CityName $cityName);
 
     /**
-     * @param GeographicCoordinates $coordinates
+     * Call current weather data for one location by city id.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\CityId $cityId
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function byGeographicCoordinates(GeographicCoordinates $coordinates);
+    public function byCityId(\Marek\OpenWeatherLibrary\API\Value\CityId $cityId);
 
     /**
-     * @param ZipCode $zipCode
+     * Call current weather data for one location by geographic coordinates.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates $coordinates
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function byZipCode(ZipCode $zipCode);
+    public function byGeographicCoordinates(\Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates $coordinates);
 
     /**
-     * @param BoundingBox $bbox
-     * @param string $cluster
+     * Call current weather data for one location by zip code.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\ZipCode $zipCode
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function withinARectangleZone(BoundingBox $bbox, $cluster = 'yes');
+    public function byZipCode(\Marek\OpenWeatherLibrary\API\Value\ZipCode $zipCode);
 
     /**
-     * @param GeographicCoordinates $coordinates
-     * @param string $cluster
-     * @param int $cnt
+     * Call current weather data for several cities within a rectangle zone.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\BoundingBox $bbox
+     * @param \Marek\OpenWeatherLibrary\API\Value\Cluster $cluster
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function inCycle(GeographicCoordinates $coordinates, $cluster = 'yes', $cnt = 10);
+    public function withinARectangleZone(
+        \Marek\OpenWeatherLibrary\API\Value\BoundingBox $bbox,
+        \Marek\OpenWeatherLibrary\API\Value\Cluster $cluster
+    );
 
     /**
-     * @param array $cityIds
+     * Call current weather data for several cities in cycle.
      *
-     * @return Response
+     * @param \Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates $coordinates
+     * @param \Marek\OpenWeatherLibrary\API\Value\Cluster $cluster
+     * @param \Marek\OpenWeatherLibrary\API\Value\CityCount $cnt
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
      */
-    public function severalCityIds(array $cityIds);
+    public function inCycle(
+        \Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates $coordinates,
+        \Marek\OpenWeatherLibrary\API\Value\Cluster $cluster,
+        \Marek\OpenWeatherLibrary\API\Value\CityCount $cnt
+    );
+
+    /**
+     * Call current weather data for several cities by city IDs.
+     *
+     * @param \Marek\OpenWeatherLibrary\API\Value\CityIds $cityIds
+     *
+     * @return \Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather
+     */
+    public function severalCityIds(\Marek\OpenWeatherLibrary\API\Value\CityIds $cityIds);
 }

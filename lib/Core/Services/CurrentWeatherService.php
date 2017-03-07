@@ -4,51 +4,29 @@ namespace Marek\OpenWeatherLibrary\Core\Services;
 
 use Marek\OpenWeatherLibrary\API\Services\CurrentWeather;
 use Marek\OpenWeatherLibrary\API\Value\BoundingBox;
+use Marek\OpenWeatherLibrary\API\Value\CityCount;
+use Marek\OpenWeatherLibrary\API\Value\CityId;
+use Marek\OpenWeatherLibrary\API\Value\CityIds;
+use Marek\OpenWeatherLibrary\API\Value\Cluster;
 use Marek\OpenWeatherLibrary\API\Value\GeographicCoordinates;
 use Marek\OpenWeatherLibrary\API\Value\CityName;
-use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
 use Marek\OpenWeatherLibrary\API\Value\ZipCode;
-use Marek\OpenWeatherLibrary\Cache\CacheHandlerInterface;
 use Marek\OpenWeatherLibrary\Core\BaseService;
-use Marek\OpenWeatherLibrary\Factory\UrlFactory;
-use Marek\OpenWeatherLibrary\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherLibrary\Hydrator\HydratorInterface;
 use Marek\OpenWeatherLibrary\API\Value\Response\CurrentWeather as ResponseCurrentWeather;
 
 class CurrentWeatherService extends BaseService implements CurrentWeather
 {
     /**
-     * @var InputParameterBag
-     */
-    protected $params;
-
-    /**
-     * CurrentWeatherService constructor.
-     *
-     * @param HttpClientInterface $client
-     * @param UrlFactory $factory
-     * @param CacheHandlerInterface $cache
-     * @param HydratorInterface $hydrator
-     */
-    public function __construct(
-        HttpClientInterface $client,
-        UrlFactory $factory,
-        CacheHandlerInterface $cache,
-        HydratorInterface $hydrator
-    )
-    {
-        parent::__construct($client, $factory, $cache, $hydrator);
-        $this->params = $this->factory->buildBag('/weather');
-    }
-
-    /**
      * @inheritdoc
      */
     public function byCityName(CityName $cityName)
     {
-        $this->params->setParameter('q', $cityName);
+        $params = $this->factory
+            ->buildBag();
 
-        $url = $this->factory->build($this->params);
+        $params->setParameter($cityName);
+
+        $url = $this->factory->build($params);
 
         $data = $this->get($url);
 
@@ -58,11 +36,14 @@ class CurrentWeatherService extends BaseService implements CurrentWeather
     /**
      * @inheritdoc
      */
-    public function byCityId($cityId)
+    public function byCityId(CityId $cityId)
     {
-        $this->params->setParameter('id', $cityId);
+        $params = $this->factory
+            ->buildBag();
 
-        $url = $this->factory->build($this->params);
+        $params->setParameter($cityId);
+
+        $url = $this->factory->build($params);
 
         $data = $this->get($url);
 
@@ -74,10 +55,13 @@ class CurrentWeatherService extends BaseService implements CurrentWeather
      */
     public function byGeographicCoordinates(GeographicCoordinates $coordinates)
     {
-        $this->params->setParameter('lat', $coordinates->getLatitude());
-        $this->params->setParameter('lon', $coordinates->getLongitude());
+        $params = $this->factory
+            ->buildBag();
 
-        $url = $this->factory->build($this->params);
+        $params->setParameter($coordinates->getLatitude());
+        $params->setParameter($coordinates->getLongitude());
+
+        $url = $this->factory->build($params);
 
         $data = $this->get($url);
 
@@ -89,23 +73,10 @@ class CurrentWeatherService extends BaseService implements CurrentWeather
      */
     public function byZipCode(ZipCode $zipCode)
     {
-        $this->params->setParameter('zip', $zipCode);
+        $params = $this->factory
+            ->buildBag();
 
-        $url = $this->factory->build($this->params);
-
-        $data = $this->get($url);
-
-        return $this->hydrator->hydrate($data, new ResponseCurrentWeather);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function withinARectangleZone(BoundingBox $bbox, $cluster = 'yes')
-    {
-        $params = $this->factory->buildBag('/box/city');
-        $params->setParameter('bbox', $bbox);
-        $params->setParameter('cluster', $cluster);
+        $params->setParameter($zipCode);
 
         $url = $this->factory->build($params);
 
@@ -117,13 +88,13 @@ class CurrentWeatherService extends BaseService implements CurrentWeather
     /**
      * @inheritdoc
      */
-    public function inCycle(GeographicCoordinates $coordinates, $cluster = 'yes', $cnt = 10)
+    public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster)
     {
-        $params = $this->factory->buildBag('/find');
-        $params->setParameter('lat', $coordinates->getLatitude());
-        $params->setParameter('lon', $coordinates->getLongitude());
-        $params->setParameter('cluster', $cluster);
-        $params->setParameter('cnt', $cnt);
+        $params = $this->factory
+            ->buildBag();
+
+        $params->setParameter($bbox);
+        $params->setParameter($cluster);
 
         $url = $this->factory->build($params);
 
@@ -135,10 +106,32 @@ class CurrentWeatherService extends BaseService implements CurrentWeather
     /**
      * @inheritdoc
      */
-    public function severalCityIds(array $cityIds)
+    public function inCycle(GeographicCoordinates $coordinates, Cluster $cluster, CityCount $cityCount)
     {
-        $params = $this->factory->buildBag('/group');
-        $params->setParameter('id', implode(',', $cityIds));
+        $params = $this->factory
+            ->buildBag();
+
+        $params->setParameter($coordinates->getLatitude());
+        $params->setParameter($coordinates->getLongitude());
+        $params->setParameter($cluster);
+        $params->setParameter($cityCount);
+
+        $url = $this->factory->build($params);
+
+        $data = $this->get($url);
+
+        return $this->hydrator->hydrate($data, new ResponseCurrentWeather);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function severalCityIds(CityIds $cityIds)
+    {
+        $params = $this->factory
+            ->buildBag();
+
+        $params->setParameter($cityIds);
 
         $url = $this->factory->build($params);
 

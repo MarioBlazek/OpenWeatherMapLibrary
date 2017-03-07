@@ -2,17 +2,17 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value;
 
-use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterInterface;
+use Marek\OpenWeatherLibrary\API\Value\Parameters\UriParameterInterface;
 
-class GeographicCoordinates implements InputParameterInterface
+class GeographicCoordinates implements UriParameterInterface
 {
     /**
-     * @var float
+     * @var Latitude
      */
     protected $latitude;
 
     /**
-     * @var float
+     * @var Longitude
      */
     protected $longitude;
 
@@ -24,12 +24,12 @@ class GeographicCoordinates implements InputParameterInterface
      */
     public function __construct($latitude, $longitude)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->latitude = new Latitude($latitude);
+        $this->longitude = new Longitude($longitude);
     }
 
     /**
-     * @return float
+     * @return Latitude
      */
     public function getLatitude()
     {
@@ -37,7 +37,7 @@ class GeographicCoordinates implements InputParameterInterface
     }
 
     /**
-     * @return float
+     * @return Longitude
      */
     public function getLongitude()
     {
@@ -45,11 +45,20 @@ class GeographicCoordinates implements InputParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function __toString()
+    public function getUriParameterValue()
     {
-        return "lat=" . $this->getLatitude()
-            . "&lon=" . $this->getLongitude();
+        return (string)$this->latitude->getLatitude() .
+            "," .
+            (string)$this->longitude->getLongitude();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUriParameterName()
+    {
+        return 'location';
     }
 }

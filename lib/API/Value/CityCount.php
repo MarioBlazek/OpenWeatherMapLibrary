@@ -4,25 +4,21 @@ namespace Marek\OpenWeatherLibrary\API\Value;
 
 use Marek\OpenWeatherLibrary\API\Value\Parameters\GetParameterInterface;
 
-class Cluster implements GetParameterInterface
+class CityCount implements GetParameterInterface
 {
-    const YES = 'yes';
-
-    const NO = 'no';
-
     /**
-     * @var string
+     * @var int
      */
-    protected $selection;
+    protected $cnt;
 
     /**
-     * Cluster constructor.
+     * CityCount constructor.
      *
-     * @param string $selection
+     * @param int $cnt
      */
-    public function __construct($selection = self::YES)
+    public function __construct($cnt = 10)
     {
-        $this->selection = $selection;
+        $this->cnt = $cnt;
     }
 
     /**
@@ -30,7 +26,7 @@ class Cluster implements GetParameterInterface
      */
     public function getGetParameterValue()
     {
-        return $this->selection;
+        return (string)$this->cnt;
     }
 
     /**
@@ -38,6 +34,6 @@ class Cluster implements GetParameterInterface
      */
     public function getGetParameterName()
     {
-        return 'cluster';
+        return 'cnt';
     }
 }

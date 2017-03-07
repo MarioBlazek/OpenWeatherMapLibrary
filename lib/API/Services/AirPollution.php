@@ -32,4 +32,24 @@ interface AirPollution
      * @return Response
      */
     public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, Datetime $datetime);
+
+    /**
+     * Fetch Sulfur Dioxide Data by geographic coordinates.
+     *
+     * @param GeographicCoordinates $coordinates
+     * @param Datetime $datetime
+     *
+     * @return Response
+     */
+    public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, Datetime $datetime);
+
+    /**
+     * Fetch Nitrogen Dioxide Data by geographic coordinates.
+     *
+     * @param GeographicCoordinates $coordinates
+     * @param Datetime $datetime
+     *
+     * @return Response
+     */
+    public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, Datetime $datetime);
 }

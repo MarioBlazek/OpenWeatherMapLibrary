@@ -2,9 +2,9 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value;
 
-use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterInterface;
+use Marek\OpenWeatherLibrary\API\Value\Parameters\GetParameterInterface;
 
-class CityName implements InputParameterInterface
+class CityName implements GetParameterInterface
 {
     /**
      * @var string
@@ -45,14 +45,22 @@ class CityName implements InputParameterInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function __toString()
+    public function getGetParameterValue()
     {
         if (null === $this->code) {
             return $this->name;
         }
 
         return $this->name . ',' . (string)$this->code;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getGetParameterName()
+    {
+        return 'q';
     }
 }

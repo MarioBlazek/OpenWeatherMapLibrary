@@ -2,9 +2,9 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value;
 
-use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterInterface;
+use Marek\OpenWeatherLibrary\API\Value\Parameters\GetParameterInterface;
 
-class ZipCode implements InputParameterInterface
+class ZipCode implements GetParameterInterface
 {
     /**
      * @var int
@@ -31,12 +31,20 @@ class ZipCode implements InputParameterInterface
     /**
      * @inheritDoc
      */
-    public function __toString()
+    public function getGetParameterValue()
     {
         if (null === $this->countryCode) {
             return (string)$this->zip;
         }
 
         return (string)$this->zip . ',' . $this->countryCode;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getGetParameterName()
+    {
+        return 'zip';
     }
 }

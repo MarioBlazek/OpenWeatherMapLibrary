@@ -2,9 +2,10 @@
 
 namespace Marek\OpenWeatherLibrary\API\Value;
 
+use Marek\OpenWeatherLibrary\API\Value\Parameters\GetParameterInterface;
 use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterInterface;
 
-class BoundingBox implements InputParameterInterface
+class BoundingBox implements GetParameterInterface
 {
     /**
      * @var float
@@ -52,12 +53,20 @@ class BoundingBox implements InputParameterInterface
     /**
      * @inheritDoc
      */
-    public function __toString()
+    public function getGetParameterValue()
     {
         return (string)$this->longitudeLeft
             . ',' . (string)$this->latitudeBottom
             . ',' . (string)$this->longitudeRight
             . ',' . (string)$this->latitudeTop
             . ',' . (string)$this->zoom;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getGetParameterName()
+    {
+        return 'bbox';
     }
 }

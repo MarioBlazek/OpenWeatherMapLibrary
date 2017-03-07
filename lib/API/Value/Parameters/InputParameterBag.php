@@ -7,7 +7,7 @@ class InputParameterBag
     /**
      * @var array
      */
-    protected $parameters;
+    protected $parameters = [];
 
     /**
      * @var string
@@ -19,30 +19,32 @@ class InputParameterBag
      *
      * @param string $uri
      */
-    public function __construct($uri)
+    public function __construct($uri = '')
     {
-        $this->parameters = [];
         $this->uri = $uri;
     }
 
     /**
-     * @param string $name
-     * @param InputParameterInterface|string $value
+     * @param ParameterInterface $parameter
      */
-    public function setParameter($name, $value)
+    public function setParameter(ParameterInterface $parameter)
     {
-        $this->parameters[$name] = (string)$value;
+        $this->parameters[] = $parameter;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
     }
 
     /**
      * @return string
      */
-    public function buildQuery()
+    public function getUri()
     {
-        $query = http_build_query($this->parameters);
-
-        $this->parameters = [];
-
-        return $this->uri . '?' . $query;
+        return $this->uri;
     }
 }
