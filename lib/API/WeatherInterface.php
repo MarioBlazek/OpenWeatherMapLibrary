@@ -2,12 +2,35 @@
 
 namespace Marek\OpenWeatherLibrary\API;
 
-use Marek\OpenWeatherLibrary\API\Services\CurrentWeather;
-
 interface WeatherInterface
 {
     /**
-     * @return CurrentWeather
+     * @return \Marek\OpenWeatherLibrary\API\Services\CurrentWeather
      */
     public function getCurrentWeatherService();
+
+    /**
+     * @return \Marek\OpenWeatherLibrary\API\Services\AirPollution
+     */
+    public function getAirPullutionService();
+
+    /**
+     * @return \Marek\OpenWeatherLibrary\API\Services\DailyForecast
+     */
+    public function getDailyForecastService();
+
+    /**
+     * @return \Marek\OpenWeatherLibrary\API\Services\HourForecast
+     */
+    public function getHourForecastService();
+
+    /**
+     * @return \Marek\OpenWeatherLibrary\API\Services\UltravioletIndex
+     */
+    public function getUltravioletIndexService();
+
+    /**
+     * @return \Marek\OpenWeatherLibrary\API\Services\WeatherStations
+     */
+    public function getWeatherStationsService();
 }
