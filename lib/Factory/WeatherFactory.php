@@ -16,7 +16,6 @@ use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
 use Marek\OpenWeatherMap\Hydrator\AirPollutionHydrator;
 use Marek\OpenWeatherMap\Hydrator\DailyForecastHydrator;
 use Marek\OpenWeatherMap\Hydrator\HourForecastHydrator;
-use Marek\OpenWeatherMap\Hydrator\TestHydrator;
 use Marek\OpenWeatherMap\Hydrator\UltravioletIndexHydrator;
 use Marek\OpenWeatherMap\Hydrator\WeatherHydrator;
 
