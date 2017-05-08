@@ -12,5 +12,3 @@ $ultravioletIndexService = $factory->createUltravioletIndexService();
 $coordinates = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates(40.7, -74.2);
 $datetime = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime();
 $ultravioletIndex = $ultravioletIndexService->fetchUltravioletIndex($coordinates, $datetime);
-
-dump($ultravioletIndex);

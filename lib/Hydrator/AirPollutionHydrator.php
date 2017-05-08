@@ -3,14 +3,14 @@
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
+use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex;
 
 class AirPollutionHydrator extends BaseHydrator implements HydratorInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function hydrate($data)
+    public function hydrate($data, APIResponse $response)
     {
-        // TODO: Implement hydrate() method.
+        if (!$response instanceof UltravioletIndex) {
+            return $response;
+        }
     }
 }

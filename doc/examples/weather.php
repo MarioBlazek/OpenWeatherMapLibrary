@@ -8,14 +8,14 @@ $cacheConfiguration = new \Marek\OpenWeatherMap\API\Value\Configuration\CacheCon
 $factory = new \Marek\OpenWeatherMap\Factory\WeatherFactory($configuration, $cacheConfiguration);
 
 $weatherService = $factory->createWeatherService();
-/*
+
 // By city name
 $cityName = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName('Zagreb');
 $weather = $weatherService->byCityName($cityName);
 
 // By city id
 $cityId = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(2172797);
-$weather = $weatherService->byCityId($cityId);;
+$weather = $weatherService->byCityId($cityId);
 
 // By geographic coordinates
 $latitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude(35);
@@ -38,13 +38,9 @@ $cluster = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster();
 $cityCount = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityCount();
 $weather = $weatherService->inCycle($latitude, $longitude, $cluster, $cityCount);
 
-*/
-
 // Several city ids
 $cityIdOne = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(524901);
 $cityIdTwo = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(703448);
 $cityIdThree = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(2643743);
 $cityIds = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityIds([$cityIdOne, $cityIdTwo, $cityIdThree]);
 $weather = $weatherService->severalCityIds($cityIds);
-
-dump($weather);
