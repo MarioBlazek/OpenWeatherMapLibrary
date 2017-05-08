@@ -19,7 +19,6 @@ use Marek\OpenWeatherMap\Hydrator\HourForecastHydrator;
 use Marek\OpenWeatherMap\Hydrator\TestHydrator;
 use Marek\OpenWeatherMap\Hydrator\UltravioletIndexHydrator;
 use Marek\OpenWeatherMap\Hydrator\WeatherHydrator;
-use Zend\Hydrator\ObjectProperty;
 
 class WeatherFactory
 {
@@ -86,10 +85,9 @@ class WeatherFactory
      */
     public function createWeatherService()
     {
-        $factory = new HydratorFactory();
-        $hydrator = new WeatherHydrator($factory->create());
-
-        return new Weather($this->httpClient, $this->factory, $this->cache, $hydrator);
+        return new Weather(
+            $this->httpClient, $this->factory, $this->cache, new WeatherHydrator($this->hydratorFactory->create())
+        );
     }
 
     /**
@@ -97,10 +95,9 @@ class WeatherFactory
      */
     public function createAirPollutionService()
     {
-        $factory = new HydratorFactory();
-        $hydrator = new AirPollutionHydrator($factory->create());
-
-        return new AirPollution($this->httpClient, $this->factory, $this->cache, $hydrator);
+        return new AirPollution(
+            $this->httpClient, $this->factory, $this->cache, new AirPollutionHydrator($this->hydratorFactory->create())
+        );
     }
 
     /**
@@ -108,10 +105,9 @@ class WeatherFactory
      */
     public function createUltravioletIndexService()
     {
-        $factory = new HydratorFactory();
-        $hydrator = new UltravioletIndexHydrator($factory->create());
-
-        return new UltravioletIndex($this->httpClient, $this->factory, $this->cache, $hydrator);
+        return new UltravioletIndex(
+            $this->httpClient, $this->factory, $this->cache, new UltravioletIndexHydrator($this->hydratorFactory->create())
+        );
     }
 
     /**
@@ -119,10 +115,9 @@ class WeatherFactory
      */
     public function createHourForecastService()
     {
-        $factory = new HydratorFactory();
-        $hydrator = new HourForecastHydrator($factory->create());
-
-        return new HourForecast($this->httpClient, $this->factory, $this->cache, $hydrator);
+        return new HourForecast(
+            $this->httpClient, $this->factory, $this->cache, new HourForecastHydrator($this->hydratorFactory->create())
+        );
     }
 
     /**

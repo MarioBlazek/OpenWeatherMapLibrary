@@ -11,7 +11,6 @@ class HttpClient implements HttpClientInterface
      */
     public function get($url)
     {
-        dump($url);
         $curlHandle = curl_init();
         curl_setopt($curlHandle, CURLOPT_URL, $url);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);

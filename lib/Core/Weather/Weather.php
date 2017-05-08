@@ -13,6 +13,7 @@ use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
 use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
+use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather as WeatherResponse;
 
 class Weather extends Base implements WeatherInterface
 {
@@ -26,7 +27,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response);
+        return $this->hydrator->hydrate($response, new WeatherResponse());
     }
 
     /**
@@ -39,7 +40,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response);
+        return $this->hydrator->hydrate($response, new WeatherResponse());
     }
 
     /**
@@ -53,7 +54,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response);
+        return $this->hydrator->hydrate($response, new WeatherResponse());
     }
 
     /**
@@ -66,7 +67,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response);
+        return $this->hydrator->hydrate($response, new WeatherResponse());
     }
 
     /**

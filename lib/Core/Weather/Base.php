@@ -74,44 +74,6 @@ abstract class Base
             throw new ForbiddenException($response->getMessage());
         }
 
-        dump($response->getStatusCode());
-
-
         return (string)$response;
     }
-
-//    /**
-//     * Helper method.
-//     *
-//     * @param string $baseUrl
-//     * @param string $queryPart
-//     *
-//     * @throws NotFoundException
-//     * @throws NotAuthorizedException
-//     *
-//     * @return mixed
-//     */
-//    protected function getResult($baseUrl, $queryPart)
-//    {
-//        $url = $baseUrl . $queryPart;
-//
-//        $hash = md5($url);
-//
-//        if ($this->cacheService->has($hash)) {
-//            return $this->cacheService->get($hash);
-//        }
-//        $response = $this->client->get($url);
-//
-//        if (!$response->isAuthorized()) {
-//            throw new NotAuthorizedException($response->getMessage());
-//        }
-//
-//        if (!$response->isOk()) {
-//            throw new NotFoundException($response->getMessage());
-//        }
-//
-//        $this->cacheService->set($hash, (string) $response);
-//
-//        return (string) $response;
-//    }
 }

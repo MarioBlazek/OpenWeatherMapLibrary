@@ -48,6 +48,14 @@ class UrlFactory
         return new InputParameterBag($url);
     }
 
+    /**
+     * Transforms Uri paramters
+     *
+     * @param string $url
+     * @param InputParameterBag $bag
+     *
+     * @return string
+     */
     protected function transformUriParameters($url, InputParameterBag $bag)
     {
         foreach ($bag->getParameters() as $item) {
@@ -60,6 +68,14 @@ class UrlFactory
         return $url;
     }
 
+    /**
+     * Transforms Uri GET parameters
+     *
+     * @param string $url
+     * @param InputParameterBag $bag
+     *
+     * @return string
+     */
     protected function transformGetParameters($url, InputParameterBag $bag)
     {
         $params = [];
