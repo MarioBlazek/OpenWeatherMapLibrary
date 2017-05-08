@@ -7,4 +7,24 @@ OpenWeatherMapLibrary
 [![Latest stable](https://img.shields.io/packagist/v/marioblazek/open-weather-map-library.svg?style=flat-square)](https://packagist.org/packages/marioblazek/open-weather-map-library)
 [![License](https://img.shields.io/packagist/l/marioblazek/open-weather-map-library.svg?style=flat-square)](https://packagist.org/packages/marioblazek/open-weather-map-library)
 
-PHP Wrapper for Open Weather Map API
+PHP library for working with http://openweathermap.org/ API.
+
+Implemented features
+--------------------
+
+* Current weather data
+* 5 day / 3 hour forecast
+* 16 day / daily forecast
+* UV Index
+* Air pollution
+
+License, docs and installation instructions
+-------------------------------------
+
+[License](LICENSE)
+
+[Installation instructions](doc/INSTALL.md)
+
+[Documentation](doc/DOC.md)
+
+[Changelog](doc/CHANGELOG.md)
