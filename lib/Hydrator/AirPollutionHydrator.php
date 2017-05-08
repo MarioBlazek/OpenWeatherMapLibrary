@@ -1,39 +1,16 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Hydrator;
+namespace Marek\OpenWeatherMap\Hydrator;
 
-use Marek\OpenWeatherLibrary\API\Value\Response\AirPollution;
+use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 
-class AirPollutionHydrator extends BaseHydrator
+class AirPollutionHydrator extends BaseHydrator implements HydratorInterface
 {
     /**
      * @inheritdoc
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data)
     {
-        if (!$object instanceof AirPollution) {
-            return $object;
-        }
-
-        $object->time = $data['time'];
-
-        $location = new AirPollution\Location($data['location']['latitude'], $data['location']['longitude']);
-        $object->location = $location;
-
-        $datums = [];
-        foreach ($data['data'] as $datum) {
-            $dtm = new AirPollution\Data(
-                empty(!$datum['value']) ? $datum['value'] : '',
-                empty(!$datum['pressure']) ? $datum['pressure'] : '',
-                empty(!$datum['precision']) ? $datum['precision'] : ''
-            );
-
-            $datums[] = $dtm;
-        }
-
-        $object->data = $datums;
-
-        return $object;
+        // TODO: Implement hydrate() method.
     }
 }
-

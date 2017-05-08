@@ -1,13 +1,9 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Http\Response;
+namespace Marek\OpenWeatherMap\Http\Response;
 
 interface ResponseInterface
 {
-    const HTTP_ERROR = '401';
-
-    const HTTP_SUCCESS = '200';
-
     /**
      * Returns HTTP status code.
      *

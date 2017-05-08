@@ -1,18 +1,18 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\API\Value\Response;
+namespace Marek\OpenWeatherMap\API\Value\Response;
 
 class Location
 {
     /**
      * @var float
      */
-    public $latitude;
+    protected $latitude;
 
     /**
      * @var float
      */
-    public $longitude;
+    protected $longitude;
 
     /**
      * Location constructor.
@@ -24,5 +24,21 @@ class Location
     {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 }

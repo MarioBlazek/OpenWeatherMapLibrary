@@ -1,48 +1,71 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Hydrator;
+namespace Marek\OpenWeatherMap\Hydrator;
 
-abstract class BaseHydrator implements HydratorInterface
+use Zend\Hydrator\HydratorInterface as InternalHydratorInterface;
+
+abstract class BaseHydrator
 {
     /**
-     * Transforms snake case to camel case
-     *
-     * @param string $name
-     *
-     * @return string
+     * @var InternalHydratorInterface
      */
-    protected function transformPropertyName($name)
+    protected $hydrator;
+
+    public function __construct(InternalHydratorInterface $hydrator)
     {
-        return preg_replace_callback(
-            '/_([a-z])/',
-            function($match) {
-                return strtoupper($match[1]);
-            },
-            $name
-        );
+        $this->hydrator = $hydrator;
     }
 
     /**
-     * Transforms snake case class name to camel case
-     * with fully qualified domain name
+     * @param string $key
+     * @param array $data
+     * @param $object
      *
-     * @param string $name
-     * @param string $classNamespace
-     *
-     * @return string
+     * @return null|object
      */
-    protected function transformClassName($name, $classNamespace)
+    protected function getValue($key, $data, $object)
     {
-        $name[0] = strtoupper($name[0]);
+        return empty($data[$key]) ? null : $this->hydrator->hydrate($data[$key], $object);
+    }
 
-        $name = preg_replace_callback(
-            '/_([a-z])/',
-            function($match) {
-                return strtoupper($match[0]);
-            },
-            $name
-        );
+    /**
+     * @param string $key
+     * @param array $data
+     *
+     * @return mixed
+     */
+    protected function get($key, $data)
+    {
+        return array_key_exists($key, $data) ? $data[$key] : null;
+    }
 
-        return $classNamespace . '\\' . $name;
+    /**
+     * @param string $key
+     * @param array $data
+     *
+     * @return \DateTime|null
+     */
+    protected function getDateTime($key, $data)
+    {
+        $date = empty($data[$key]) ?
+            null :
+            \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $data[$key], new \DateTimeZone('UTC'));
+
+        if ($date) {
+            return $date;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $key
+     * @param array $data
+     *
+     * @return \DateTime|null
+     */
+    protected function getDateTimeFromTimestamp($key, $data)
+    {
+        return empty($data[$key]) ? null : new \DateTime("@{$data[$key]}");
     }
 }

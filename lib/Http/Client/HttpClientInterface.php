@@ -1,12 +1,14 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Http\Client;
+namespace Marek\OpenWeatherMap\Http\Client;
 
-use Marek\OpenWeatherLibrary\Http\Response\ResponseInterface;
+use Marek\OpenWeatherMap\Http\Response\ResponseInterface;
 
 interface HttpClientInterface
 {
     /**
+     * Performs get request to given URL.
+     *
      * @param string $url
      *
      * @return ResponseInterface

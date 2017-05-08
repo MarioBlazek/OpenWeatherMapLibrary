@@ -1,16 +1,18 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Hydrator;
+namespace Marek\OpenWeatherMap\Hydrator;
+
+use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 
 interface HydratorInterface
 {
     /**
-     * Hydrate $object with the provided $data.
+     * Hydrates response
      *
-     * @param array $data
-     * @param $object
+     * @param string $data
+     * @param APIResponse $response
      *
-     * @return object
+     * @return APIResponse
      */
-    public function hydrate(array $data, $object);
+    public function hydrate($data, APIResponse $response);
 }

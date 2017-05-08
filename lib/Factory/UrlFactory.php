@@ -1,41 +1,27 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Factory;
+namespace Marek\OpenWeatherMap\Factory;
 
-use Marek\OpenWeatherLibrary\API\Value\Parameters\GetParameterInterface;
-use Marek\OpenWeatherLibrary\API\Value\Parameters\InputParameterBag;
-use Marek\OpenWeatherLibrary\API\Value\Parameters\UriParameterInterface;
-use Marek\OpenWeatherLibrary\API\Value\Units;
+use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
+use Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag;
+use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
+use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 
 class UrlFactory
 {
     /**
-     * @var string
+     * @var APIConfiguration
      */
-    protected $appid;
-
-    /**
-     * @var string
-     */
-    protected $units;
-
-    /**
-     * @var string
-     */
-    protected $baseUrl;
+    private $configuration;
 
     /**
      * UrlFactory constructor.
      *
-     * @param string $baseUrl
-     * @param string $appid
-     * @param string $units
+     * @param APIConfiguration $configuration
      */
-    public function __construct($baseUrl, $appid, $units = Units::STANDARD)
+    public function __construct(APIConfiguration $configuration)
     {
-        $this->appid = $appid;
-        $this->units = $units;
-        $this->baseUrl = $baseUrl;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -45,40 +31,36 @@ class UrlFactory
      */
     public function build(InputParameterBag $bag)
     {
-        $this->baseUrl = $this->baseUrl . $bag->getUri();
-        $this->transformUriParameters($bag);
-        $this->transformGetParameters($bag);
+        $url = $bag->getUrl();
+        $url = $this->transformUriParameters($url, $bag);
+        $url = $this->transformGetParameters($url, $bag);
 
-        return $this->baseUrl;
+        return $url;
     }
 
     /**
-     * @param string $uri
+     * @param string $url
      *
      * @return InputParameterBag
      */
-    public function buildBag($uri = '')
+    public function buildBag($url)
     {
-        return new InputParameterBag($uri);
+        return new InputParameterBag($url);
     }
 
-    /**
-     * @param InputParameterBag $bag
-     */
-    protected function transformUriParameters(InputParameterBag $bag)
+    protected function transformUriParameters($url, InputParameterBag $bag)
     {
         foreach ($bag->getParameters() as $item) {
             if ($item instanceof UriParameterInterface) {
                 $name = '{' . $item->getUriParameterName() . '}';
-                $this->baseUrl = str_replace($name, $item->getUriParameterValue(), $this->baseUrl);
+                $url = str_replace($name, $item->getUriParameterValue(), $url);
             }
         }
+
+        return $url;
     }
 
-    /**
-     * @param InputParameterBag $bag
-     */
-    protected function transformGetParameters(InputParameterBag $bag)
+    protected function transformGetParameters($url, InputParameterBag $bag)
     {
         $params = [];
         foreach ($bag->getParameters() as $item) {
@@ -87,10 +69,11 @@ class UrlFactory
             }
         }
 
-        $params['appid'] = $this->appid;
-        $params['units'] = $this->units;
+        $params['appid'] = $this->configuration->getKey();
+        $params['units'] = $this->configuration->getUnits();
+        $params['lang'] = $this->configuration->getLanguage();
+        $params['type'] = $this->configuration->getType();
 
-        $this->baseUrl = $this->baseUrl . '?' . http_build_query($params);
+        return $url . '?' . http_build_query($params);
     }
 }
-

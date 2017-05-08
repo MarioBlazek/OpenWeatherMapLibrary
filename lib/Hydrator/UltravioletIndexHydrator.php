@@ -1,31 +1,26 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Hydrator;
+namespace Marek\OpenWeatherMap\Hydrator;
 
-use Marek\OpenWeatherLibrary\API\Value\Response\Location;
-use Marek\OpenWeatherLibrary\API\Value\Response\UltravioletIndex;
+use Marek\OpenWeatherMap\API\Value\Response\GeographicCoordinates;
+use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex;
 
-class UltravioletIndexHydrator implements HydratorInterface
+class UltravioletIndexHydrator extends BaseHydrator implements HydratorInterface
 {
     /**
      * @inheritDoc
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data)
     {
-        if (!$object instanceof UltravioletIndex) {
-            return $object;
+        if (is_string($data)) {
+            $data = json_decode($data, true);
         }
 
-        $object->time = $data['time'];
-        $object->data = $data['data'];
+        $ultravioletIndex = new UltravioletIndex();
+        $ultravioletIndex->data = empty($data['data']) ? null : $data['data'];
+        $ultravioletIndex->time = $this->getDateTime('time', $data);
+        $ultravioletIndex->location = $this->getValue('location', $data, new GeographicCoordinates());
 
-        $location = new Location(
-            $data['location']['latitude'],
-            $data['location']['longitude']
-        );
-
-        $object->location = $location;
-
-        return $object;
+        return $ultravioletIndex;
     }
 }

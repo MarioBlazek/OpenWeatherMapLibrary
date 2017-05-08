@@ -1,16 +1,17 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Http\Client;
+namespace Marek\OpenWeatherMap\Http\Client;
 
-use Marek\OpenWeatherLibrary\Http\Response\JsonResponse;
+use Marek\OpenWeatherMap\Http\Response\JsonResponse;
 
 class HttpClient implements HttpClientInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function get($url)
     {
+        dump($url);
         $curlHandle = curl_init();
         curl_setopt($curlHandle, CURLOPT_URL, $url);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);

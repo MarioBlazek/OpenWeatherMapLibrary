@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\OpenWeatherLibrary\Http\Response;
+namespace Marek\OpenWeatherMap\Http\Response;
 
 class JsonResponse implements ResponseInterface
 {
@@ -25,9 +25,27 @@ class JsonResponse implements ResponseInterface
         if ($this->isValidJson($data)) {
             $data = json_decode($data, true);
         }
-
         $this->data = $data;
-        $this->httpCode = $httpCode;
+
+        if (is_array($data) && array_key_exists('cod', $data)) {
+            $this->httpCode = (int) $data['cod'];
+        } else {
+            $this->httpCode = $httpCode;
+        }
+    }
+
+    /**
+     * Returns data represented as string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (is_array($this->data)) {
+            return json_encode($this->data);
+        }
+
+        return $this->data;
     }
 
     /**
@@ -35,10 +53,6 @@ class JsonResponse implements ResponseInterface
      */
     public function getStatusCode()
     {
-        if (is_array($this->data) && array_key_exists('cod', $this->data)) {
-            $this->httpCode = (int)$this->data['cod'];
-        }
-
         return $this->httpCode;
     }
 
@@ -55,7 +69,7 @@ class JsonResponse implements ResponseInterface
      */
     public function isOk()
     {
-        if ($this->getStatusCode() === ResponseInterface::HTTP_SUCCESS) {
+        if ($this->httpCode === 200) {
             return true;
         }
 
@@ -67,7 +81,7 @@ class JsonResponse implements ResponseInterface
      */
     public function isAuthorized()
     {
-        if ($this->getStatusCode() !== ResponseInterface::HTTP_ERROR) {
+        if ($this->httpCode !== 401) {
             return true;
         }
 
@@ -84,20 +98,6 @@ class JsonResponse implements ResponseInterface
         }
 
         return '';
-    }
-
-    /**
-     * Returns data represented as string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (is_array($this->data)) {
-            return json_encode($this->data);
-        }
-
-        return (string)$this->data;
     }
 
     /**
