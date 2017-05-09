@@ -18,7 +18,8 @@ branches:
     - master
 
 before_install:
-    - pecl install memcached
+    - sudo apt-get -qq update
+    - sudo apt-get install -y php-memcached
 
 # install dependencies
 install:
@@ -36,8 +37,8 @@ notification:
 git:
   depth: 30
 
-# we don't need sudo
-sudo: false
+# we sudo
+sudo: required
 
 # send coverage to codecov.io
 after_success:
