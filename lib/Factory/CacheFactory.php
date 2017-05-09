@@ -30,12 +30,14 @@ class CacheFactory
      * @return HandlerInterface
      *
      * @throws \Exception
+     *
+     * @codeCoverageIgnore
      */
     public function create()
     {
         if ($this->configuration->getHandler() === CacheConfiguration::MEMCACHED) {
 
-            if (class_exists(\Memcached::class)) {
+            if (!extension_loaded(CacheConfiguration::MEMCACHED)) {
                 throw new \Exception("Memcached not installed.");
             }
 
@@ -43,8 +45,6 @@ class CacheFactory
             $memcached->addServer($this->configuration->getServer(), $this->configuration->getPort());
 
             return new MemcachedHandler($memcached, $this->configuration->getTtl());
-
-
         }
 
         return new NoCache();
