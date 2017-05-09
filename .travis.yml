@@ -17,6 +17,9 @@ branches:
   only:
     - master
 
+before_install:
+    - pecl install memcached
+
 # install dependencies
 install:
     - composer install

@@ -38,7 +38,7 @@ class CacheFactory
         if ($this->configuration->getHandler() === CacheConfiguration::MEMCACHED) {
 
             if (!extension_loaded(CacheConfiguration::MEMCACHED)) {
-                throw new \Exception("Memcached not installed.");
+                throw new \RuntimeException("Memcached not installed.");
             }
 
             $memcached = new \Memcached();
