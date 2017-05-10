@@ -15,15 +15,15 @@ class UltravioletIndex extends APIResponse
     /**
      * @var \DateTime
      */
-    public $time;
+    protected $time;
 
     /**
      * @var Location
      */
-    public $location;
+    protected $location;
 
     /**
      * @var float
      */
-    public $data;
+    protected $data;
 }
