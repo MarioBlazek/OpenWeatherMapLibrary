@@ -17,6 +17,10 @@ branches:
   only:
     - master
 
+# add php config
+before_install:
+    - phpenv config-add travis.php.ini
+
 # install dependencies
 install:
     - composer install
