@@ -25,6 +25,10 @@ class MemcachedTest extends TestCase
 
     public function setUp()
     {
+        if (PHP_MAJOR_VERSION === 5) {
+            $this->markTestSkipped();
+        }
+
         $this->memcached = $this->getMockBuilder(\Memcached::class)
             ->disableOriginalConstructor()
             ->setMethods(['get', 'set', 'setOption'])
