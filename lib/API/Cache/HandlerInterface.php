@@ -2,6 +2,8 @@
 
 namespace Marek\OpenWeatherMap\API\Cache;
 
+use Marek\OpenWeatherMap\API\Exception\ItemNotFoundException;
+
 interface HandlerInterface
 {
     /**
@@ -23,7 +25,7 @@ interface HandlerInterface
      *
      * @param string $cacheKey
      *
-     * @throws
+     * @throws ItemNotFoundException
      *
      * @return string
      */

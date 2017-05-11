@@ -4,7 +4,7 @@ namespace Marek\OpenWeatherMap\Core\Cache;
 
 use Memcached as InnerMemcached;
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
-use Marek\OpenWeatherMap\Exception\ItemNotFoundException;
+use Marek\OpenWeatherMap\API\Exception\ItemNotFoundException;
 
 class Memcached implements HandlerInterface
 {
