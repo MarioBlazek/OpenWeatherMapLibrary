@@ -9,6 +9,7 @@ use Marek\OpenWeatherMap\API\Value\Response\Main;
 use Marek\OpenWeatherMap\API\Value\Response\Rain;
 use Marek\OpenWeatherMap\API\Value\Response\Snow;
 use Marek\OpenWeatherMap\API\Value\Response\Sys;
+use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather;
 use Marek\OpenWeatherMap\API\Value\Response\WeatherValue;
 use Marek\OpenWeatherMap\API\Value\Response\Wind;
@@ -24,12 +25,26 @@ class WeatherHydrator extends BaseHydrator implements HydratorInterface
             $data = json_decode($data, true);
         }
 
+        if ($response instanceof AggregatedWeather) {
+            return $this->hydrateMultiple($data, $response);
+        }
+
+        return $this->hydrateSingle($data, $response);
+    }
+
+    /**
+     * @param $data
+     * @param Weather $weather
+     *
+     * @return Weather
+     */
+    protected function hydrateSingle($data, Weather $weather)
+    {
         $innerWeather = [];
         foreach ($data['weather'] as $w) {
             $innerWeather[] = $this->hydrator->hydrate($w, new WeatherValue);
         }
 
-        $weather = new Weather();
         $weather->id = $data['id'];
         $weather->name = $data['name'];
         $weather->visibility = empty($data['visibility']) ? null : $data['visibility'];
@@ -42,6 +57,25 @@ class WeatherHydrator extends BaseHydrator implements HydratorInterface
         $weather->sys = $this->getValue('sys', $data, new Sys());
         $weather->weather = $innerWeather;
         $weather->dt = empty($data['dt']) ? null : new \DateTime("@{$data['dt']}");
+
+        return $weather;
+    }
+
+    /**
+     * @param $data
+     * @param AggregatedWeather $weather
+     *
+     * @return AggregatedWeather
+     */
+    protected function hydrateMultiple($data, AggregatedWeather $weather)
+    {
+        $weathers = [];
+        foreach ($data['list'] as $datum) {
+            $weathers[] = $this->hydrateSingle($datum, new Weather());
+        }
+
+        $weather->count = empty($data['cnt']) ? $data['count'] : $data['cnt'];
+        $weather->weathers = $weathers;
 
         return $weather;
     }

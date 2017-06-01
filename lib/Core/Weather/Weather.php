@@ -81,19 +81,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        $data = json_decode($response, true);
-
-        $weathers = [];
-        foreach ($data['list'] as $datum) {
-            $weathers[] = $this->hydrator->hydrate($datum);
-        }
-
-        return new AggregatedWeather(
-            [
-                'count' => $data['cnt'],
-                'weathers' => $weathers,
-            ]
-        );
+        return $this->hydrator->hydrate($response, new AggregatedWeather());
     }
 
     /**
@@ -109,19 +97,7 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        $data = json_decode($response, true);
-
-        $weathers = [];
-        foreach ($data['list'] as $datum) {
-            $weathers[] = $this->hydrator->hydrate($datum);
-        }
-
-        return new AggregatedWeather(
-            [
-                'count' => empty($data['cnt']) ? $data['count'] : $data['cnt'],
-                'weathers' => $weathers,
-            ]
-        );
+        return $this->hydrator->hydrate($response, new AggregatedWeather());
     }
 
     /**
@@ -134,18 +110,6 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        $data = json_decode($response, true);
-
-        $weathers = [];
-        foreach ($data['list'] as $datum) {
-            $weathers[] = $this->hydrator->hydrate($datum);
-        }
-
-        return new AggregatedWeather(
-            [
-                'count' => $data['cnt'],
-                'weathers' => $weathers,
-            ]
-        );
+        return $this->hydrator->hydrate($response, new AggregatedWeather());
     }
 }
