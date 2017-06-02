@@ -13,15 +13,18 @@ class UltravioletIndexHydrator extends BaseHydrator implements HydratorInterface
      */
     public function hydrate($data, APIResponse $response)
     {
+        if (!$response instanceof UltravioletIndex) {
+            return $response;
+        }
+
         if (is_string($data)) {
             $data = json_decode($data, true);
         }
 
-        $ultravioletIndex = new UltravioletIndex();
-        $ultravioletIndex->data = empty($data['data']) ? null : $data['data'];
-        $ultravioletIndex->time = $this->getDateTime('time', $data);
-        $ultravioletIndex->location = $this->getValue('location', $data, new GeographicCoordinates());
+        $response->data = empty($data['data']) ? null : $data['data'];
+        $response->time = $this->getDateTime('time', $data);
+        $response->location = $this->getValue('location', $data, new GeographicCoordinates());
 
-        return $ultravioletIndex;
+        return $response;
     }
 }
