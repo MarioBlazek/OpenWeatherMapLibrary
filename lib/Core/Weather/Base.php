@@ -4,6 +4,7 @@ namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
 use Marek\OpenWeatherMap\API\Exception\BadRequestException;
+use Marek\OpenWeatherMap\API\Exception\ExceptionThrower;
 use Marek\OpenWeatherMap\API\Exception\ForbiddenException;
 use Marek\OpenWeatherMap\API\Exception\NotFoundException;
 use Marek\OpenWeatherMap\API\Exception\APIException;
@@ -66,13 +67,7 @@ abstract class Base
 
         $response = $this->client->get($url);
 
-        if ($response->getStatusCode() == 404) {
-            throw new NotFoundException($response->getMessage());
-        } else if ($response->getStatusCode() == 400) {
-            throw new BadRequestException($response->getMessage());
-        } else if ($response->getStatusCode() == 401) {
-            throw new ForbiddenException($response->getMessage());
-        }
+        ExceptionThrower::throwException($response->getStatusCode(), $response->getMessage());
 
         return (string)$response;
     }

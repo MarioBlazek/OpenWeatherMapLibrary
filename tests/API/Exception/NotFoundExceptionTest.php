@@ -2,6 +2,7 @@
 
 namespace Marek\OpenWeatherMap\Tests\API\Exception;
 
+use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
@@ -13,8 +14,9 @@ class NotFoundExceptionTest extends TestCase
      */
     public function testException()
     {
-        $exception = new NotFoundException("Item not found");
+        $exception = new NotFoundException("Item not found", APIException::NOT_FOUND);
         $this->assertEquals("Item not found", $exception->getAPIMessage());
+        $this->assertEquals(APIException::NOT_FOUND, $exception->getStatusCode());
 
         throw $exception;
     }

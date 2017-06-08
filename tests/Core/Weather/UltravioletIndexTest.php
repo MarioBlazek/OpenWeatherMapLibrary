@@ -187,6 +187,44 @@ class UltravioletIndexTest extends WeatherBase
     }
 
     /**
+     * @expectedException \Marek\OpenWeatherMap\API\Exception\UnauthorizedException
+     */
+    public function testFetchUltravioletIndexWithUnauthorized()
+    {
+        $coords = new GeographicCoordinates(10, 15);
+        $dateTime = new DateTime();
+        $parameterBag = new InputParameterBag(UltravioletIndex::BASE_URL);
+        $url = 'url';
+        $urlHash = md5($url);
+        $response = new JsonResponse(['data' => 'data'], 401);
+
+        $this->factory->expects($this->once())
+            ->method('buildBag')
+            ->with(UltravioletIndex::BASE_URL)
+            ->willReturn($parameterBag);
+
+        $this->factory->expects($this->once())
+            ->method('build')
+            ->with($parameterBag)
+            ->willReturn($url);
+
+        $this->handler->expects($this->once())
+            ->method('has')
+            ->with($urlHash)
+            ->willReturn(false);
+
+        $this->client->expects($this->once())
+            ->method('get')
+            ->with($url)
+            ->willReturn($response);
+
+        $this->hydrator->expects($this->never())
+            ->method('hydrate');
+
+        $this->service->fetchUltravioletIndex($coords, $dateTime);
+    }
+
+    /**
      * @expectedException \Marek\OpenWeatherMap\API\Exception\ForbiddenException
      */
     public function testFetchUltravioletIndexWithForbidden()
@@ -196,7 +234,7 @@ class UltravioletIndexTest extends WeatherBase
         $parameterBag = new InputParameterBag(UltravioletIndex::BASE_URL);
         $url = 'url';
         $urlHash = md5($url);
-        $response = new JsonResponse(['data' => 'data'], 401);
+        $response = new JsonResponse(['data' => 'data'], 403);
 
         $this->factory->expects($this->once())
             ->method('buildBag')
