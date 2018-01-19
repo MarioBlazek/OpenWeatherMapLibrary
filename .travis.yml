@@ -34,7 +34,7 @@ install:
 
 # execute phpunit as the script command
 script:
-  - ./vendor/bin/phpunit -d memory_limit=-1 --colors -c phpunit.xml.dist --coverage-clover=coverage.xml
+  - ./vendor/bin/phpunit -d memory_limit=-1 --colors -c phpunit.xml.dist --coverage-clover=clover.xml
 
 # disable mail notifications
 notification:
