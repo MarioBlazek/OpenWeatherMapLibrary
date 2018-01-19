@@ -6,7 +6,7 @@ OpenWeatherMapLibrary
 [![Quality Score](https://img.shields.io/scrutinizer/g/MarioBlazek/OpenWeatherMapLibrary.svg?style=flat-square)](https://scrutinizer-ci.com/g/MarioBlazek/OpenWeatherMapLibrary)
 [![Downloads](https://img.shields.io/packagist/dt/marioblazek/open-weather-map-library.svg?style=flat-square)](https://packagist.org/packages/marioblazek/open-weather-map-library)
 [![Latest stable](https://img.shields.io/packagist/v/marioblazek/open-weather-map-library.svg?style=flat-square)](https://packagist.org/packages/marioblazek/open-weather-map-library)
-[![License](https://img.shields.io/packagist/l/marioblazek/open-weather-map-library.svg?style=flat-square)](https://packagist.org/packages/marioblazek/open-weather-map-library)
+[![License](https://img.shields.io/github/license/MarioBlazek/OpenWeatherMapLibrary.svg?style=flat-square)](LICENSE)
 
 PHP library for working with http://openweathermap.org/ API.
 
