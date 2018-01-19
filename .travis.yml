@@ -17,9 +17,16 @@ branches:
   only:
     - master
 
+env:
+    global:
+        - CC_TEST_REPORTER_ID=a707cc8024480e972dfa8aae84ccd2c09198d5f1704807e42c4d1851aae3a7f8
+
 # add php config
 before_install:
     - phpenv config-add travis.php.ini
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 
 # install dependencies
 install:
@@ -43,3 +50,5 @@ sudo: false
 # send coverage to codecov.io
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
