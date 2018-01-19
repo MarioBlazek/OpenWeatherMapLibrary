@@ -1,16 +1,16 @@
 language: php
 
+dist: trusty
+sudo: false
+
 cache:
     directories:
         - vendor
 
-matrix:
-    # mark as finished before allow_failures are run
-    fast_finish: true
-    include:
-        - php: 5.6
-        - php: 7.0
-        - php: 7.1
+php:
+    - 7.0
+    - 7.1
+    - 7.2
 
 # test only master (+ pull requests)
 branches:
@@ -43,9 +43,6 @@ notification:
 # reduce depth (history) of git checkout
 git:
   depth: 30
-
-# we don't need sudo
-sudo: false
 
 # send coverage to codecov.io
 after_success:
