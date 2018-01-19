@@ -50,5 +50,6 @@ sudo: false
 # send coverage to codecov.io
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - ./cc-test-reporter format-coverage --output "coverage.xml"
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
