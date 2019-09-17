@@ -16,7 +16,7 @@ Implemented features
 * [Current weather data](doc/WEATHER.md)
 * 5 day / 3 hour forecast
 * 16 day / daily forecast
-* UV Index
+* [UV Index](doc/UV.md)
 * Air pollution
 
 License, docs and installation instructions
