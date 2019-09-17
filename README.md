@@ -13,7 +13,7 @@ PHP library for working with http://openweathermap.org/ API.
 Implemented features
 --------------------
 
-* Current weather data
+* [Current weather data](doc/WEATHER.md)
 * 5 day / 3 hour forecast
 * 16 day / daily forecast
 * UV Index
