@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Response;
 
 class Main
 {
-    public $temp;
+    public $temperature;
 
     public $pressure;
 
     public $humidity;
 
-    public $tempMin;
+    public $minimumTemperature;
 
-    public $tempMax;
+    public $maximumTemperature;
 
     public $seaLevel;
 

@@ -1,38 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Weather\Services;
 
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
-use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
-use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather;
+use Marek\OpenWeatherMap\API\Exception\APIException;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\BoundingBox;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityCount;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityIds;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityCount;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\BoundingBox;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
-use Marek\OpenWeatherMap\API\Exception\APIException;
+use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
+use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather;
 
 interface WeatherInterface
 {
-    const URL_WEATHER = 'http://api.openweathermap.org/data/2.5/weather';
+    public const URL_WEATHER = 'http://api.openweathermap.org/data/2.5/weather';
 
-    const URL_BBOX = 'http://api.openweathermap.org/data/2.5/box/city';
+    public const URL_BBOX = 'http://api.openweathermap.org/data/2.5/box/city';
 
-    const URL_CYCLE = 'http://api.openweathermap.org/data/2.5/find';
+    public const URL_CYCLE = 'http://api.openweathermap.org/data/2.5/find';
 
-    const URL_CITIES = 'http://api.openweathermap.org/data/2.5/group';
+    public const URL_CITIES = 'http://api.openweathermap.org/data/2.5/group';
 
     /**
      * Call current weather data for one location by city name.
      *
      * @param CityName $cityName
      *
-     * @return Weather
-     *
      * @throws APIException
+     *
+     * @return Weather
      */
     public function byCityName(CityName $cityName);
 
@@ -41,9 +43,9 @@ interface WeatherInterface
      *
      * @param CityId $cityId
      *
-     * @return Weather
-     *
      * @throws APIException
+     *
+     * @return Weather
      */
     public function byCityId(CityId $cityId);
 
@@ -53,9 +55,9 @@ interface WeatherInterface
      * @param Latitude $latitude
      * @param Longitude $longitude
      *
-     * @return Weather
-     *
      * @throws APIException
+     *
+     * @return Weather
      */
     public function byGeographicCoordinates(Latitude $latitude, Longitude $longitude);
 
@@ -64,9 +66,9 @@ interface WeatherInterface
      *
      * @param ZipCode $zipCode
      *
-     * @return Weather
-     *
      * @throws APIException
+     *
+     * @return Weather
      */
     public function byZipCode(ZipCode $zipCode);
 
@@ -76,9 +78,9 @@ interface WeatherInterface
      * @param BoundingBox $bbox
      * @param Cluster $cluster
      *
-     * @return AggregatedWeather
-     *
      * @throws APIException
+     *
+     * @return AggregatedWeather
      */
     public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster);
 
@@ -90,9 +92,9 @@ interface WeatherInterface
      * @param Cluster $cluster
      * @param CityCount $cnt
      *
-     * @return AggregatedWeather
-     *
      * @throws APIException
+     *
+     * @return AggregatedWeather
      */
     public function inCycle(Latitude $latitude, Longitude $longitude, Cluster $cluster, CityCount $cnt);
 
@@ -101,9 +103,9 @@ interface WeatherInterface
      *
      * @param CityIds $cityIds
      *
-     * @return AggregatedWeather
-     *
      * @throws APIException
+     *
+     * @return AggregatedWeather
      */
     public function severalCityIds(CityIds $cityIds);
 }

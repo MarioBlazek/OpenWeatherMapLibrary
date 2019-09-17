@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Constraints;
 
-class SearchAccuracy
+final class SearchAccuracy
 {
     /**
      * Returns exact match values.
      */
-    const ACCURATE = 'accurate';
+    public const ACCURATE = 'accurate';
 
     /**
      * Returns results by searching for that substring.
      */
-    const LIKE = 'like';
+    public const LIKE = 'like';
 }

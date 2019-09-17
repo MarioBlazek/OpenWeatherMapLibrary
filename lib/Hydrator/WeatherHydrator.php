@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
@@ -17,12 +19,15 @@ use Marek\OpenWeatherMap\API\Value\Response\Wind;
 class WeatherHydrator extends BaseHydrator implements HydratorInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hydrate($data, APIResponse $response)
     {
+        dump($data);
+        dump($response);
+        die();
         if (is_string($data)) {
-            $data = json_decode($data, true);
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
         }
 
         if ($response instanceof AggregatedWeather) {
@@ -42,7 +47,7 @@ class WeatherHydrator extends BaseHydrator implements HydratorInterface
     {
         $innerWeather = [];
         foreach ($data['weather'] as $w) {
-            $innerWeather[] = $this->hydrator->hydrate($w, new WeatherValue);
+            $innerWeather[] = $this->hydrator->hydrate($w, new WeatherValue());
         }
 
         $weather->id = $data['id'];
@@ -56,7 +61,7 @@ class WeatherHydrator extends BaseHydrator implements HydratorInterface
         $weather->main = $this->getValue('main', $data, new Main());
         $weather->sys = $this->getValue('sys', $data, new Sys());
         $weather->weather = $innerWeather;
-        $weather->dt = empty($data['dt']) ? null : new \DateTime("@{$data['dt']}");
+        $weather->dt = empty($data['dt']) ? null : new \DateTimeImmutable("@{$data['dt']}");
 
         return $weather;
     }

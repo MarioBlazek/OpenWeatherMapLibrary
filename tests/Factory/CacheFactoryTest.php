@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Factory;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
@@ -18,14 +20,14 @@ class CacheFactoryTest extends TestCase
 
         $handler = $factory->create();
 
-        $this->assertInstanceOf(HandlerInterface::class, $handler);
-        $this->assertInstanceOf(NoCache::class, $handler);
+        self::assertInstanceOf(HandlerInterface::class, $handler);
+        self::assertInstanceOf(NoCache::class, $handler);
     }
 
     public function testItReturnsMemcachedHandler()
     {
         if (!extension_loaded(CacheConfiguration::MEMCACHED)) {
-            $this->markTestSkipped();
+            self::markTestSkipped();
         }
 
         $cacheConfig = new CacheConfiguration(CacheConfiguration::MEMCACHED, 3600, '127.0.0.1', '11211');
@@ -33,8 +35,8 @@ class CacheFactoryTest extends TestCase
 
         $handler = $factory->create();
 
-        $this->assertInstanceOf(HandlerInterface::class, $handler);
-        $this->assertInstanceOf(Memcached::class, $handler);
+        self::assertInstanceOf(HandlerInterface::class, $handler);
+        self::assertInstanceOf(Memcached::class, $handler);
     }
 
     /**
@@ -44,7 +46,7 @@ class CacheFactoryTest extends TestCase
     public function testThrowExceptionIfMemcachedIsNotInstalled()
     {
         if (extension_loaded(CacheConfiguration::MEMCACHED)) {
-            $this->markTestSkipped();
+            self::markTestSkipped();
         }
 
         $cacheConfig = new CacheConfiguration(CacheConfiguration::MEMCACHED, 3600, '127.0.0.1', '11211');

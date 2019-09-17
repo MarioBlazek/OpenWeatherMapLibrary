@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
@@ -18,7 +20,7 @@ class DateTime implements UriParameterInterface
      */
     public function __construct($datetime = 'current')
     {
-        if ($datetime instanceof \DateTime) {
+        if ($datetime instanceof \DateTimeImmutable) {
             $this->datetime = $datetime->format('Y-m-d\TH:i:s\Z');
         } else {
             $this->datetime = $datetime;
@@ -34,7 +36,7 @@ class DateTime implements UriParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUriParameterValue()
     {
@@ -42,7 +44,7 @@ class DateTime implements UriParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUriParameterName()
     {

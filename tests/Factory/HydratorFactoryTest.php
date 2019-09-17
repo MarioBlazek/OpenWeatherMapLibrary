@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Factory;
 
 use Marek\OpenWeatherMap\Factory\HydratorFactory;
@@ -15,9 +17,9 @@ class HydratorFactoryTest extends TestCase
 
         $hydrator = $factory->create();
 
-        $this->assertInstanceOf(HydratorInterface::class, $hydrator);
-        $this->assertInstanceOf(ObjectProperty::class, $hydrator);
-        $this->assertTrue($hydrator->hasStrategy('coord'));
-        $this->assertTrue($hydrator->hasNamingStrategy());
+        self::assertInstanceOf(HydratorInterface::class, $hydrator);
+        self::assertInstanceOf(ObjectProperty::class, $hydrator);
+        self::assertTrue($hydrator->hasStrategy('coord'));
+        self::assertTrue($hydrator->hasNamingStrategy());
     }
 }

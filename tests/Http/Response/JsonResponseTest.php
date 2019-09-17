@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Http\Response;
 
 use Marek\OpenWeatherMap\Http\Response\JsonResponse;
@@ -9,62 +11,62 @@ class JsonResponseTest extends TestCase
 {
     public function testResponseWithValidJson()
     {
-        $data = array(
+        $data = [
             'cod' => 404,
             'one' => 'one',
             'two' => 'two',
             'three' => 'three',
             'message' => 'my_message',
-        );
+        ];
 
         $encoded = json_encode($data);
 
         $response = new JsonResponse($encoded, 500);
 
-        $this->assertEquals($data, $response->getData());
-        $this->assertEquals(404, $response->getStatusCode());
-        $this->assertFalse($response->isOk());
-        $this->assertTrue($response->isAuthorized());
-        $this->assertEquals($data['message'], $response->getMessage());
-        $this->assertEquals($encoded, (string)$response);
+        self::assertSame($data, $response->getData());
+        self::assertSame(404, $response->getStatusCode());
+        self::assertFalse($response->isOk());
+        self::assertTrue($response->isAuthorized());
+        self::assertSame($data['message'], $response->getMessage());
+        self::assertSame($encoded, (string) $response);
     }
 
     public function testResponseWithEmptyJsonMessageAndHttpCode()
     {
-        $data = array(
+        $data = [
             'one' => 'one',
             'two' => 'two',
             'three' => 'three',
-        );
+        ];
         $code = 200;
 
         $encoded = json_encode($data);
 
         $response = new JsonResponse($encoded, $code);
 
-        $this->assertEquals($data, $response->getData());
-        $this->assertEquals($code, $response->getStatusCode());
-        $this->assertTrue($response->isOk());
-        $this->assertTrue($response->isAuthorized());
-        $this->assertEquals('', $response->getMessage());
+        self::assertSame($data, $response->getData());
+        self::assertSame($code, $response->getStatusCode());
+        self::assertTrue($response->isOk());
+        self::assertTrue($response->isAuthorized());
+        self::assertSame('', $response->getMessage());
     }
 
     public function testResponseWithArrayAsData()
     {
-        $data = array(
+        $data = [
             'one' => 'one',
             'two' => 'two',
             'three' => 'three',
-        );
+        ];
         $code = 401;
 
         $response = new JsonResponse($data, $code);
 
-        $this->assertEquals($data, $response->getData());
-        $this->assertEquals($code, $response->getStatusCode());
-        $this->assertFalse($response->isOk());
-        $this->assertFalse($response->isAuthorized());
-        $this->assertEquals('', $response->getMessage());
+        self::assertSame($data, $response->getData());
+        self::assertSame($code, $response->getStatusCode());
+        self::assertFalse($response->isOk());
+        self::assertFalse($response->isAuthorized());
+        self::assertSame('', $response->getMessage());
     }
 
     public function testResponseWithString()
@@ -74,10 +76,10 @@ class JsonResponseTest extends TestCase
 
         $response = new JsonResponse($data, $code);
 
-        $this->assertEquals($data, (string)$response);
-        $this->assertEquals($code, $response->getStatusCode());
-        $this->assertFalse($response->isOk());
-        $this->assertFalse($response->isAuthorized());
-        $this->assertEquals('', $response->getMessage());
+        self::assertSame($data, (string) $response);
+        self::assertSame($code, $response->getStatusCode());
+        self::assertFalse($response->isOk());
+        self::assertFalse($response->isAuthorized());
+        self::assertSame('', $response->getMessage());
     }
 }

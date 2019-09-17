@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Weather\Services;
 
+use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DaysCount;
@@ -9,14 +12,13 @@ use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\DailyForecast\AggregatedDailyForecast;
-use Marek\OpenWeatherMap\API\Exception\APIException;
 
 interface DailyForecastInterface
 {
     /**
      * Base URL for daily forecast.
      */
-    const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily';
+    public const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily';
 
     /**
      * Call 16 day / daily forecast data by city name.
@@ -24,9 +26,9 @@ interface DailyForecastInterface
      * @param CityName $cityName
      * @param DaysCount $numberOfDays
      *
-     * @return AggregatedDailyForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedDailyForecast
      */
     public function fetchForecastByCityName(CityName $cityName, DaysCount $numberOfDays);
 
@@ -36,9 +38,9 @@ interface DailyForecastInterface
      * @param CityId $cityId
      * @param DaysCount $numberOfDays
      *
-     * @return AggregatedDailyForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedDailyForecast
      */
     public function fetchForecastByCityId(CityId $cityId, DaysCount $numberOfDays);
 
@@ -48,9 +50,9 @@ interface DailyForecastInterface
      * @param ZipCode $zipCode
      * @param DaysCount $numberOfDays
      *
-     * @return AggregatedDailyForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedDailyForecast
      */
     public function fetchForecastByZipCode(ZipCode $zipCode, DaysCount $numberOfDays);
 

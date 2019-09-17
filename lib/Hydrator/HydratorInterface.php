@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
@@ -7,7 +9,7 @@ use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 interface HydratorInterface
 {
     /**
-     * Hydrates response
+     * Hydrates response.
      *
      * @param string $data
      * @param APIResponse $response

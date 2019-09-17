@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\GeographicCoordinates;
@@ -21,7 +23,7 @@ class UltravioletIndexHydratorTest extends TestCase
      */
     protected $internalHydrator;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->internalHydrator = $this->getMockBuilder(\Zend\Hydrator\HydratorInterface::class)
@@ -52,7 +54,7 @@ class UltravioletIndexHydratorTest extends TestCase
         $geo->latitude = 40.75;
         $geo->longitude = -74.25;
 
-        $this->internalHydrator->expects($this->once())
+        $this->internalHydrator->expects(self::once())
             ->method('hydrate')
             ->with([$location])
             ->willReturn($geo);
@@ -60,14 +62,14 @@ class UltravioletIndexHydratorTest extends TestCase
         /** @var UltravioletIndex $result */
         $result = $this->hydrator->hydrate($data, $response);
 
-        $this->assertEquals($data['data'], $result->data);
-        $this->assertEquals(\DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $data['time'], new \DateTimeZone('UTC')), $result->time);
-        $this->assertSame($geo, $result->location);
+        self::assertSame($data['data'], $result->data);
+        self::assertSame(\DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s\Z', $data['time'], new \DateTimeZone('UTC')), $result->time);
+        self::assertSame($geo, $result->location);
     }
 
     public function testHydrateWithRawData()
     {
-        $data = "{\"time\":\"2017-02-06T12:00:00Z\",\"location\":{\"latitude\":40.75,\"longitude\":-74.25},\"data\":1.69}";
+        $data = '{"time":"2017-02-06T12:00:00Z","location":{"latitude":40.75,"longitude":-74.25},"data":1.69}';
         $location = [
             'latitude' => 40.75,
             'longitude' => -74.25,
@@ -79,15 +81,15 @@ class UltravioletIndexHydratorTest extends TestCase
         $geo->latitude = 40.75;
         $geo->longitude = -74.25;
 
-        $this->internalHydrator->expects($this->once())
+        $this->internalHydrator->expects(self::once())
             ->method('hydrate')
             ->with($location)
             ->willReturn($geo);
 
         $result = $this->hydrator->hydrate($data, $response);
 
-        $this->assertEquals(1.69, $result->data);
-        $this->assertSame($geo, $result->location);
+        self::assertSame(1.69, $result->data);
+        self::assertSame($geo, $result->location);
     }
 
     public function testHydrateWithResponseNotUltravioletIndex()
@@ -95,11 +97,11 @@ class UltravioletIndexHydratorTest extends TestCase
         $data = [];
         $response = new Weather();
 
-        $this->internalHydrator->expects($this->never())
+        $this->internalHydrator->expects(self::never())
             ->method('hydrate');
 
         $result = $this->hydrator->hydrate($data, $response);
 
-        $this->assertSame($response, $result);
+        self::assertSame($response, $result);
     }
 }

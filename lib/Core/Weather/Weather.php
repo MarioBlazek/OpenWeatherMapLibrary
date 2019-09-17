@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\BoundingBox;
@@ -12,13 +14,13 @@ use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
-use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather as WeatherResponse;
+use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
 
 class Weather extends Base implements WeatherInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function byCityName(CityName $cityName)
     {
@@ -27,11 +29,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new WeatherResponse());
+        return $this->denormalizer->denormalize($response, new WeatherResponse());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function byCityId(CityId $cityId)
     {
@@ -40,11 +42,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new WeatherResponse());
+        return $this->denormalizer->denormalize($response, new WeatherResponse());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function byGeographicCoordinates(Latitude $latitude, Longitude $longitude)
     {
@@ -54,11 +56,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new WeatherResponse());
+        return $this->denormalizer->denormalize($response, new WeatherResponse());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function byZipCode(ZipCode $zipCode)
     {
@@ -67,11 +69,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new WeatherResponse());
+        return $this->denormalizer->denormalize($response, new WeatherResponse());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster)
     {
@@ -81,11 +83,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedWeather());
+        return $this->denormalizer->denormalize($response, new AggregatedWeather());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function inCycle(Latitude $latitude, Longitude $longitude, Cluster $cluster, CityCount $cnt)
     {
@@ -97,11 +99,11 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedWeather());
+        return $this->denormalizer->denormalize($response, new AggregatedWeather());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function severalCityIds(CityIds $cityIds)
     {
@@ -110,6 +112,6 @@ class Weather extends Base implements WeatherInterface
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedWeather());
+        return $this->denormalizer->denormalize($response, new AggregatedWeather());
     }
 }

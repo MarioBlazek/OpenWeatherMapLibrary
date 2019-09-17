@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -29,19 +31,19 @@ class ZipCode implements GetParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterValue()
     {
         if (null === $this->countryCode) {
-            return (string)$this->zip;
+            return (string) $this->zip;
         }
 
-        return (string)$this->zip . ',' . $this->countryCode;
+        return (string) $this->zip . ',' . $this->countryCode;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterName()
     {

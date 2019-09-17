@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Cache;
 
 use Marek\OpenWeatherMap\Core\Cache\NoCache;
@@ -15,9 +17,9 @@ class NoCacheTest extends TestCase
     {
         $cache = new NoCache();
 
-        $this->assertFalse($cache->has('key'));
-        $this->assertFalse($cache->has('key1'));
-        $this->assertFalse($cache->has('key2'));
+        self::assertFalse($cache->has('key'));
+        self::assertFalse($cache->has('key1'));
+        self::assertFalse($cache->has('key2'));
 
         $cache->set('key', 'data');
         $cache->set('key1', 'data2');

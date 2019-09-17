@@ -2,10 +2,13 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$configuration = new \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration("token");
-$cacheConfiguration = new \Marek\OpenWeatherMap\API\Value\Configuration\CacheConfiguration(\Marek\OpenWeatherMap\API\Value\Configuration\CacheConfiguration::NO_CACHE);
+$key = require_once __DIR__ . '/api_key.php';
 
-$factory = new \Marek\OpenWeatherMap\Factory\WeatherFactory($configuration, $cacheConfiguration);
+$configuration = new \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration($key);
+$cache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+$handler = new \Marek\OpenWeatherMap\Core\Cache\SymfonyCache($cache);
+
+$factory = new \Marek\OpenWeatherMap\Factory\WeatherFactory($configuration, $handler);
 
 $weatherService = $factory->createWeatherService();
 

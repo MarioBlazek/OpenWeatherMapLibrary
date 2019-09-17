@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
@@ -13,7 +15,7 @@ use Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface;
 class HourForecast extends Base implements HourForecastInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityName(CityName $cityName)
     {
@@ -26,7 +28,7 @@ class HourForecast extends Base implements HourForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityId(CityId $cityId)
     {
@@ -39,7 +41,7 @@ class HourForecast extends Base implements HourForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByZipCode(ZipCode $zipCode)
     {
@@ -52,7 +54,7 @@ class HourForecast extends Base implements HourForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityGeographicCoordinates(Latitude $latitude, Longitude $longitude)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Cache;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
@@ -23,10 +25,10 @@ class MemcachedTest extends TestCase
      */
     protected $ttl;
 
-    public function setUp()
+    protected function setUp()
     {
         if (PHP_MAJOR_VERSION === 5) {
-            $this->markTestSkipped();
+            self::markTestSkipped();
         }
 
         $this->memcached = $this->getMockBuilder(\Memcached::class)
@@ -41,12 +43,12 @@ class MemcachedTest extends TestCase
 
     public function testInstanceOfCacheHandler()
     {
-        $this->assertInstanceOf(HandlerInterface::class, $this->cache);
+        self::assertInstanceOf(HandlerInterface::class, $this->cache);
     }
 
     public function testSet()
     {
-        $this->memcached->expects($this->once())
+        $this->memcached->expects(self::once())
             ->method('set')
             ->with('key', 'data', time() + (int) $this->ttl);
 
@@ -55,32 +57,32 @@ class MemcachedTest extends TestCase
 
     public function testHasFalse()
     {
-        $this->memcached->expects($this->once())
+        $this->memcached->expects(self::once())
             ->method('get')
             ->with('key')
             ->willReturn(false);
 
-        $this->assertFalse($this->cache->has('key'));
+        self::assertFalse($this->cache->has('key'));
     }
 
     public function testHasTrue()
     {
-        $this->memcached->expects($this->once())
+        $this->memcached->expects(self::once())
             ->method('get')
             ->with('key')
             ->willReturn(true);
 
-        $this->assertTrue($this->cache->has('key'));
+        self::assertTrue($this->cache->has('key'));
     }
 
     public function testGet()
     {
-        $this->memcached->expects($this->once())
+        $this->memcached->expects(self::once())
             ->method('get')
             ->with('key')
             ->willReturn('data');
 
-        $this->assertEquals('data', $this->cache->get('key'));
+        self::assertSame('data', $this->cache->get('key'));
     }
 
     /**
@@ -89,7 +91,7 @@ class MemcachedTest extends TestCase
      */
     public function testGetWithException()
     {
-        $this->memcached->expects($this->once())
+        $this->memcached->expects(self::once())
             ->method('get')
             ->with('key')
             ->willReturn(null);

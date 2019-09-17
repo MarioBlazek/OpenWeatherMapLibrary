@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Hydrator\Strategy;
 
 use Marek\OpenWeatherMap\API\Value\Response\GeographicCoordinates;
@@ -14,14 +16,14 @@ class GeographicCoordinatesStrategyTest extends TestCase
      */
     protected $strategy;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->strategy = new GeographicCoordinatesStrategy();
     }
 
     public function testInstanceOfStrategyInterface()
     {
-        $this->assertInstanceOf(StrategyInterface::class, $this->strategy);
+        self::assertInstanceOf(StrategyInterface::class, $this->strategy);
     }
 
     /**
@@ -42,9 +44,9 @@ class GeographicCoordinatesStrategyTest extends TestCase
 
         $result = $this->strategy->hydrate($value);
 
-        $this->assertInstanceOf(GeographicCoordinates::class, $result);
-        $this->assertEquals(10, $result->latitude);
-        $this->assertEquals(15, $result->longitude);
+        self::assertInstanceOf(GeographicCoordinates::class, $result);
+        self::assertSame(10, $result->latitude);
+        self::assertSame(15, $result->longitude);
     }
 
     public function testHydrateWithoutValue()
@@ -53,8 +55,8 @@ class GeographicCoordinatesStrategyTest extends TestCase
 
         $result = $this->strategy->hydrate($value);
 
-        $this->assertInstanceOf(GeographicCoordinates::class, $result);
-        $this->assertNull($result->latitude);
-        $this->assertNull($result->longitude);
+        self::assertInstanceOf(GeographicCoordinates::class, $result);
+        self::assertNull($result->latitude);
+        self::assertNull($result->longitude);
     }
 }

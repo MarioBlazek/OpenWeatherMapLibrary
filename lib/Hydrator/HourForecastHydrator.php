@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
@@ -10,13 +12,13 @@ use Marek\OpenWeatherMap\API\Value\Response\Main;
 use Marek\OpenWeatherMap\API\Value\Response\Rain;
 use Marek\OpenWeatherMap\API\Value\Response\Snow;
 use Marek\OpenWeatherMap\API\Value\Response\Sys;
-use Marek\OpenWeatherMap\API\Value\Response\Wind;
 use Marek\OpenWeatherMap\API\Value\Response\WeatherValue;
+use Marek\OpenWeatherMap\API\Value\Response\Wind;
 
 class HourForecastHydrator extends BaseHydrator implements HydratorInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hydrate($data, APIResponse $response)
     {
@@ -25,15 +27,14 @@ class HourForecastHydrator extends BaseHydrator implements HydratorInterface
         }
 
         if (is_string($data)) {
-            $data = json_decode($data, true);
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
         }
 
         $hourForecasts = [];
         foreach ($data['list'] as $item) {
-
             $innerWeather = [];
             foreach ($item['weather'] as $w) {
-                $innerWeather[] = $this->hydrator->hydrate($w, new WeatherValue);
+                $innerWeather[] = $this->hydrator->hydrate($w, new WeatherValue());
             }
 
             $hourForecast = new HourForecast();
@@ -45,7 +46,7 @@ class HourForecastHydrator extends BaseHydrator implements HydratorInterface
             $hourForecast->weather = $innerWeather;
             $hourForecast->sys = $this->getValue('sys', $item, new Sys());
             $hourForecast->dt = $this->getDateTimeFromTimestamp('dt', $item);
-            $hourForecast->dt_txt = empty($data['dt_txt']) ? null : \DateTime::createFromFormat("Y-m-d H:i:s", $data['dt_txt']);
+            $hourForecast->dt_txt = empty($data['dt_txt']) ? null : \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['dt_txt']);
 
             $hourForecasts[] = $hourForecast;
         }

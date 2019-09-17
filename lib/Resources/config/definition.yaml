@@ -1,0 +1,32 @@
+Marek\OpenWeatherMap\API\Value\Response\GeographicCoordinates:
+    attributes:
+        latitude:
+            serialized_name: lat
+        longitude:
+            serialized_name: lon
+
+
+Marek\OpenWeatherMap\API\Value\Response\Main:
+    attributes:
+        temperature:
+            serialized_name: temp
+        minimumTemperature:
+            serialized_name: temp_min
+        maximumTemperature:
+            serialized_name: temp_max
+        seaLevel:
+            serialized_name: sea_level
+        groundLevel:
+            serialized_name: grnd_level
+
+Marek\OpenWeatherMap\API\Value\Response\Rain:
+    attributes:
+        threeHours:
+            serialized_name: 3h
+        oneHour:
+            serialized_name: 1h
+
+Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex:
+    attributes:
+        isoDate:
+            serialized_name: date_iso

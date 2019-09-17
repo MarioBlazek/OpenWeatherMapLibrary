@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
@@ -20,7 +22,7 @@ class HourForecastTest extends WeatherBase
      */
     protected $service;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -29,7 +31,7 @@ class HourForecastTest extends WeatherBase
 
     public function testInstanceOfHourForecastInterface()
     {
-        $this->assertInstanceOf(HourForecastInterface::class, $this->service);
+        self::assertInstanceOf(HourForecastInterface::class, $this->service);
     }
 
     public function testFetchForecastByCityName()
@@ -41,34 +43,33 @@ class HourForecastTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new AggregatedHourForecast();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(HourForecastInterface::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchForecastByCityName($cityName);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchForecastByCityId()
@@ -80,34 +81,33 @@ class HourForecastTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new AggregatedHourForecast();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(HourForecastInterface::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchForecastByCityId($cityId);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchForecastByZipCode()
@@ -119,34 +119,33 @@ class HourForecastTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new AggregatedHourForecast();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(HourForecastInterface::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchForecastByZipCode($zipCode);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchForecastByGeographicCoordinates()
@@ -159,33 +158,32 @@ class HourForecastTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new AggregatedHourForecast();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(HourForecastInterface::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchForecastByCityGeographicCoordinates($latitude, $longitude);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 }

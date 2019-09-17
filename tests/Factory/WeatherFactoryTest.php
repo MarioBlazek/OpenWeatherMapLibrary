@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Factory;
 
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
@@ -20,7 +22,7 @@ class WeatherFactoryTest extends TestCase
      */
     protected $factory;
 
-    public function setUp()
+    protected function setUp()
     {
         $apiConfiguration = new APIConfiguration('token');
         $cacheConfiguration = new CacheConfiguration(CacheConfiguration::NO_CACHE);
@@ -30,31 +32,31 @@ class WeatherFactoryTest extends TestCase
 
     public function testReturnsWeatherServices()
     {
-        $this->assertInstanceOf(WeatherServicesInterface::class, $this->factory->createWeatherServices());
+        self::assertInstanceOf(WeatherServicesInterface::class, $this->factory->createWeatherServices());
     }
 
     public function testReturnsWeatherService()
     {
-        $this->assertInstanceOf(WeatherInterface::class, $this->factory->createWeatherService());
+        self::assertInstanceOf(WeatherInterface::class, $this->factory->createWeatherService());
     }
-    
+
     public function testReturnsUltravioletIndexService()
     {
-        $this->assertInstanceOf(UltravioletIndexInterface::class, $this->factory->createUltravioletIndexService());
+        self::assertInstanceOf(UltravioletIndexInterface::class, $this->factory->createUltravioletIndexService());
     }
-    
+
     public function testReturnsAirPollutionService()
     {
-        $this->assertInstanceOf(AirPollutionInterface::class, $this->factory->createAirPollutionService());
+        self::assertInstanceOf(AirPollutionInterface::class, $this->factory->createAirPollutionService());
     }
 
     public function testReturnsDailyForecastService()
     {
-        $this->assertInstanceOf(DailyForecastInterface::class, $this->factory->createDailyForecastService());
+        self::assertInstanceOf(DailyForecastInterface::class, $this->factory->createDailyForecastService());
     }
 
     public function testReturnsHourForecastService()
     {
-        $this->assertInstanceOf(HourForecastInterface::class, $this->factory->createHourForecastService());
+        self::assertInstanceOf(HourForecastInterface::class, $this->factory->createHourForecastService());
     }
 }

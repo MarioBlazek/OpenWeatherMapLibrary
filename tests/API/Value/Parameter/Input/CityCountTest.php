@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -12,8 +14,8 @@ class CityCountTest extends TestCase
     {
         $input = new CityCount(15);
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('cnt', $input->getGetParameterName());
-        $this->assertEquals('15', $input->getGetParameterValue());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('cnt', $input->getGetParameterName());
+        self::assertSame('15', $input->getGetParameterValue());
     }
 }

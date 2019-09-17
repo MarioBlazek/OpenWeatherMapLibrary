@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Factory;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
-use Marek\OpenWeatherMap\API\Value\Configuration\CacheConfiguration;
 use Marek\OpenWeatherMap\Core\Weather\AirPollution;
 use Marek\OpenWeatherMap\Core\Weather\DailyForecast;
 use Marek\OpenWeatherMap\Core\Weather\HourForecast;
 use Marek\OpenWeatherMap\Core\Weather\UltravioletIndex;
 use Marek\OpenWeatherMap\Core\Weather\Weather;
 use Marek\OpenWeatherMap\Core\WeatherServices;
-use Marek\OpenWeatherMap\Http\Client\HttpClient;
+use Marek\OpenWeatherMap\Denormalizer\AirPollutionDenormalizer;
+use Marek\OpenWeatherMap\Denormalizer\DailyForecastDenormalizer;
+use Marek\OpenWeatherMap\Denormalizer\HourForecastDenormalizer;
+use Marek\OpenWeatherMap\Denormalizer\UltravioletIndexDenormalizer;
+use Marek\OpenWeatherMap\Denormalizer\WeatherDenormalizer;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherMap\Hydrator\AirPollutionHydrator;
-use Marek\OpenWeatherMap\Hydrator\DailyForecastHydrator;
-use Marek\OpenWeatherMap\Hydrator\HourForecastHydrator;
-use Marek\OpenWeatherMap\Hydrator\UltravioletIndexHydrator;
-use Marek\OpenWeatherMap\Hydrator\WeatherHydrator;
+use Marek\OpenWeatherMap\Http\Client\SymfonyHttpClient;
+use Symfony\Component\HttpClient\HttpClient;
 
 class WeatherFactory
 {
@@ -42,27 +44,23 @@ class WeatherFactory
     protected $factory;
 
     /**
-     * @var HydratorFactory
+     * @var DenormalizerFactory
      */
-    protected $hydratorFactory;
+    protected $denormalizerFactory;
 
     /**
      * WeatherFactory constructor.
      *
      * @param APIConfiguration $configuration
-     * @param CacheConfiguration $cacheConfiguration
+     * @param HandlerInterface $cache
      */
-    public function __construct(APIConfiguration $configuration, CacheConfiguration $cacheConfiguration)
+    public function __construct(APIConfiguration $configuration, HandlerInterface $cache)
     {
         $this->configuration = $configuration;
-        $this->httpClient = new HttpClient();
-
-        $cacheFactory = new CacheFactory($cacheConfiguration);
-        $this->cache = $cacheFactory->create();
-
+        $this->httpClient = new SymfonyHttpClient(HttpClient::create());
+        $this->cache = $cache;
         $this->factory = new UrlFactory($this->configuration);
-
-        $this->hydratorFactory = new HydratorFactory();
+        $this->denormalizerFactory = new DenormalizerFactory();
     }
 
     /**
@@ -85,7 +83,10 @@ class WeatherFactory
     public function createWeatherService()
     {
         return new Weather(
-            $this->httpClient, $this->factory, $this->cache, new WeatherHydrator($this->hydratorFactory->create())
+            $this->httpClient,
+            $this->factory,
+            $this->cache,
+            new WeatherDenormalizer($this->denormalizerFactory->create())
         );
     }
 
@@ -95,7 +96,10 @@ class WeatherFactory
     public function createAirPollutionService()
     {
         return new AirPollution(
-            $this->httpClient, $this->factory, $this->cache, new AirPollutionHydrator($this->hydratorFactory->create())
+            $this->httpClient,
+            $this->factory,
+            $this->cache,
+            new AirPollutionDenormalizer($this->denormalizerFactory->create())
         );
     }
 
@@ -105,7 +109,10 @@ class WeatherFactory
     public function createUltravioletIndexService()
     {
         return new UltravioletIndex(
-            $this->httpClient, $this->factory, $this->cache, new UltravioletIndexHydrator($this->hydratorFactory->create())
+            $this->httpClient,
+            $this->factory,
+            $this->cache,
+            new UltravioletIndexDenormalizer($this->denormalizerFactory->create())
         );
     }
 
@@ -115,7 +122,10 @@ class WeatherFactory
     public function createHourForecastService()
     {
         return new HourForecast(
-            $this->httpClient, $this->factory, $this->cache, new HourForecastHydrator($this->hydratorFactory->create())
+            $this->httpClient,
+            $this->factory,
+            $this->cache,
+            new HourForecastDenormalizer($this->denormalizerFactory->create())
         );
     }
 
@@ -125,7 +135,10 @@ class WeatherFactory
     public function createDailyForecastService()
     {
         return new DailyForecast(
-            $this->httpClient,$this->factory, $this->cache, new DailyForecastHydrator($this->hydratorFactory->create())
+            $this->httpClient,
+            $this->factory,
+            $this->cache,
+            new DailyForecastDenormalizer($this->denormalizerFactory->create())
         );
     }
 }

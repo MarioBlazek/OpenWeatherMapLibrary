@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -12,8 +14,8 @@ class BoundingBoxTest extends TestCase
     {
         $input = new BoundingBox(15.5, 20.3, 10.0, 5, 10);
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('bbox', $input->getGetParameterName());
-        $this->assertEquals('15.5,20.3,10,5,10', $input->getGetParameterValue());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('bbox', $input->getGetParameterName());
+        self::assertSame('15.5,20.3,10,5,10', $input->getGetParameterValue());
     }
 }

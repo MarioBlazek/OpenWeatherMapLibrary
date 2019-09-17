@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Configuration;
 
-use Marek\OpenWeatherMap\Constraints\SearchAccuracy;
 use Marek\OpenWeatherMap\Constraints\Language;
+use Marek\OpenWeatherMap\Constraints\SearchAccuracy;
 use Marek\OpenWeatherMap\Constraints\UnitsFormat;
 
-class APIConfiguration
+final class APIConfiguration
 {
     /**
      * @var string
@@ -36,7 +38,7 @@ class APIConfiguration
      * @param string $language
      * @param string $type
      */
-    public function __construct($key, $units = UnitsFormat::STANDARD, $language = Language::ENGLISH, $type = SearchAccuracy::ACCURATE)
+    public function __construct(string $key, string $units = UnitsFormat::STANDARD, string $language = Language::ENGLISH, string $type = SearchAccuracy::ACCURATE)
     {
         $this->key = $key;
         $this->units = $units;
@@ -47,7 +49,7 @@ class APIConfiguration
     /**
      * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -55,7 +57,7 @@ class APIConfiguration
     /**
      * @return string
      */
-    public function getUnits()
+    public function getUnits(): string
     {
         return $this->units;
     }
@@ -63,7 +65,7 @@ class APIConfiguration
     /**
      * @return string
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->language;
     }
@@ -71,7 +73,7 @@ class APIConfiguration
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

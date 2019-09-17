@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
@@ -19,7 +21,7 @@ class AirPollutionTest extends WeatherBase
      */
     protected $service;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -28,7 +30,7 @@ class AirPollutionTest extends WeatherBase
 
     public function testInstanceOfAirPollutionIndex()
     {
-        $this->assertInstanceOf(AirPollutionInterface::class, $this->service);
+        self::assertInstanceOf(AirPollutionInterface::class, $this->service);
     }
 
     public function testFetchOzoneData()
@@ -41,34 +43,33 @@ class AirPollutionTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new Ozone();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(AirPollutionInterface::URL_OZONE)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchOzoneData($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchSulfurDioxideData()
@@ -81,34 +82,33 @@ class AirPollutionTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new SulfurDioxide();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(AirPollutionInterface::URL_SULFUR_DIOXIDE)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchSulfurDioxideData($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchCarbonMonoxideData()
@@ -121,34 +121,33 @@ class AirPollutionTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new Ozone();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(AirPollutionInterface::URL_CARBON_MONOXIDE)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchCarbonMonoxideData($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchNitrogenDioxideData()
@@ -161,33 +160,32 @@ class AirPollutionTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new NitrogenDioxide();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(AirPollutionInterface::URL_NITROGEN_DIOXIDE)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchNitrogenDioxideData($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 }

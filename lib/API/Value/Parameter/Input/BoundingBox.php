@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -50,19 +52,19 @@ class BoundingBox implements GetParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterValue()
     {
-        return (string)$this->longitudeLeft
-            . ',' . (string)$this->latitudeBottom
-            . ',' . (string)$this->longitudeRight
-            . ',' . (string)$this->latitudeTop
-            . ',' . (string)$this->zoom;
+        return (string) $this->longitudeLeft
+            . ',' . (string) $this->latitudeBottom
+            . ',' . (string) $this->longitudeRight
+            . ',' . (string) $this->latitudeTop
+            . ',' . (string) $this->zoom;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterName()
     {

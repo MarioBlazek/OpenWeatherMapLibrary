@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -12,18 +14,18 @@ class CityNameTest extends TestCase
     {
         $input = new CityName('Zagreb');
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('q', $input->getGetParameterName());
-        $this->assertEquals('Zagreb', $input->getGetParameterValue());
-        $this->assertEquals('Zagreb', $input->getName());
-        $this->assertNull($input->getCode());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('q', $input->getGetParameterName());
+        self::assertSame('Zagreb', $input->getGetParameterValue());
+        self::assertSame('Zagreb', $input->getName());
+        self::assertNull($input->getCode());
 
         $input = new CityName('Zagreb', 'HR');
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('q', $input->getGetParameterName());
-        $this->assertEquals('Zagreb,HR', $input->getGetParameterValue());
-        $this->assertEquals('Zagreb', $input->getName());
-        $this->assertEquals('HR', $input->getCode());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('q', $input->getGetParameterName());
+        self::assertSame('Zagreb,HR', $input->getGetParameterValue());
+        self::assertSame('Zagreb', $input->getName());
+        self::assertSame('HR', $input->getCode());
     }
 }

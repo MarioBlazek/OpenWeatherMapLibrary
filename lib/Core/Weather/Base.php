@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
-use Marek\OpenWeatherMap\API\Exception\BadRequestException;
-use Marek\OpenWeatherMap\API\Exception\ExceptionThrower;
-use Marek\OpenWeatherMap\API\Exception\ForbiddenException;
-use Marek\OpenWeatherMap\API\Exception\NotFoundException;
 use Marek\OpenWeatherMap\API\Exception\APIException;
+use Marek\OpenWeatherMap\API\Exception\ExceptionThrower;
 use Marek\OpenWeatherMap\Factory\UrlFactory;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
 use Marek\OpenWeatherMap\Hydrator\HydratorInterface;
+use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
 
 abstract class Base
 {
@@ -30,9 +30,9 @@ abstract class Base
     protected $handler;
 
     /**
-     * @var HydratorInterface
+     * @var \Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface
      */
-    protected $hydrator;
+    protected $denormalizer;
 
     /**
      * Base constructor.
@@ -40,35 +40,33 @@ abstract class Base
      * @param HttpClientInterface $client
      * @param UrlFactory $factory
      * @param HandlerInterface $handler
-     * @param HydratorInterface $hydrator
+     * @param \Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface $hydrator
      */
-    public function __construct(HttpClientInterface $client, UrlFactory $factory, HandlerInterface $handler, HydratorInterface $hydrator)
+    public function __construct(HttpClientInterface $client, UrlFactory $factory, HandlerInterface $handler, DenormalizerInterface $denormalizer)
     {
         $this->client = $client;
         $this->factory = $factory;
         $this->handler = $handler;
-        $this->hydrator = $hydrator;
+        $this->denormalizer = $denormalizer;
     }
 
     /**
      * @param string $url
      *
-     * @return string
-     *
      * @throws APIException
+     *
+     * @return array
      */
-    protected function getResult($url)
+    protected function getResult(string $url): array
     {
-        $hash = md5($url);
-
-        if ($this->handler->has($hash)) {
-            return $this->handler->get($hash);
+        if ($this->handler->has($url)) {
+            return $this->handler->get($url);
         }
 
         $response = $this->client->get($url);
 
         ExceptionThrower::throwException($response->getStatusCode(), $response->getMessage());
 
-        return (string)$response;
+        return $response->getData();
     }
 }

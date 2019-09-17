@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -12,9 +14,9 @@ class CityIdTest extends TestCase
     {
         $input = new CityId(12);
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('id', $input->getGetParameterName());
-        $this->assertEquals('12', $input->getGetParameterValue());
-        $this->assertEquals(12, $input->getCityId());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('id', $input->getGetParameterName());
+        self::assertSame('12', $input->getGetParameterValue());
+        self::assertSame(12, $input->getCityId());
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Zend\Hydrator\HydratorInterface as InternalHydratorInterface;
@@ -21,7 +23,7 @@ abstract class BaseHydrator
      * @param array $data
      * @param $object
      *
-     * @return null|object
+     * @return object|null
      */
     protected function getValue($key, $data, $object)
     {
@@ -49,7 +51,7 @@ abstract class BaseHydrator
     {
         $date = empty($data[$key]) ?
             null :
-            \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $data[$key], new \DateTimeZone('UTC'));
+            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s\Z', $data[$key], new \DateTimeZone('UTC'));
 
         if ($date) {
             return $date;
@@ -66,6 +68,6 @@ abstract class BaseHydrator
      */
     protected function getDateTimeFromTimestamp($key, $data)
     {
-        return empty($data[$key]) ? null : new \DateTime("@{$data[$key]}");
+        return empty($data[$key]) ? null : new \DateTimeImmutable("@{$data[$key]}");
     }
 }

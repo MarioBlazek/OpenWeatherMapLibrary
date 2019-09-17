@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Http\Response;
 
-class JsonResponse implements ResponseInterface
+final class JsonResponse implements ResponseInterface
 {
     /**
      * @var array|string
@@ -20,10 +22,10 @@ class JsonResponse implements ResponseInterface
      * @param string $data
      * @param int $httpCode
      */
-    public function __construct($data, $httpCode)
+    public function __construct(string $data, int $httpCode)
     {
         if ($this->isValidJson($data)) {
-            $data = json_decode($data, true);
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
         }
         $this->data = $data;
 
@@ -39,10 +41,10 @@ class JsonResponse implements ResponseInterface
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (is_array($this->data)) {
-            return json_encode($this->data);
+            return json_encode($this->data, JSON_THROW_ON_ERROR);
         }
 
         return $this->data;
@@ -51,7 +53,7 @@ class JsonResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->httpCode;
     }
@@ -59,7 +61,7 @@ class JsonResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -67,7 +69,7 @@ class JsonResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function isOk()
+    public function isOk(): bool
     {
         if ($this->httpCode === 200) {
             return true;
@@ -79,7 +81,7 @@ class JsonResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function isAuthorized()
+    public function isAuthorized(): bool
     {
         if ($this->httpCode !== 401) {
             return true;
@@ -91,7 +93,7 @@ class JsonResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         if (is_array($this->data) && array_key_exists('message', $this->data)) {
             return $this->data['message'];
@@ -107,13 +109,13 @@ class JsonResponse implements ResponseInterface
      *
      * @return bool
      */
-    protected function isValidJson($string)
+    protected function isValidJson($string): bool
     {
         if (!is_string($string)) {
             return false;
         }
 
-        json_decode($string);
+        json_decode($string, false, 512, JSON_THROW_ON_ERROR);
 
         return json_last_error() === JSON_ERROR_NONE;
     }

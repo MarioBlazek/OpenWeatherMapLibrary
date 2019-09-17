@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -30,15 +32,15 @@ class CityId implements GetParameterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterValue()
     {
-        return (string)$this->cityId;
+        return (string) $this->cityId;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGetParameterName()
     {

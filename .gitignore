@@ -16,3 +16,6 @@
 # Composer PHAR
 /composer.phar
 /composer.lock
+
+/doc/examples/api_key.php
+.php_cs.cache

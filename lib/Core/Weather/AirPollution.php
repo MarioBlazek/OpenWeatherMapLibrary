@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
@@ -13,7 +15,7 @@ use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
 class AirPollution extends Base implements AirPollutionInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchOzoneData(GeographicCoordinates $coordinates, DateTime $datetime)
     {
@@ -23,7 +25,7 @@ class AirPollution extends Base implements AirPollutionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, DateTime $datetime)
     {
@@ -33,7 +35,7 @@ class AirPollution extends Base implements AirPollutionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, DateTime $datetime)
     {
@@ -43,7 +45,7 @@ class AirPollution extends Base implements AirPollutionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, DateTime $datetime)
     {

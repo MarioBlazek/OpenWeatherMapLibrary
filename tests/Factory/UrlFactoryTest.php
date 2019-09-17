@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Factory;
 
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
@@ -24,6 +26,6 @@ class UrlFactoryTest extends TestCase
 
         $url = $factory->build($bag);
 
-        $this->assertEquals('www.example.com/5,5?lon=10&lat=10&appid=my_token&units=standard&lang=en&type=accurate', $url);
+        self::assertSame('www.example.com/5,5?lon=10&lat=10&appid=my_token&units=standard&lang=en&type=accurate', $url);
     }
 }

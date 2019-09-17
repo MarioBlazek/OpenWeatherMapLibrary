@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Constraints;
 
-class UnitsFormat
+final class UnitsFormat
 {
     /**
      * For temperature in Kelvin.
      */
-    const STANDARD = 'standard';
+    public const STANDARD = 'standard';
 
     /**
      * For temperature in Celsius.
      */
-    const METRIC = 'metric';
+    public const METRIC = 'metric';
 
     /**
      * For temperature in Fahrenheit.
      */
-    const IMPERIAL = 'imperial';
+    public const IMPERIAL = 'imperial';
 }

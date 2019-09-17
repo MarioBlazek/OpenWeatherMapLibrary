@@ -1,30 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Weather\Services;
 
+use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\HourForecast\AggregatedHourForecast;
-use Marek\OpenWeatherMap\API\Exception\APIException;
 
 interface HourForecastInterface
 {
     /**
      * Base URL for hour forecast.
      */
-    const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast';
+    public const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast';
 
     /**
      * Call 5 day / 3 hour forecast data by city name.
      *
      * @param CityName $cityName
      *
-     * @return AggregatedHourForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedHourForecast
      */
     public function fetchForecastByCityName(CityName $cityName);
 
@@ -33,9 +35,9 @@ interface HourForecastInterface
      *
      * @param CityId $cityId
      *
-     * @return AggregatedHourForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedHourForecast
      */
     public function fetchForecastByCityId(CityId $cityId);
 
@@ -44,9 +46,9 @@ interface HourForecastInterface
      *
      * @param ZipCode $zipCode
      *
-     * @return AggregatedHourForecast
-     *
      * @throws APIException
+     *
+     * @return AggregatedHourForecast
      */
     public function fetchForecastByZipCode(ZipCode $zipCode);
 

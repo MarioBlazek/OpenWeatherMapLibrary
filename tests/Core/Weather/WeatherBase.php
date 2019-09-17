@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
@@ -30,7 +32,7 @@ class WeatherBase extends TestCase
      */
     protected $hydrator;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->client = $this->getMockBuilder(HttpClientInterface::class)
             ->disableOriginalConstructor()

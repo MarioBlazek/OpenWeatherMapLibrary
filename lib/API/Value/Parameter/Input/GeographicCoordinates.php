@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
@@ -49,9 +51,9 @@ class GeographicCoordinates implements UriParameterInterface
      */
     public function getUriParameterValue()
     {
-        return (string)$this->latitude->getLatitude() .
-            "," .
-            (string)$this->longitude->getLongitude();
+        return (string) $this->latitude->getLatitude() .
+            ',' .
+            (string) $this->longitude->getLongitude();
     }
 
     /**

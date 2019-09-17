@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates;
-use Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface;
 use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex as UltravioletIndexResponse;
+use Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface;
 
 class UltravioletIndex extends Base implements UltravioletIndexInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchUltravioletIndex(GeographicCoordinates $coordinates, DateTime $datetime)
     {
@@ -20,6 +22,6 @@ class UltravioletIndex extends Base implements UltravioletIndexInterface
 
         $result = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($result, new UltravioletIndexResponse());
+        return $this->denormalizer->denormalize($result, new UltravioletIndexResponse());
     }
 }

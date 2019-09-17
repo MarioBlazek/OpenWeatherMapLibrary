@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core;
 
 use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
@@ -41,11 +43,10 @@ class WeatherServicesTest extends TestCase
 
         $service = new WeatherServices($weather, $hourForecast, $dailyForecast, $ultravioletIndex, $airPollution);
 
-
-        $this->assertSame($weather, $service->getWeatherService());
-        $this->assertSame($ultravioletIndex, $service->getUltravioletIndexService());
-        $this->assertSame($airPollution, $service->getAirPollutionService());
-        $this->assertSame($dailyForecast, $service->getDailyForecastService());
-        $this->assertSame($hourForecast, $service->getHourForecastService());
+        self::assertSame($weather, $service->getWeatherService());
+        self::assertSame($ultravioletIndex, $service->getUltravioletIndexService());
+        self::assertSame($airPollution, $service->getAirPollutionService());
+        self::assertSame($dailyForecast, $service->getDailyForecastService());
+        self::assertSame($hourForecast, $service->getHourForecastService());
     }
 }

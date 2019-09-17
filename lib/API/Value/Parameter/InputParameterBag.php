@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Parameter;
 
-class InputParameterBag
+final class InputParameterBag
 {
     /**
      * @var array
@@ -19,7 +21,7 @@ class InputParameterBag
      *
      * @param string $url
      */
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
@@ -27,7 +29,7 @@ class InputParameterBag
     /**
      * @param ParameterInterface $parameter
      */
-    public function setParameter(ParameterInterface $parameter)
+    public function setParameter(ParameterInterface $parameter): void
     {
         $this->parameters[] = $parameter;
     }
@@ -35,7 +37,7 @@ class InputParameterBag
     /**
      * @return ParameterInterface[]
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
@@ -43,7 +45,7 @@ class InputParameterBag
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }

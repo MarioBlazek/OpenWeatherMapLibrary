@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Exception;
 
 use Exception;
 
 abstract class APIException extends Exception
 {
-    const BAD_REQUEST = 400;
+    public const BAD_REQUEST = 400;
 
-    const FORBIDDEN = 403;
+    public const FORBIDDEN = 403;
 
-    const NOT_FOUND = 404;
+    public const NOT_FOUND = 404;
 
-    const UNAUTHORIZED = 401;
+    public const UNAUTHORIZED = 401;
 
     /**
-     * Status code returned from API
+     * Status code returned from API.
      *
      * @var int
      */
@@ -32,9 +34,9 @@ abstract class APIException extends Exception
         parent::__construct($message);
         $this->statusCode = $statusCode;
     }
-    
+
     /**
-     * Returns error message received from API
+     * Returns error message received from API.
      *
      * @return string
      */
@@ -44,7 +46,7 @@ abstract class APIException extends Exception
     }
 
     /**
-     * API status code
+     * API status code.
      *
      * @return int
      */

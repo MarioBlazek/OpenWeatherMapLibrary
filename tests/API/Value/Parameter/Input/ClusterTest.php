@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
@@ -12,16 +14,16 @@ class ClusterTest extends TestCase
     {
         $input = new Cluster();
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('cluster', $input->getGetParameterName());
-        $this->assertEquals('yes', $input->getGetParameterValue());
-        $this->assertEquals('yes', $input->getSelection());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('cluster', $input->getGetParameterName());
+        self::assertSame('yes', $input->getGetParameterValue());
+        self::assertSame('yes', $input->getSelection());
 
         $input = new Cluster(Cluster::NO);
 
-        $this->assertInstanceOf(GetParameterInterface::class, $input);
-        $this->assertEquals('cluster', $input->getGetParameterName());
-        $this->assertEquals('no', $input->getGetParameterValue());
-        $this->assertEquals('no', $input->getSelection());
+        self::assertInstanceOf(GetParameterInterface::class, $input);
+        self::assertSame('cluster', $input->getGetParameterName());
+        self::assertSame('no', $input->getGetParameterValue());
+        self::assertSame('no', $input->getSelection());
     }
 }

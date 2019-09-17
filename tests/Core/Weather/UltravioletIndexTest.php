@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
@@ -15,7 +17,7 @@ class UltravioletIndexTest extends WeatherBase
      */
     protected $service;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -24,7 +26,7 @@ class UltravioletIndexTest extends WeatherBase
 
     public function testInstanceOfUltravioletIndex()
     {
-        $this->assertInstanceOf(UltravioletIndex::class, $this->service);
+        self::assertInstanceOf(UltravioletIndex::class, $this->service);
     }
 
     public function testFetchUltravioletIndex()
@@ -37,34 +39,33 @@ class UltravioletIndexTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new \Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchUltravioletIndex($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     public function testFetchUltravioletIndexFromCache()
@@ -77,37 +78,36 @@ class UltravioletIndexTest extends WeatherBase
         $response = new JsonResponse(['data' => 'data'], 200);
         $endResponse = new \Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex();
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(true);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('get')
             ->with($urlHash)
             ->willReturn('some_data');
 
-        $this->client->expects($this->never())
+        $this->client->expects(self::never())
             ->method('get');
 
-        $this->hydrator->expects($this->once())
+        $this->hydrator->expects(self::once())
             ->method('hydrate')
             ->willReturn($endResponse);
 
         $result = $this->service->fetchUltravioletIndex($coords, $dateTime);
 
-        $this->assertSame($endResponse, $result);
-
+        self::assertSame($endResponse, $result);
     }
 
     /**
@@ -122,27 +122,27 @@ class UltravioletIndexTest extends WeatherBase
         $urlHash = md5($url);
         $response = new JsonResponse(['data' => 'data'], 404);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->never())
+        $this->hydrator->expects(self::never())
             ->method('hydrate');
 
         $this->service->fetchUltravioletIndex($coords, $dateTime);
@@ -160,27 +160,27 @@ class UltravioletIndexTest extends WeatherBase
         $urlHash = md5($url);
         $response = new JsonResponse(['data' => 'data'], 400);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->never())
+        $this->hydrator->expects(self::never())
             ->method('hydrate');
 
         $this->service->fetchUltravioletIndex($coords, $dateTime);
@@ -198,27 +198,27 @@ class UltravioletIndexTest extends WeatherBase
         $urlHash = md5($url);
         $response = new JsonResponse(['data' => 'data'], 401);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->never())
+        $this->hydrator->expects(self::never())
             ->method('hydrate');
 
         $this->service->fetchUltravioletIndex($coords, $dateTime);
@@ -236,27 +236,27 @@ class UltravioletIndexTest extends WeatherBase
         $urlHash = md5($url);
         $response = new JsonResponse(['data' => 'data'], 403);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('buildBag')
             ->with(UltravioletIndex::BASE_URL)
             ->willReturn($parameterBag);
 
-        $this->factory->expects($this->once())
+        $this->factory->expects(self::once())
             ->method('build')
             ->with($parameterBag)
             ->willReturn($url);
 
-        $this->handler->expects($this->once())
+        $this->handler->expects(self::once())
             ->method('has')
             ->with($urlHash)
             ->willReturn(false);
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('get')
             ->with($url)
             ->willReturn($response);
 
-        $this->hydrator->expects($this->never())
+        $this->hydrator->expects(self::never())
             ->method('hydrate');
 
         $this->service->fetchUltravioletIndex($coords, $dateTime);

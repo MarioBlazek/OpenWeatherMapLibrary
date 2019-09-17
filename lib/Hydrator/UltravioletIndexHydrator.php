@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
@@ -9,7 +11,7 @@ use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex;
 class UltravioletIndexHydrator extends BaseHydrator implements HydratorInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hydrate($data, APIResponse $response)
     {
@@ -18,7 +20,7 @@ class UltravioletIndexHydrator extends BaseHydrator implements HydratorInterface
         }
 
         if (is_string($data)) {
-            $data = json_decode($data, true);
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
         }
 
         $response->data = empty($data['data']) ? null : $data['data'];

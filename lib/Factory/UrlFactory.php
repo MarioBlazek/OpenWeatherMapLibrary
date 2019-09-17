@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Factory;
 
+use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag;
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
-use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 
-class UrlFactory
+final class UrlFactory
 {
     /**
      * @var APIConfiguration
      */
-    private $configuration;
+    protected $configuration;
 
     /**
      * UrlFactory constructor.
@@ -29,13 +31,12 @@ class UrlFactory
      *
      * @return string
      */
-    public function build(InputParameterBag $bag)
+    public function build(InputParameterBag $bag): string
     {
         $url = $bag->getUrl();
         $url = $this->transformUriParameters($url, $bag);
-        $url = $this->transformGetParameters($url, $bag);
 
-        return $url;
+        return $this->transformGetParameters($url, $bag);
     }
 
     /**
@@ -43,20 +44,20 @@ class UrlFactory
      *
      * @return InputParameterBag
      */
-    public function buildBag($url)
+    public function buildBag(string $url): InputParameterBag
     {
         return new InputParameterBag($url);
     }
 
     /**
-     * Transforms Uri paramters
+     * Transforms Uri paramters.
      *
      * @param string $url
      * @param InputParameterBag $bag
      *
      * @return string
      */
-    protected function transformUriParameters($url, InputParameterBag $bag)
+    protected function transformUriParameters(string $url, InputParameterBag $bag): string
     {
         foreach ($bag->getParameters() as $item) {
             if ($item instanceof UriParameterInterface) {
@@ -69,14 +70,14 @@ class UrlFactory
     }
 
     /**
-     * Transforms Uri GET parameters
+     * Transforms Uri GET parameters.
      *
      * @param string $url
      * @param InputParameterBag $bag
      *
      * @return string
      */
-    protected function transformGetParameters($url, InputParameterBag $bag)
+    protected function transformGetParameters(string $url, InputParameterBag $bag): string
     {
         $params = [];
         foreach ($bag->getParameters() as $item) {

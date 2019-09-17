@@ -1,29 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex;
 
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 use Marek\OpenWeatherMap\API\Value\Response\Location;
 
-/**
- * @property \DateTime $time
- * @property Location $location
- * @property float $data
- */
 class UltravioletIndex extends APIResponse
 {
     /**
      * @var \DateTime
      */
-    protected $time;
+    public $date;
+
+    /**
+     * @var \DateTime
+     */
+    public $isoDate;
 
     /**
      * @var Location
      */
-    protected $location;
+    public $location;
 
     /**
      * @var float
      */
-    protected $data;
+    public $value;
+
+
 }

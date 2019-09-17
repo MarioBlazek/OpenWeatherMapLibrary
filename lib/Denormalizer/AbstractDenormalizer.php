@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Marek\OpenWeatherMap\Denormalizer;
+
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as InternalDenormalizer;
+
+abstract class AbstractDenormalizer implements DenormalizerInterface
+{
+    public const JSON_FORMAT = 'json';
+
+    /**
+     * @var \Symfony\Component\Serializer\Normalizer\DenormalizerInterface
+     */
+    protected $denormalizer;
+
+    public function __construct(InternalDenormalizer $denormalizer)
+    {
+        $this->denormalizer = $denormalizer;
+    }
+
+    /**
+     * @param string $key
+     * @param array $data
+     * @param string $class
+     *
+     * @return object|null
+     */
+    protected function getValue(string $key, array $data, string $class): ?object
+    {
+        return empty($data[$key]) ? null : $this->denormalizer->denormalize($data[$key], $class);
+    }
+
+    protected function getValues(array $key, array $data, string $class): ?object
+    {
+
+    }
+
+    protected function getDateTimeFromTimestamp($key, $data)
+    {
+        return empty($data[$key]) ? null : new \DateTimeImmutable("@{$data[$key]}");
+    }
+
+    protected function getData(string $key, array $values)
+    {
+        return empty($values[$key]) ? null :  $values[$key];
+    }
+}

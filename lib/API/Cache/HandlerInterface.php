@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Cache;
 
 use Marek\OpenWeatherMap\API\Exception\ItemNotFoundException;
@@ -9,7 +11,7 @@ interface HandlerInterface
     /**
      * @const string
      */
-    const CACHE_KEY_PREFIX = 'marek-openweathermap-';
+    public const CACHE_KEY_PREFIX = 'marek-openweathermap-';
 
     /**
      * Returns if there is a valid cache entry for provided cache key.
@@ -18,7 +20,7 @@ interface HandlerInterface
      *
      * @return bool
      */
-    public function has($cacheKey);
+    public function has(string $cacheKey): bool;
 
     /**
      * Returns the data from cache entry for provided cache key.
@@ -27,15 +29,15 @@ interface HandlerInterface
      *
      * @throws ItemNotFoundException
      *
-     * @return string
+     * @return array
      */
-    public function get($cacheKey);
+    public function get(string $cacheKey): array;
 
     /**
      * Sets the data to cache entry for provided cache key.
      *
      * @param string $cacheKey
-     * @param string $data
+     * @param array $data
      */
-    public function set($cacheKey, $data);
+    public function set(string $cacheKey, array $data): void;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Http\Client;
 
 use Marek\OpenWeatherMap\Http\Response\ResponseInterface;
@@ -11,7 +13,7 @@ interface HttpClientInterface
      *
      * @param string $url
      *
-     * @return ResponseInterface
+     * @return \Marek\OpenWeatherMap\Http\Response\ResponseInterface
      */
-    public function get($url);
+    public function get(string $url): ResponseInterface;
 }

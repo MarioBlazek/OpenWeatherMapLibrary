@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Hydrator\Strategy;
 
 use Marek\OpenWeatherMap\API\Value\Response\GeographicCoordinates;
@@ -8,15 +10,15 @@ use Zend\Hydrator\Strategy\StrategyInterface;
 class GeographicCoordinatesStrategy implements StrategyInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function extract($value)
     {
-        throw new \RuntimeException("This should never be called.");
+        throw new \RuntimeException('This should never be called.');
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hydrate($value)
     {

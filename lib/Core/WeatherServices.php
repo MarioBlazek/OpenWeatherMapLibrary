@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core;
 
 use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
@@ -51,8 +53,7 @@ class WeatherServices implements WeatherServicesInterface
         DailyForecastInterface $dailyForecastService,
         UltravioletIndexInterface $ultravioletIndexService,
         AirPollutionInterface $airPollutionService
-    )
-    {
+    ) {
         $this->weatherService = $weatherService;
         $this->hourForecastService = $hourForecastService;
         $this->dailyForecastService = $dailyForecastService;
@@ -61,7 +62,7 @@ class WeatherServices implements WeatherServicesInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getWeatherService()
     {
@@ -69,7 +70,7 @@ class WeatherServices implements WeatherServicesInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getAirPollutionService()
     {
@@ -77,7 +78,7 @@ class WeatherServices implements WeatherServicesInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUltravioletIndexService()
     {
@@ -85,7 +86,7 @@ class WeatherServices implements WeatherServicesInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getHourForecastService()
     {
@@ -93,7 +94,7 @@ class WeatherServices implements WeatherServicesInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getDailyForecastService()
     {

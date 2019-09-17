@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Tests\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
@@ -12,17 +14,17 @@ class DateTimeTest extends TestCase
     {
         $input = new DateTime();
 
-        $this->assertInstanceOf(UriParameterInterface::class, $input);
-        $this->assertEquals('datetime', $input->getUriParameterName());
-        $this->assertEquals('current', $input->getUriParameterValue());
-        $this->assertEquals('current', $input->getDateTime());
+        self::assertInstanceOf(UriParameterInterface::class, $input);
+        self::assertSame('datetime', $input->getUriParameterName());
+        self::assertSame('current', $input->getUriParameterValue());
+        self::assertSame('current', $input->getDateTime());
 
-        $dt = new \DateTime();
+        $dt = new \DateTimeImmutable();
         $input = new DateTime($dt);
 
-        $this->assertInstanceOf(UriParameterInterface::class, $input);
-        $this->assertEquals('datetime', $input->getUriParameterName());
-        $this->assertEquals($dt->format('Y-m-d\TH:i:s\Z'), $input->getUriParameterValue());
-        $this->assertEquals($dt->format('Y-m-d\TH:i:s\Z'), $input->getDateTime());
+        self::assertInstanceOf(UriParameterInterface::class, $input);
+        self::assertSame('datetime', $input->getUriParameterName());
+        self::assertSame($dt->format('Y-m-d\TH:i:s\Z'), $input->getUriParameterValue());
+        self::assertSame($dt->format('Y-m-d\TH:i:s\Z'), $input->getDateTime());
     }
 }

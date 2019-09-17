@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Factory;
 
 use Marek\OpenWeatherMap\Hydrator\Strategy\GeographicCoordinatesStrategy;

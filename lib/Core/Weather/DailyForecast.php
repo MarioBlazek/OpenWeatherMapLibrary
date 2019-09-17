@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
@@ -14,7 +16,7 @@ use Marek\OpenWeatherMap\API\Weather\Services\DailyForecastInterface;
 class DailyForecast extends Base implements DailyForecastInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityName(CityName $cityName, DaysCount $numberOfDays)
     {
@@ -28,7 +30,7 @@ class DailyForecast extends Base implements DailyForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityId(CityId $cityId, DaysCount $numberOfDays)
     {
@@ -42,7 +44,7 @@ class DailyForecast extends Base implements DailyForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByZipCode(ZipCode $zipCode, DaysCount $numberOfDays)
     {
@@ -56,7 +58,7 @@ class DailyForecast extends Base implements DailyForecastInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchForecastByCityGeographicCoordinates(Latitude $latitude, Longitude $longitude, DaysCount $numberOfDays)
     {

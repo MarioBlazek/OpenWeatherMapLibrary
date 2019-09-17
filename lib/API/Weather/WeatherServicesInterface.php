@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Marek\OpenWeatherMap\API\Weather;
 
 use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
