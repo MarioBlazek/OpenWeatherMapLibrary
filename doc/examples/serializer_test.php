@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Marek\OpenWeatherMap\Factory\DenormalizerFactory;
+use Marek\OpenWeatherMap\Factory\SerializerFactory;
 use Marek\OpenWeatherMap\Denormalizer\UltravioletIndexDenormalizer;
 use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex;
 use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\AggregatedUltravioletIndex;
 
 $data = readJson('uv_index', 'history');
 
-$denormalizerFactory = new DenormalizerFactory();
+$denormalizerFactory = new SerializerFactory();
 $denormalizer = new UltravioletIndexDenormalizer($denormalizerFactory->create());
 
 /** @var \Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex $res */

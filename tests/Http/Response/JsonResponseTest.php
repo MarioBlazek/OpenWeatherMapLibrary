@@ -60,7 +60,9 @@ class JsonResponseTest extends TestCase
         ];
         $code = 401;
 
-        $response = new JsonResponse($data, $code);
+        $encoded = json_encode($data);
+
+        $response = new JsonResponse($encoded, $code);
 
         self::assertSame($data, $response->getData());
         self::assertSame($code, $response->getStatusCode());
@@ -74,12 +76,9 @@ class JsonResponseTest extends TestCase
         $data = '({test})';
         $code = 401;
 
-        $response = new JsonResponse($data, $code);
+        $this->expectException(\JsonException::class);
+        $this->expectExceptionMessage('Syntax error');
 
-        self::assertSame($data, (string) $response);
-        self::assertSame($code, $response->getStatusCode());
-        self::assertFalse($response->isOk());
-        self::assertFalse($response->isAuthorized());
-        self::assertSame('', $response->getMessage());
+        new JsonResponse($data, $code);
     }
 }

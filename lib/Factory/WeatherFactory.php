@@ -46,9 +46,9 @@ class WeatherFactory
     protected $factory;
 
     /**
-     * @var \Marek\OpenWeatherMap\Factory\DenormalizerFactory
+     * @var \Marek\OpenWeatherMap\Factory\SerializerFactory
      */
-    protected $denormalizerFactory;
+    protected $serializerFactory;
 
     /**
      * WeatherFactory constructor.
@@ -62,7 +62,7 @@ class WeatherFactory
         $this->httpClient = new SymfonyHttpClient(HttpClient::create());
         $this->cache = $cache;
         $this->factory = new UrlFactory($this->configuration);
-        $this->denormalizerFactory = new DenormalizerFactory();
+        $this->serializerFactory = new SerializerFactory();
     }
 
     /**
@@ -87,7 +87,7 @@ class WeatherFactory
             $this->httpClient,
             $this->factory,
             $this->cache,
-            new WeatherDenormalizer($this->denormalizerFactory->create())
+            new WeatherDenormalizer($this->serializerFactory->create())
         );
     }
 
@@ -100,7 +100,7 @@ class WeatherFactory
             $this->httpClient,
             $this->factory,
             $this->cache,
-            new AirPollutionDenormalizer($this->denormalizerFactory->create())
+            new AirPollutionDenormalizer($this->serializerFactory->create())
         );
     }
 
@@ -113,7 +113,7 @@ class WeatherFactory
             $this->httpClient,
             $this->factory,
             $this->cache,
-            new UltravioletIndexDenormalizer($this->denormalizerFactory->create())
+            new UltravioletIndexDenormalizer($this->serializerFactory->create())
         );
     }
 
@@ -126,7 +126,7 @@ class WeatherFactory
             $this->httpClient,
             $this->factory,
             $this->cache,
-            new HourForecastDenormalizer($this->denormalizerFactory->create())
+            new HourForecastDenormalizer($this->serializerFactory->create())
         );
     }
 }

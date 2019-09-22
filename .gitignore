@@ -19,3 +19,4 @@
 
 /doc/examples/api_key.php
 .php_cs.cache
+.phpunit.result.cache

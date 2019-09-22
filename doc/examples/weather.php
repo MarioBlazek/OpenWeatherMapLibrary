@@ -21,6 +21,8 @@ $weatherService = $factory->createWeatherService();
 $cityName = new CityName('Zagreb');
 $weather = $weatherService->byCityName($cityName);
 
+dump($weather);
+
 // By city id
 $cityId = new CityId(2172797);
 $weather = $weatherService->byCityId($cityId);

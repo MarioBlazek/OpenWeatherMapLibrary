@@ -7,32 +7,33 @@ namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
 use Marek\OpenWeatherMap\Factory\UrlFactory;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherMap\Hydrator\HydratorInterface;
+use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class WeatherBase extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $client;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $factory;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $handler;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    protected $hydrator;
+    protected $denormalizer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->getMockBuilder(HttpClientInterface::class)
             ->disableOriginalConstructor()
@@ -49,9 +50,9 @@ class WeatherBase extends TestCase
             ->setMethods(['has', 'get', 'set'])
             ->getMock();
 
-        $this->hydrator = $this->getMockBuilder(HydratorInterface::class)
+        $this->denormalizer = $this->getMockBuilder(DenormalizerInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['hydrate'])
+            ->setMethods(['denormalize'])
             ->getMock();
     }
 }

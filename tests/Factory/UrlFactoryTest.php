@@ -20,12 +20,16 @@ class UrlFactoryTest extends TestCase
 
         $bag = $factory->buildBag('www.example.com/{location}');
 
-        $bag->setParameter(new GeographicCoordinates(5, 5));
-        $bag->setParameter(new Longitude(10));
-        $bag->setParameter(new Latitude(10));
+        $latitude = new Latitude(10);
+        $longitude = new Longitude(10);
+        $coordinates = new GeographicCoordinates($latitude, $longitude);
+
+        $bag->setGetParameter($coordinates->getLongitude());
+        $bag->setGetParameter($coordinates->getLatitude());
+        $bag->setUriParameter($coordinates);
 
         $url = $factory->build($bag);
 
-        self::assertSame('www.example.com/5,5?lon=10&lat=10&appid=my_token&units=standard&lang=en&type=accurate', $url);
+        self::assertSame('www.example.com/10,10?lon=10&lat=10&appid=my_token&units=standard&lang=en&type=accurate', $url);
     }
 }

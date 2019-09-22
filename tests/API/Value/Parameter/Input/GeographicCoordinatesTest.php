@@ -14,7 +14,10 @@ class GeographicCoordinatesTest extends TestCase
 {
     public function testItGeneratesValidParameter()
     {
-        $input = new GeographicCoordinates(10, 10);
+        $latitude = new Latitude(10);
+        $longitude = new Longitude(10);
+
+        $input = new GeographicCoordinates($latitude, $longitude);
 
         self::assertInstanceOf(UriParameterInterface::class, $input);
         self::assertSame('location', $input->getUriParameterName());

@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 
-final class DenormalizerFactory
+final class SerializerFactory
 {
     /**
      * @return \Symfony\Component\Serializer\Serializer

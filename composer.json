@@ -39,6 +39,7 @@
         "symfony/property-access": "^4.3"
     },
     "require-dev": {
+        "dg/bypass-finals": "^1.1",
         "friendsofphp/php-cs-fixer": "^2.15",
         "kahlan/kahlan": "^4.6",
         "phpunit/phpunit": "^8.3",

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Marek\OpenWeatherMap\Tests\Core;
 
 use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
-use Marek\OpenWeatherMap\API\Weather\Services\DailyForecastInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
@@ -31,22 +30,16 @@ class WeatherServicesTest extends TestCase
             ->setMethods([])
             ->getMock();
 
-        $dailyForecast = $this->getMockBuilder(DailyForecastInterface::class)
-            ->disableOriginalConstructor()
-            ->setMethods([])
-            ->getMock();
-
         $hourForecast = $this->getMockBuilder(HourForecastInterface::class)
             ->disableOriginalConstructor()
             ->setMethods([])
             ->getMock();
 
-        $service = new WeatherServices($weather, $hourForecast, $dailyForecast, $ultravioletIndex, $airPollution);
+        $service = new WeatherServices($weather, $hourForecast, $ultravioletIndex, $airPollution);
 
         self::assertSame($weather, $service->getWeatherService());
         self::assertSame($ultravioletIndex, $service->getUltravioletIndexService());
         self::assertSame($airPollution, $service->getAirPollutionService());
-        self::assertSame($dailyForecast, $service->getDailyForecastService());
         self::assertSame($hourForecast, $service->getHourForecastService());
     }
 }

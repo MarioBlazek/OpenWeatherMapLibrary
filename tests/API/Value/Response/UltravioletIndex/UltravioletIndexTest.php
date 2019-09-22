@@ -14,62 +14,20 @@ class UltravioletIndexTest extends TestCase
     public function testValueObject()
     {
         $time = new \DateTimeImmutable();
-        $location = new GeographicCoordinates(10, 10);
+        $location = new GeographicCoordinates();
+        $location->longitude = 10;
+        $location->latitude = 10;
 
-        $value = new UltravioletIndex([
-            'time' => $time,
-            'location' => $location,
-            'data' => 34.3,
-        ]);
-
-        self::assertInstanceOf(APIResponse::class, $value);
-        self::assertSame($time, $value->time);
-        self::assertSame($location, $value->location);
-        self::assertSame(34.3, $value->data);
-    }
-
-    /**
-     * @expectedException \Marek\OpenWeatherMap\API\Exception\PropertyNotFoundException
-     * @expectedExceptionMessage Cannot find property test on class Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex
-     */
-    public function testValueObjectGetWithException()
-    {
-        $time = new \DateTimeImmutable();
-
-        $value = new UltravioletIndex([
-            'time' => $time,
-        ]);
-
-        self::assertInstanceOf(APIResponse::class, $value);
-        $value->test;
-    }
-
-    /**
-     * @expectedException \Marek\OpenWeatherMap\API\Exception\PropertyNotFoundException
-     * @expectedExceptionMessage Cannot find property test on class Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex
-     */
-    public function testValueObjectSetWithException()
-    {
-        $time = new \DateTimeImmutable();
-
-        $value = new UltravioletIndex([
-            'time' => $time,
-        ]);
-
-        self::assertInstanceOf(APIResponse::class, $value);
-        $value->test = 'test';
-    }
-
-    public function testValueObjectSet()
-    {
-        $time = new \DateTimeImmutable();
-        $location = new GeographicCoordinates(10, 10);
-
-        $value = new UltravioletIndex([
-            'time' => $time,
-        ]);
-
-        self::assertInstanceOf(APIResponse::class, $value);
+        $value = new UltravioletIndex();
+        $value->date = $time;
+        $value->isoDate = $time;
         $value->location = $location;
+        $value->value = 34.3;
+
+        self::assertInstanceOf(APIResponse::class, $value);
+        self::assertSame($time, $value->date);
+        self::assertSame($time, $value->isoDate);
+        self::assertSame($location, $value->location);
+        self::assertSame(34.3, $value->value);
     }
 }

@@ -10,12 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class NotFoundExceptionTest extends TestCase
 {
-    /**
-     * @expectedException \Marek\OpenWeatherMap\API\Exception\NotFoundException
-     * @expectedExceptionMessage Item not found
-     */
     public function testException()
     {
+        $this->expectException(\Marek\OpenWeatherMap\API\Exception\NotFoundException::class);
+        $this->expectExceptionMessage('Item not found');
+
         $exception = new NotFoundException('Item not found', APIException::NOT_FOUND);
         self::assertSame('Item not found', $exception->getAPIMessage());
         self::assertSame(APIException::NOT_FOUND, $exception->getStatusCode());
