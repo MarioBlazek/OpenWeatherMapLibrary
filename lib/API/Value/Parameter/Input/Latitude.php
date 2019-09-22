@@ -18,7 +18,7 @@ class Latitude implements GetParameterInterface
      *
      * @param float $latitude
      */
-    public function __construct($latitude)
+    public function __construct(float $latitude)
     {
         $this->latitude = $latitude;
     }

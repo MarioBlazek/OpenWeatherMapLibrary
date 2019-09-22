@@ -25,7 +25,7 @@ class Weather extends Base implements WeatherInterface
     public function byCityName(CityName $cityName)
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
-        $params->setParameter($cityName);
+        $params->setGetParameter($cityName);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -38,7 +38,7 @@ class Weather extends Base implements WeatherInterface
     public function byCityId(CityId $cityId)
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
-        $params->setParameter($cityId);
+        $params->setGetParameter($cityId);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -51,8 +51,8 @@ class Weather extends Base implements WeatherInterface
     public function byGeographicCoordinates(Latitude $latitude, Longitude $longitude)
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
-        $params->setParameter($latitude);
-        $params->setParameter($longitude);
+        $params->setGetParameter($latitude);
+        $params->setGetParameter($longitude);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -65,7 +65,7 @@ class Weather extends Base implements WeatherInterface
     public function byZipCode(ZipCode $zipCode)
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
-        $params->setParameter($zipCode);
+        $params->setGetParameter($zipCode);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -78,8 +78,8 @@ class Weather extends Base implements WeatherInterface
     public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster)
     {
         $params = $this->factory->buildBag(self::URL_BBOX);
-        $params->setParameter($bbox);
-        $params->setParameter($cluster);
+        $params->setGetParameter($bbox);
+        $params->setGetParameter($cluster);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -92,10 +92,10 @@ class Weather extends Base implements WeatherInterface
     public function inCycle(Latitude $latitude, Longitude $longitude, Cluster $cluster, CityCount $cnt)
     {
         $params = $this->factory->buildBag(self::URL_CYCLE);
-        $params->setParameter($latitude);
-        $params->setParameter($longitude);
-        $params->setParameter($cluster);
-        $params->setParameter($cnt);
+        $params->setGetParameter($latitude);
+        $params->setGetParameter($longitude);
+        $params->setGetParameter($cluster);
+        $params->setGetParameter($cnt);
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -108,7 +108,7 @@ class Weather extends Base implements WeatherInterface
     public function severalCityIds(CityIds $cityIds)
     {
         $params = $this->factory->buildBag(self::URL_CITIES);
-        $params->setParameter($cityIds);
+        $params->setGetParameter($cityIds);
 
         $response = $this->getResult($this->factory->build($params));
 

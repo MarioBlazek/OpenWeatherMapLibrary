@@ -4,27 +4,24 @@ declare(strict_types=1);
 
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
+use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
 
-class DateTime implements UriParameterInterface
+class DateTime implements GetParameterInterface, UriParameterInterface
 {
     /**
-     * @var string
+     * @var \DateTimeInterface
      */
     protected $datetime;
 
     /**
      * Datetime constructor.
      *
-     * @param \DateTime|string $datetime
+     * @param \DateTimeInterface $datetime
      */
-    public function __construct($datetime = 'current')
+    public function __construct(\DateTimeInterface $datetime)
     {
-        if ($datetime instanceof \DateTimeImmutable) {
-            $this->datetime = $datetime->format('Y-m-d\TH:i:s\Z');
-        } else {
-            $this->datetime = $datetime;
-        }
+        $this->datetime = $datetime;
     }
 
     /**
@@ -38,16 +35,25 @@ class DateTime implements UriParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getUriParameterValue()
+    public function getGetParameterValue()
     {
-        return $this->datetime;
+        return $this->datetime->getTimestamp();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function getGetParameterName()
+    {
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function getUriParameterValue()
+    {
+        return $this->datetime->format('Y-m-d\TH:i:s\Z');
+    }
+
     public function getUriParameterName()
     {
         return 'datetime';
     }
+
+
 }

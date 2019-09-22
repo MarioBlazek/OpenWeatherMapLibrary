@@ -13,11 +13,10 @@ PHP library for working with http://openweathermap.org/ API.
 Implemented features
 --------------------
 
-* [Current weather data](doc/WEATHER.md)
-* 5 day / 3 hour forecast
-* 16 day / daily forecast
+* [Current weather API](doc/WEATHER.md)
+* [5 days/3 hour forecast API](doc/FORECAST.md)
 * [UV Index](doc/UV.md)
-* Air pollution
+* Air pollution (beta)
 
 License, docs and installation instructions
 -------------------------------------

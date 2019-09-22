@@ -9,7 +9,12 @@ final class InputParameterBag
     /**
      * @var array
      */
-    protected $parameters = [];
+    protected $getParameters = [];
+
+    /**
+     * @var array
+     */
+    protected $uriParameters = [];
 
     /**
      * @var string
@@ -27,19 +32,29 @@ final class InputParameterBag
     }
 
     /**
-     * @param ParameterInterface $parameter
+     * @param GetParameterInterface $parameter
      */
-    public function setParameter(ParameterInterface $parameter): void
+    public function setGetParameter(GetParameterInterface $parameter): void
     {
-        $this->parameters[] = $parameter;
+        $this->getParameters[] = $parameter;
+    }
+
+    public function getGetParameters(): array
+    {
+        return $this->getParameters;
+    }
+
+    public function setUriParameter(UriParameterInterface $parameter): void
+    {
+        $this->uriParameters[] = $parameter;
     }
 
     /**
      * @return ParameterInterface[]
      */
-    public function getParameters(): array
+    public function getUriParameters(): array
     {
-        return $this->parameters;
+        return $this->uriParameters;
     }
 
     /**

@@ -21,7 +21,7 @@ class AirPollution extends Base implements AirPollutionInterface
     {
         $response = $this->getResultWithParams(self::URL_OZONE, $coordinates, $datetime);
 
-        return $this->hydrator->hydrate($response, new Ozone());
+        return $this->denormalizer->denormalize($response, new Ozone());
     }
 
     /**
@@ -31,7 +31,7 @@ class AirPollution extends Base implements AirPollutionInterface
     {
         $response = $this->getResultWithParams(self::URL_CARBON_MONOXIDE, $coordinates, $datetime);
 
-        return $this->hydrator->hydrate($response, new CarbonMonoxide());
+        return $this->denormalizer->denormalize($response, new CarbonMonoxide());
     }
 
     /**
@@ -41,7 +41,7 @@ class AirPollution extends Base implements AirPollutionInterface
     {
         $response = $this->getResultWithParams(self::URL_SULFUR_DIOXIDE, $coordinates, $datetime);
 
-        return $this->hydrator->hydrate($response, new SulfurDioxide());
+        return $this->denormalizer->denormalize($response, new SulfurDioxide());
     }
 
     /**
@@ -51,7 +51,7 @@ class AirPollution extends Base implements AirPollutionInterface
     {
         $response = $this->getResultWithParams(self::URL_NITROGEN_DIOXIDE, $coordinates, $datetime);
 
-        return $this->hydrator->hydrate($response, new NitrogenDioxide());
+        return $this->denormalizer->denormalize($response, new NitrogenDioxide());
     }
 
     /**
@@ -59,13 +59,13 @@ class AirPollution extends Base implements AirPollutionInterface
      * @param GeographicCoordinates $coordinates
      * @param DateTime $datetime
      *
-     * @return string
+     * @return array
      */
     protected function getResultWithParams($url, GeographicCoordinates $coordinates, DateTime $datetime)
     {
         $params = $this->factory->buildBag($url);
-        $params->setParameter($coordinates);
-        $params->setParameter($datetime);
+        $params->setUriParameter($coordinates);
+        $params->setUriParameter($datetime);
 
         return $this->getResult($this->factory->build($params));
     }

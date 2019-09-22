@@ -7,6 +7,7 @@ namespace Marek\OpenWeatherMap\Factory;
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag;
+use Marek\OpenWeatherMap\API\Value\Parameter\MultipleGetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
 
 final class UrlFactory
@@ -36,6 +37,7 @@ final class UrlFactory
         $url = $bag->getUrl();
         $url = $this->transformUriParameters($url, $bag);
 
+
         return $this->transformGetParameters($url, $bag);
     }
 
@@ -59,7 +61,7 @@ final class UrlFactory
      */
     protected function transformUriParameters(string $url, InputParameterBag $bag): string
     {
-        foreach ($bag->getParameters() as $item) {
+        foreach ($bag->getUriParameters() as $item) {
             if ($item instanceof UriParameterInterface) {
                 $name = '{' . $item->getUriParameterName() . '}';
                 $url = str_replace($name, $item->getUriParameterValue(), $url);
@@ -80,7 +82,7 @@ final class UrlFactory
     protected function transformGetParameters(string $url, InputParameterBag $bag): string
     {
         $params = [];
-        foreach ($bag->getParameters() as $item) {
+        foreach ($bag->getGetParameters() as $item) {
             if ($item instanceof GetParameterInterface) {
                 $params[$item->getGetParameterName()] = $item->getGetParameterValue();
             }
@@ -91,6 +93,8 @@ final class UrlFactory
         $params['lang'] = $this->configuration->getLanguage();
         $params['type'] = $this->configuration->getType();
 
-        return $url . '?' . http_build_query($params);
+        $url = $url . '?' . http_build_query($params);
+        dump($url);
+        return $url;
     }
 }

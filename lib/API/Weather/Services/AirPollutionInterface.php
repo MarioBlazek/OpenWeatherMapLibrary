@@ -19,6 +19,7 @@ interface AirPollutionInterface
      */
     public const URL_CARBON_MONOXIDE = 'http://api.openweathermap.org/pollution/v1/co/{location}/{datetime}.json';
 
+
     /**
      * Ozone Data (O3) URL.
      */

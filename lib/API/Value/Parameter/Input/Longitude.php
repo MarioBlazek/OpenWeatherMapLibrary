@@ -18,7 +18,7 @@ class Longitude implements GetParameterInterface
      *
      * @param float $longitude
      */
-    public function __construct($longitude)
+    public function __construct(float $longitude)
     {
         $this->longitude = $longitude;
     }

@@ -44,6 +44,6 @@ abstract class AbstractDenormalizer implements DenormalizerInterface
 
     protected function getData(string $key, array $values)
     {
-        return empty($values[$key]) ? null :  $values[$key];
+        return $values[$key] === null ? null :  $values[$key];
     }
 }

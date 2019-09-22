@@ -2,48 +2,69 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Marek\OpenWeatherMap\Core\Cache\SymfonyCache;
+use Marek\OpenWeatherMap\Factory\WeatherFactory;
+use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityIds;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityCount;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\BoundingBox;
+use Marek\OpenWeatherMap\Constraints\UnitsFormat;
+
 $key = require_once __DIR__ . '/api_key.php';
 
-$configuration = new \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration($key);
-$cache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-$handler = new \Marek\OpenWeatherMap\Core\Cache\SymfonyCache($cache);
+$configuration = new APIConfiguration(
+    $key,
+    UnitsFormat::METRIC
+);
+$cache = new FilesystemAdapter();
+$handler = new SymfonyCache($cache);
 
-$factory = new \Marek\OpenWeatherMap\Factory\WeatherFactory($configuration, $handler);
+$factory = new WeatherFactory($configuration, $handler);
 
+/** @var WeatherInterface $weatherService */
 $weatherService = $factory->createWeatherService();
 
 // By city name
-$cityName = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName('Zagreb');
+$cityName = new CityName('Zagreb');
 $weather = $weatherService->byCityName($cityName);
 
 // By city id
-$cityId = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(2172797);
+$cityId = new CityId(2172797);
 $weather = $weatherService->byCityId($cityId);
 
+
 // By geographic coordinates
-$latitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude(35);
-$longitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude(139);
+$latitude = new Latitude(35);
+$longitude = new Longitude(139);
 $weather = $weatherService->byGeographicCoordinates($latitude, $longitude);
 
 // By zip code
-$zipCode = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode(94040, 'us');
+$zipCode = new ZipCode(94040, 'us');
 $weather = $weatherService->byZipCode($zipCode);
 
 // By rectangle zone
-$bbox = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\BoundingBox(12, 32, 15, 37, 10);
-$cluster = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster();
+$bbox = new BoundingBox(12, 32, 15, 37, 10);
+$cluster = new Cluster();
 $weather = $weatherService->withinARectangleZone($bbox, $cluster);
 
 // By cycle
-$latitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude(55.5);
-$longitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude(37.5);
-$cluster = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster();
-$cityCount = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityCount();
+$latitude = new Latitude(55.5);
+$longitude = new Longitude(37.5);
+$cluster = new Cluster();
+$cityCount = new CityCount();
 $weather = $weatherService->inCycle($latitude, $longitude, $cluster, $cityCount);
 
 // Several city ids
-$cityIdOne = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(524901);
-$cityIdTwo = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(703448);
-$cityIdThree = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(2643743);
-$cityIds = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityIds([$cityIdOne, $cityIdTwo, $cityIdThree]);
+$cityIdOne = new CityId(524901);
+$cityIdTwo = new CityId(703448);
+$cityIdThree = new CityId(2643743);
+$cityIds = new CityIds([$cityIdOne, $cityIdTwo, $cityIdThree]);
 $weather = $weatherService->severalCityIds($cityIds);
