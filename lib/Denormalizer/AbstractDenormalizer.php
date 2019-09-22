@@ -35,11 +35,6 @@ abstract class AbstractDenormalizer implements DenormalizerInterface
         return empty($data[$key]) ? null : $this->denormalizer->denormalize($data[$key], $class);
     }
 
-    protected function getValues(array $key, array $data, string $class): ?object
-    {
-
-    }
-
     protected function getDateTimeFromTimestamp($key, $data)
     {
         return empty($data[$key]) ? null : new \DateTimeImmutable("@{$data[$key]}");
