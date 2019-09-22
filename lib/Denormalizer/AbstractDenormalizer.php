@@ -8,13 +8,16 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface as InternalDen
 
 abstract class AbstractDenormalizer implements DenormalizerInterface
 {
-    public const JSON_FORMAT = 'json';
-
     /**
      * @var \Symfony\Component\Serializer\Normalizer\DenormalizerInterface
      */
     protected $denormalizer;
 
+    /**
+     * AbstractDenormalizer constructor.
+     *
+     * @param \Symfony\Component\Serializer\Normalizer\DenormalizerInterface $denormalizer
+     */
     public function __construct(InternalDenormalizer $denormalizer)
     {
         $this->denormalizer = $denormalizer;

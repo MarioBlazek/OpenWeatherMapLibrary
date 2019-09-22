@@ -7,20 +7,19 @@ namespace Marek\OpenWeatherMap\Factory;
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag;
-use Marek\OpenWeatherMap\API\Value\Parameter\MultipleGetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
 
 final class UrlFactory
 {
     /**
-     * @var APIConfiguration
+     * @var \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration
      */
     protected $configuration;
 
     /**
      * UrlFactory constructor.
      *
-     * @param APIConfiguration $configuration
+     * @param \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration $configuration
      */
     public function __construct(APIConfiguration $configuration)
     {
@@ -28,7 +27,7 @@ final class UrlFactory
     }
 
     /**
-     * @param InputParameterBag $bag
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag $bag
      *
      * @return string
      */
@@ -44,7 +43,7 @@ final class UrlFactory
     /**
      * @param string $url
      *
-     * @return InputParameterBag
+     * @return \Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag
      */
     public function buildBag(string $url): InputParameterBag
     {
@@ -55,7 +54,7 @@ final class UrlFactory
      * Transforms Uri paramters.
      *
      * @param string $url
-     * @param InputParameterBag $bag
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag $bag
      *
      * @return string
      */
@@ -75,7 +74,7 @@ final class UrlFactory
      * Transforms Uri GET parameters.
      *
      * @param string $url
-     * @param InputParameterBag $bag
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\InputParameterBag $bag
      *
      * @return string
      */
@@ -94,7 +93,7 @@ final class UrlFactory
         $params['type'] = $this->configuration->getType();
 
         $url = $url . '?' . http_build_query($params);
-        dump($url);
+
         return $url;
     }
 }

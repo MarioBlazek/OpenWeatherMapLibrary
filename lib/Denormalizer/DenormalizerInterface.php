@@ -9,7 +9,7 @@ use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 interface DenormalizerInterface
 {
     /**
-     * Hydrates response.
+     * Denormalizes a response.
      *
      * @param array $data
      * @param \Marek\OpenWeatherMap\API\Value\Response\APIResponse $response

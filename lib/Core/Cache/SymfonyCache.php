@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Marek\OpenWeatherMap\Core\Cache;
 
-
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
-use Marek\OpenWeatherMap\API\Exception\ItemNotFoundException;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 class SymfonyCache implements HandlerInterface
@@ -20,6 +19,12 @@ class SymfonyCache implements HandlerInterface
      */
     protected $timeToLive;
 
+    /**
+     * SymfonyCache constructor.
+     *
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $cache
+     * @param int $timeToLive
+     */
     public function __construct(AdapterInterface $cache, int $timeToLive = 3600)
     {
         $this->cache = $cache;

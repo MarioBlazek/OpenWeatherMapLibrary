@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Marek\OpenWeatherMap\Core;
 
 use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
-use Marek\OpenWeatherMap\API\Weather\Services\DailyForecastInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface;
 use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
@@ -14,49 +13,41 @@ use Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface;
 class WeatherServices implements WeatherServicesInterface
 {
     /**
-     * @var WeatherInterface
+     * @var \Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface
      */
     protected $weatherService;
 
     /**
-     * @var HourForecastInterface
+     * @var \Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface
      */
     protected $hourForecastService;
 
     /**
-     * @var DailyForecastInterface
-     */
-    protected $dailyForecastService;
-
-    /**
-     * @var UltravioletIndexInterface
+     * @var \Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface
      */
     protected $ultravioletIndexService;
 
     /**
-     * @var AirPollutionInterface
+     * @var \Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface
      */
     protected $airPollutionService;
 
     /**
      * WeatherServices constructor.
      *
-     * @param WeatherInterface $weatherService
-     * @param HourForecastInterface $hourForecastService
-     * @param DailyForecastInterface $dailyForecastService
-     * @param UltravioletIndexInterface $ultravioletIndexService
-     * @param AirPollutionInterface $airPollutionService
+     * @param \Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface $weatherService
+     * @param \Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface $hourForecastService
+     * @param \Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface $ultravioletIndexService
+     * @param \Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface $airPollutionService
      */
     public function __construct(
         WeatherInterface $weatherService,
         HourForecastInterface $hourForecastService,
-        DailyForecastInterface $dailyForecastService,
         UltravioletIndexInterface $ultravioletIndexService,
         AirPollutionInterface $airPollutionService
     ) {
         $this->weatherService = $weatherService;
         $this->hourForecastService = $hourForecastService;
-        $this->dailyForecastService = $dailyForecastService;
         $this->ultravioletIndexService = $ultravioletIndexService;
         $this->airPollutionService = $airPollutionService;
     }
@@ -64,7 +55,7 @@ class WeatherServices implements WeatherServicesInterface
     /**
      * {@inheritdoc}
      */
-    public function getWeatherService()
+    public function getWeatherService(): WeatherInterface
     {
         return $this->weatherService;
     }
@@ -72,7 +63,7 @@ class WeatherServices implements WeatherServicesInterface
     /**
      * {@inheritdoc}
      */
-    public function getAirPollutionService()
+    public function getAirPollutionService(): AirPollutionInterface
     {
         return $this->airPollutionService;
     }
@@ -80,7 +71,7 @@ class WeatherServices implements WeatherServicesInterface
     /**
      * {@inheritdoc}
      */
-    public function getUltravioletIndexService()
+    public function getUltravioletIndexService(): UltravioletIndexInterface
     {
         return $this->ultravioletIndexService;
     }
@@ -88,16 +79,8 @@ class WeatherServices implements WeatherServicesInterface
     /**
      * {@inheritdoc}
      */
-    public function getHourForecastService()
+    public function getHourForecastService(): HourForecastInterface
     {
         return $this->hourForecastService;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDailyForecastService()
-    {
-        return $this->dailyForecastService;
     }
 }

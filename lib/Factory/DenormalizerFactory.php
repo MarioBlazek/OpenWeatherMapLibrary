@@ -13,7 +13,10 @@ use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 
 final class DenormalizerFactory
 {
-    public function create()
+    /**
+     * @return \Symfony\Component\Serializer\Serializer
+     */
+    public function create(): Serializer
     {
         $classMetadataFactory = new ClassMetadataFactory(
             new YamlFileLoader(__DIR__ . '/../Resources/config/definition.yaml')

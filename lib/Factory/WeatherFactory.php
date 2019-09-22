@@ -7,52 +7,54 @@ namespace Marek\OpenWeatherMap\Factory;
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
 use Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration;
 use Marek\OpenWeatherMap\Core\Weather\AirPollution;
-use Marek\OpenWeatherMap\Core\Weather\DailyForecast;
 use Marek\OpenWeatherMap\Core\Weather\HourForecast;
 use Marek\OpenWeatherMap\Core\Weather\UltravioletIndex;
 use Marek\OpenWeatherMap\Core\Weather\Weather;
 use Marek\OpenWeatherMap\Core\WeatherServices;
+use Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface;
+use Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface;
+use Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface;
+use Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface;
+use Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface;
 use Marek\OpenWeatherMap\Denormalizer\AirPollutionDenormalizer;
-use Marek\OpenWeatherMap\Denormalizer\DailyForecastDenormalizer;
 use Marek\OpenWeatherMap\Denormalizer\HourForecastDenormalizer;
 use Marek\OpenWeatherMap\Denormalizer\UltravioletIndexDenormalizer;
 use Marek\OpenWeatherMap\Denormalizer\WeatherDenormalizer;
-use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
 use Marek\OpenWeatherMap\Http\Client\SymfonyHttpClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 class WeatherFactory
 {
     /**
-     * @var APIConfiguration
+     * @var \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration
      */
     protected $configuration;
 
     /**
-     * @var HttpClientInterface
+     * @var \Marek\OpenWeatherMap\Http\Client\HttpClientInterface
      */
     protected $httpClient;
 
     /**
-     * @var HandlerInterface
+     * @var \Marek\OpenWeatherMap\API\Cache\HandlerInterface
      */
     protected $cache;
 
     /**
-     * @var UrlFactory
+     * @var \Marek\OpenWeatherMap\Factory\UrlFactory
      */
     protected $factory;
 
     /**
-     * @var DenormalizerFactory
+     * @var \Marek\OpenWeatherMap\Factory\DenormalizerFactory
      */
     protected $denormalizerFactory;
 
     /**
      * WeatherFactory constructor.
      *
-     * @param APIConfiguration $configuration
-     * @param HandlerInterface $cache
+     * @param \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration $configuration
+     * @param \Marek\OpenWeatherMap\API\Cache\HandlerInterface $cache
      */
     public function __construct(APIConfiguration $configuration, HandlerInterface $cache)
     {
@@ -64,23 +66,22 @@ class WeatherFactory
     }
 
     /**
-     * @return WeatherServices
+     * @return \Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface
      */
-    public function createWeatherServices()
+    public function createWeatherServices(): WeatherServicesInterface
     {
         return new WeatherServices(
             $this->createWeatherService(),
             $this->createHourForecastService(),
-            $this->createDailyForecastService(),
             $this->createUltravioletIndexService(),
             $this->createAirPollutionService()
         );
     }
 
     /**
-     * @return Weather
+     * @return \Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface
      */
-    public function createWeatherService()
+    public function createWeatherService(): WeatherInterface
     {
         return new Weather(
             $this->httpClient,
@@ -91,9 +92,9 @@ class WeatherFactory
     }
 
     /**
-     * @return AirPollution
+     * @return \Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface
      */
-    public function createAirPollutionService()
+    public function createAirPollutionService(): AirPollutionInterface
     {
         return new AirPollution(
             $this->httpClient,
@@ -104,9 +105,9 @@ class WeatherFactory
     }
 
     /**
-     * @return UltravioletIndex
+     * @return \Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface
      */
-    public function createUltravioletIndexService()
+    public function createUltravioletIndexService(): UltravioletIndexInterface
     {
         return new UltravioletIndex(
             $this->httpClient,
@@ -117,28 +118,15 @@ class WeatherFactory
     }
 
     /**
-     * @return HourForecast
+     * @return \Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface
      */
-    public function createHourForecastService()
+    public function createHourForecastService(): HourForecastInterface
     {
         return new HourForecast(
             $this->httpClient,
             $this->factory,
             $this->cache,
             new HourForecastDenormalizer($this->denormalizerFactory->create())
-        );
-    }
-
-    /**
-     * @return DailyForecast
-     */
-    public function createDailyForecastService()
-    {
-        return new DailyForecast(
-            $this->httpClient,
-            $this->factory,
-            $this->cache,
-            new DailyForecastDenormalizer($this->denormalizerFactory->create())
         );
     }
 }
