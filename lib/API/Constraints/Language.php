@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marek\OpenWeatherMap\Constraints;
+namespace Marek\OpenWeatherMap\API\Constraints;
 
 final class Language
 {

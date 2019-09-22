@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Marek\OpenWeatherMap\API\Value\Configuration;
 
-use Marek\OpenWeatherMap\Constraints\Language;
-use Marek\OpenWeatherMap\Constraints\SearchAccuracy;
-use Marek\OpenWeatherMap\Constraints\UnitsFormat;
+use Marek\OpenWeatherMap\API\Constraints\Language;
+use Marek\OpenWeatherMap\API\Constraints\SearchAccuracy;
+use Marek\OpenWeatherMap\API\Constraints\UnitsFormat;
 
 final class APIConfiguration
 {

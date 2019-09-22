@@ -17,7 +17,7 @@ class AirPollution extends Base implements AirPollutionInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchOzoneData(GeographicCoordinates $coordinates, DateTime $datetime)
+    public function fetchOzoneData(GeographicCoordinates $coordinates, DateTime $datetime): Ozone
     {
         $response = $this->getResultWithParams(self::URL_OZONE, $coordinates, $datetime);
 
@@ -27,7 +27,7 @@ class AirPollution extends Base implements AirPollutionInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, DateTime $datetime)
+    public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, DateTime $datetime): CarbonMonoxide
     {
         $response = $this->getResultWithParams(self::URL_CARBON_MONOXIDE, $coordinates, $datetime);
 
@@ -37,7 +37,7 @@ class AirPollution extends Base implements AirPollutionInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, DateTime $datetime)
+    public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, DateTime $datetime): SulfurDioxide
     {
         $response = $this->getResultWithParams(self::URL_SULFUR_DIOXIDE, $coordinates, $datetime);
 
@@ -47,7 +47,7 @@ class AirPollution extends Base implements AirPollutionInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, DateTime $datetime)
+    public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, DateTime $datetime): NitrogenDioxide
     {
         $response = $this->getResultWithParams(self::URL_NITROGEN_DIOXIDE, $coordinates, $datetime);
 

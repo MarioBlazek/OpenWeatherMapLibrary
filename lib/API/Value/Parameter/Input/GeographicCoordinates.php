@@ -21,13 +21,13 @@ class GeographicCoordinates implements UriParameterInterface
     /**
      * GeographicCoordinates constructor.
      *
-     * @param float $latitude
-     * @param float $longitude
+     * @param Latitude $latitude
+     * @param Longitude $longitude
      */
-    public function __construct($latitude, $longitude)
+    public function __construct(Latitude $latitude, Longitude $longitude)
     {
-        $this->latitude = new Latitude($latitude);
-        $this->longitude = new Longitude($longitude);
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
     }
 
     /**

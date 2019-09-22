@@ -96,7 +96,7 @@ final class JsonResponse implements ResponseInterface
     public function getMessage(): string
     {
         if (is_array($this->data) && array_key_exists('message', $this->data)) {
-            return $this->data['message'];
+            return (string)$this->data['message'];
         }
 
         return '';

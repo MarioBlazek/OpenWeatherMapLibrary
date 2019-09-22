@@ -6,8 +6,7 @@ namespace Marek\OpenWeatherMap\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\HourForecast\AggregatedHourForecast;
 use Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface;
@@ -17,53 +16,53 @@ class HourForecast extends Base implements HourForecastInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchForecastByCityName(CityName $cityName)
+    public function fetchForecastByCityName(CityName $cityName): AggregatedHourForecast
     {
         $params = $this->factory->buildBag(self::BASE_URL);
-        $params->setParameter($cityName);
+        $params->setGetParameter($cityName);
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedHourForecast());
+        return $this->denormalizer->denormalize($response, new AggregatedHourForecast());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function fetchForecastByCityId(CityId $cityId)
+    public function fetchForecastByCityId(CityId $cityId): AggregatedHourForecast
     {
         $params = $this->factory->buildBag(self::BASE_URL);
-        $params->setParameter($cityId);
+        $params->setGetParameter($cityId);
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedHourForecast());
+        return $this->denormalizer->denormalize($response, new AggregatedHourForecast());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function fetchForecastByZipCode(ZipCode $zipCode)
+    public function fetchForecastByZipCode(ZipCode $zipCode): AggregatedHourForecast
     {
         $params = $this->factory->buildBag(self::BASE_URL);
-        $params->setParameter($zipCode);
+        $params->setGetParameter($zipCode);
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedHourForecast());
+        return $this->denormalizer->denormalize($response, new AggregatedHourForecast());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function fetchForecastByCityGeographicCoordinates(Latitude $latitude, Longitude $longitude)
+    public function fetchForecastByCityGeographicCoordinates(GeographicCoordinates $coordinates): AggregatedHourForecast
     {
         $params = $this->factory->buildBag(self::BASE_URL);
-        $params->setParameter($latitude);
-        $params->setParameter($longitude);
+        $params->setGetParameter($coordinates->getLatitude());
+        $params->setGetParameter($coordinates->getLongitude());
 
         $response = $this->getResult($this->factory->build($params));
 
-        return $this->hydrator->hydrate($response, new AggregatedHourForecast());
+        return $this->denormalizer->denormalize($response, new AggregatedHourForecast());
     }
 }

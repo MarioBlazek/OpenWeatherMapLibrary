@@ -9,7 +9,6 @@ use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Exception\ExceptionThrower;
 use Marek\OpenWeatherMap\Factory\UrlFactory;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherMap\Hydrator\HydratorInterface;
 use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
 
 abstract class Base

@@ -29,5 +29,5 @@ class City
     /**
      * @var GeographicCoordinates
      */
-    public $coord;
+    public $coordinates;
 }

@@ -10,8 +10,7 @@ use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityIds;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\Cluster;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
-use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\AggregatedWeather;
 use Marek\OpenWeatherMap\API\Value\Response\Weather\Weather as WeatherResponse;
@@ -22,7 +21,7 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function byCityName(CityName $cityName)
+    public function byCityName(CityName $cityName): WeatherResponse
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
         $params->setGetParameter($cityName);
@@ -35,7 +34,7 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function byCityId(CityId $cityId)
+    public function byCityId(CityId $cityId): WeatherResponse
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
         $params->setGetParameter($cityId);
@@ -48,11 +47,11 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function byGeographicCoordinates(Latitude $latitude, Longitude $longitude)
+    public function byGeographicCoordinates(GeographicCoordinates $coordinates): WeatherResponse
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
-        $params->setGetParameter($latitude);
-        $params->setGetParameter($longitude);
+        $params->setGetParameter($coordinates->getLatitude());
+        $params->setGetParameter($coordinates->getLongitude());
 
         $response = $this->getResult($this->factory->build($params));
 
@@ -62,7 +61,7 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function byZipCode(ZipCode $zipCode)
+    public function byZipCode(ZipCode $zipCode): WeatherResponse
     {
         $params = $this->factory->buildBag(self::URL_WEATHER);
         $params->setGetParameter($zipCode);
@@ -75,7 +74,7 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster)
+    public function withinARectangleZone(BoundingBox $bbox, Cluster $cluster): AggregatedWeather
     {
         $params = $this->factory->buildBag(self::URL_BBOX);
         $params->setGetParameter($bbox);
@@ -89,11 +88,11 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function inCycle(Latitude $latitude, Longitude $longitude, Cluster $cluster, CityCount $cnt)
+    public function inCycle(GeographicCoordinates $coordinates, Cluster $cluster, CityCount $cnt): AggregatedWeather
     {
         $params = $this->factory->buildBag(self::URL_CYCLE);
-        $params->setGetParameter($latitude);
-        $params->setGetParameter($longitude);
+        $params->setGetParameter($coordinates->getLatitude());
+        $params->setGetParameter($coordinates->getLongitude());
         $params->setGetParameter($cluster);
         $params->setGetParameter($cnt);
 
@@ -105,7 +104,7 @@ class Weather extends Base implements WeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function severalCityIds(CityIds $cityIds)
+    public function severalCityIds(CityIds $cityIds): AggregatedWeather
     {
         $params = $this->factory->buildBag(self::URL_CITIES);
         $params->setGetParameter($cityIds);

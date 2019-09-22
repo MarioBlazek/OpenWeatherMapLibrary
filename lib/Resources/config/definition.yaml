@@ -26,7 +26,17 @@ Marek\OpenWeatherMap\API\Value\Response\Rain:
         oneHour:
             serialized_name: 1h
 
+Marek\OpenWeatherMap\API\Value\Response\Snow:
+    attributes:
+        threeHours:
+            serialized_name: _3h
+
 Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex:
     attributes:
         isoDate:
             serialized_name: date_iso
+
+Marek\OpenWeatherMap\API\Value\Response\City:
+    attributes:
+        coordinates:
+            serialized_name: coord

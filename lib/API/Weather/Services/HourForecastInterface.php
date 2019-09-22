@@ -15,7 +15,7 @@ interface HourForecastInterface
     /**
      * Base URL for hour forecast.
      */
-    public const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast/hourly';
+    public const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast';
 
     /**
      * Call 5 day / 3 hour forecast data by city name.

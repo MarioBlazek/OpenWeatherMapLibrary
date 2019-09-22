@@ -1,23 +1,26 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/bootstrap.php';
 
-$configuration = new \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration("token");
-$cacheConfiguration = new \Marek\OpenWeatherMap\API\Value\Configuration\CacheConfiguration(\Marek\OpenWeatherMap\API\Value\Configuration\CacheConfiguration::NO_CACHE);
-
-$factory = new \Marek\OpenWeatherMap\Factory\WeatherFactory($configuration, $cacheConfiguration);
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude;
+use Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates;
 
 $hourForecastService = $factory->createHourForecastService();
 
-$cityName = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityName('Zagreb');
+$cityName = new CityName('Zagreb');
 $hourForecast = $hourForecastService->fetchForecastByCityName($cityName);
 
-$cityId = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\CityId(2172797);
+$cityId = new CityId(2172797);
 $hourForecast = $hourForecastService->fetchForecastByCityId($cityId);
 
-$zipCode = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\ZipCode(94040, 'us');
+$zipCode = new ZipCode(94040, 'us');
 $hourForecast = $hourForecastService->fetchForecastByZipCode($zipCode);
 
-$latitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude(35);
-$longitude = new \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude(139);
-$hourForecast = $hourForecastService->fetchForecastByCityGeographicCoordinates($latitude, $longitude);
+$latitude = new Latitude(35);
+$longitude = new Longitude(139);
+$coordinates = new GeographicCoordinates($latitude, $longitude);
+$hourForecast = $hourForecastService->fetchForecastByCityGeographicCoordinates($coordinates);
