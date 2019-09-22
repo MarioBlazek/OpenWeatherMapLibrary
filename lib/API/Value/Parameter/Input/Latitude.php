@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
+use Marek\OpenWeatherMap\API\Exception\InvalidArgumentException;
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 
 class Latitude implements GetParameterInterface
@@ -20,6 +21,7 @@ class Latitude implements GetParameterInterface
      */
     public function __construct(float $latitude)
     {
+        $this->validate($latitude);
         $this->latitude = $latitude;
     }
 
@@ -45,5 +47,12 @@ class Latitude implements GetParameterInterface
     public function getGetParameterName()
     {
         return 'lat';
+    }
+
+    protected function validate(float $latitude): void
+    {
+        if ($latitude < -90 || $latitude > 90) {
+            throw new InvalidArgumentException((string)$latitude, 'latitude', self::class);
+        }
     }
 }

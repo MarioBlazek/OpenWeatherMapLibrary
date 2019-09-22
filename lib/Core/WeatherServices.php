@@ -13,7 +13,7 @@ use Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface;
 class WeatherServices implements WeatherServicesInterface
 {
     /**
-     * @var \Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface
+     * @var \Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface
      */
     protected $weatherService;
 
@@ -35,7 +35,7 @@ class WeatherServices implements WeatherServicesInterface
     /**
      * WeatherServices constructor.
      *
-     * @param \Marek\OpenWeatherMap\API\Weather\WeatherServicesInterface $weatherService
+     * @param \Marek\OpenWeatherMap\API\Weather\Services\WeatherInterface $weatherService
      * @param \Marek\OpenWeatherMap\API\Weather\Services\HourForecastInterface $hourForecastService
      * @param \Marek\OpenWeatherMap\API\Weather\Services\UltravioletIndexInterface $ultravioletIndexService
      * @param \Marek\OpenWeatherMap\API\Weather\Services\AirPollutionInterface $airPollutionService
