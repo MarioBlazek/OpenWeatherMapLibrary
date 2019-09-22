@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marek\OpenWeatherMap\API\Weather\Services;
 
-use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime;
 use Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates;
 use Marek\OpenWeatherMap\API\Value\Response\AirPollution\CarbonMonoxide;
@@ -18,7 +17,6 @@ interface AirPollutionInterface
      * Carbon Monoxide Data (CO) URL.
      */
     public const URL_CARBON_MONOXIDE = 'http://api.openweathermap.org/pollution/v1/co/{location}/{datetime}.json';
-
 
     /**
      * Ozone Data (O3) URL.
@@ -38,46 +36,46 @@ interface AirPollutionInterface
     /**
      * Fetch Ozone Data by geographic coordinates.
      *
-     * @param GeographicCoordinates $coordinates
-     * @param DateTime $datetime
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates $coordinates
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime $datetime
      *
-     * @throws APIException
+     * @throws \Marek\OpenWeatherMap\API\Exception\APIException
      *
-     * @return Ozone
+     * @return \Marek\OpenWeatherMap\API\Value\Response\AirPollution\Ozone
      */
-    public function fetchOzoneData(GeographicCoordinates $coordinates, DateTime $datetime);
+    public function fetchOzoneData(GeographicCoordinates $coordinates, DateTime $datetime): Ozone;
 
     /**
      * Fetch Carbon Monoxide Data by geographic coordinates.
      *
-     * @param GeographicCoordinates $coordinates
-     * @param DateTime $datetime
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates $coordinates
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime $datetime
      *
-     * @return CarbonMonoxide
+     * @return \Marek\OpenWeatherMap\API\Value\Response\AirPollution\CarbonMonoxide
      */
-    public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, DateTime $datetime);
+    public function fetchCarbonMonoxideData(GeographicCoordinates $coordinates, DateTime $datetime): CarbonMonoxide;
 
     /**
      * Fetch Sulfur Dioxide Data by geographic coordinates.
      *
-     * @param GeographicCoordinates $coordinates
-     * @param DateTime $datetime
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates $coordinates
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime $datetime
      *
-     * @throws APIException
+     * @throws \Marek\OpenWeatherMap\API\Exception\APIException
      *
-     * @return SulfurDioxide
+     * @return \Marek\OpenWeatherMap\API\Value\Response\AirPollution\SulfurDioxide
      */
-    public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, DateTime $datetime);
+    public function fetchSulfurDioxideData(GeographicCoordinates $coordinates, DateTime $datetime): SulfurDioxide;
 
     /**
      * Fetch Nitrogen Dioxide Data by geographic coordinates.
      *
-     * @param GeographicCoordinates $coordinates
-     * @param DateTime $datetime
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\GeographicCoordinates $coordinates
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTime $datetime
      *
-     * @throws APIException
+     * @throws \Marek\OpenWeatherMap\API\Exception\APIException
      *
-     * @return NitrogenDioxide
+     * @return \Marek\OpenWeatherMap\API\Value\Response\AirPollution\NitrogenDioxide
      */
-    public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, DateTime $datetime);
+    public function fetchNitrogenDioxideData(GeographicCoordinates $coordinates, DateTime $datetime): NitrogenDioxide;
 }
