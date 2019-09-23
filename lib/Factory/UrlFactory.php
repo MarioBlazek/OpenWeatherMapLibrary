@@ -14,7 +14,7 @@ final class UrlFactory
     /**
      * @var \Marek\OpenWeatherMap\API\Value\Configuration\APIConfiguration
      */
-    protected $configuration;
+    private $configuration;
 
     /**
      * UrlFactory constructor.
@@ -35,7 +35,6 @@ final class UrlFactory
     {
         $url = $bag->getUrl();
         $url = $this->transformUriParameters($url, $bag);
-
 
         return $this->transformGetParameters($url, $bag);
     }
@@ -58,7 +57,7 @@ final class UrlFactory
      *
      * @return string
      */
-    protected function transformUriParameters(string $url, InputParameterBag $bag): string
+    private function transformUriParameters(string $url, InputParameterBag $bag): string
     {
         foreach ($bag->getUriParameters() as $item) {
             if ($item instanceof UriParameterInterface) {
@@ -78,7 +77,7 @@ final class UrlFactory
      *
      * @return string
      */
-    protected function transformGetParameters(string $url, InputParameterBag $bag): string
+    private function transformGetParameters(string $url, InputParameterBag $bag): string
     {
         $params = [];
         foreach ($bag->getGetParameters() as $item) {
@@ -92,8 +91,6 @@ final class UrlFactory
         $params['lang'] = $this->configuration->getLanguage();
         $params['type'] = $this->configuration->getType();
 
-        $url = $url . '?' . http_build_query($params);
-
-        return $url;
+        return $url . '?' . http_build_query($params);
     }
 }

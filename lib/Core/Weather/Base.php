@@ -7,9 +7,9 @@ namespace Marek\OpenWeatherMap\Core\Weather;
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
 use Marek\OpenWeatherMap\API\Exception\APIException;
 use Marek\OpenWeatherMap\API\Exception\ExceptionThrower;
+use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
 use Marek\OpenWeatherMap\Factory\UrlFactory;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
 
 abstract class Base
 {

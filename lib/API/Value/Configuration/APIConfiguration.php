@@ -13,22 +13,22 @@ final class APIConfiguration
     /**
      * @var string
      */
-    protected $key;
+    private $key;
 
     /**
      * @var string
      */
-    protected $units;
+    private $units;
 
     /**
      * @var string
      */
-    protected $language;
+    private $language;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * APIConfiguration constructor.

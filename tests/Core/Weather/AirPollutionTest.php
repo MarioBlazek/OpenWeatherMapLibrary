@@ -35,8 +35,7 @@ class AirPollutionTest extends WeatherBase
 
     public function testFetchOzoneData()
     {
-        $this->markTestSkipped();
-
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -77,7 +76,7 @@ class AirPollutionTest extends WeatherBase
 
     public function testFetchSulfurDioxideData()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -118,7 +117,7 @@ class AirPollutionTest extends WeatherBase
 
     public function testFetchCarbonMonoxideData()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -159,7 +158,7 @@ class AirPollutionTest extends WeatherBase
 
     public function testFetchNitrogenDioxideData()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();

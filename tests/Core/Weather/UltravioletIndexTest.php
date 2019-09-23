@@ -31,7 +31,7 @@ class UltravioletIndexTest extends WeatherBase
 
     public function testFetchUltravioletIndex()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -72,7 +72,7 @@ class UltravioletIndexTest extends WeatherBase
 
     public function testFetchUltravioletIndexFromCache()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -119,7 +119,7 @@ class UltravioletIndexTest extends WeatherBase
      */
     public function testFetchUltravioletIndexWithNotFound()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -159,7 +159,7 @@ class UltravioletIndexTest extends WeatherBase
      */
     public function testFetchUltravioletIndexWithBadRequest()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -199,7 +199,7 @@ class UltravioletIndexTest extends WeatherBase
      */
     public function testFetchUltravioletIndexWithUnauthorized()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();
@@ -239,7 +239,7 @@ class UltravioletIndexTest extends WeatherBase
      */
     public function testFetchUltravioletIndexWithForbidden()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $coords = new GeographicCoordinates(10, 15);
         $dateTime = new DateTime();

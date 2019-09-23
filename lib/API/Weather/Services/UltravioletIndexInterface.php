@@ -13,17 +13,17 @@ use Marek\OpenWeatherMap\API\Value\Response\UltravioletIndex\UltravioletIndex;
 interface UltravioletIndexInterface
 {
     /**
-     * Current UV data for one location URL
+     * Current UV data for one location URL.
      */
     public const BASE_URL = 'http://api.openweathermap.org/data/2.5/uvi';
 
     /**
-     * Forecast UV data for one location URL
+     * Forecast UV data for one location URL.
      */
     public const FORECAST_UV_URL = 'http://api.openweathermap.org/data/2.5/uvi/forecast?lat={lat}&lon={lon}&cnt={cnt}';
 
     /**
-     * Historical UV data for one location URL
+     * Historical UV data for one location URL.
      */
     public const HISTORICAL_UV_URL = 'http://api.openweathermap.org/data/2.5/uvi/history?lat={lat}&lon={lon}&cnt={cnt}&start={start}&end={end}';
 

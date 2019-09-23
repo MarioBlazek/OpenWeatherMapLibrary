@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Marek\OpenWeatherMap\Tests\Core\Weather;
 
 use Marek\OpenWeatherMap\API\Cache\HandlerInterface;
+use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
 use Marek\OpenWeatherMap\Factory\UrlFactory;
 use Marek\OpenWeatherMap\Http\Client\HttpClientInterface;
-use Marek\OpenWeatherMap\Denormalizer\DenormalizerInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class WeatherBase extends TestCase

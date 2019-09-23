@@ -17,9 +17,10 @@ class Longitude implements GetParameterInterface
     /**
      * Longitude constructor.
      *
-     * @throws \Marek\OpenWeatherMap\API\Exception\InvalidArgumentException
      *
      * @param float $longitude
+     *
+     * @throws \Marek\OpenWeatherMap\API\Exception\InvalidArgumentException
      */
     public function __construct(float $longitude)
     {
@@ -59,7 +60,7 @@ class Longitude implements GetParameterInterface
     protected function validate(float $longitude): void
     {
         if ($longitude < -180 || $longitude > 180) {
-            throw new InvalidArgumentException((string)$longitude, 'longitude', self::class);
+            throw new InvalidArgumentException((string) $longitude, 'longitude', self::class);
         }
     }
 }

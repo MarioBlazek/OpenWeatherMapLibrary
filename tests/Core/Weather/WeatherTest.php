@@ -39,8 +39,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherByCityName()
     {
-        $this->markTestSkipped();
-
+        self::markTestSkipped();
 
         $cityName = new CityName('Zagreb');
         $parameterBag = new InputParameterBag(WeatherInterface::URL_WEATHER);
@@ -80,8 +79,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherByCityId()
     {
-        $this->markTestSkipped();
-
+        self::markTestSkipped();
 
         $cityId = new CityId(123);
         $parameterBag = new InputParameterBag(WeatherInterface::URL_WEATHER);
@@ -121,8 +119,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherByZipCode()
     {
-        $this->markTestSkipped();
-
+        self::markTestSkipped();
 
         $zipCode = new ZipCode(123);
         $parameterBag = new InputParameterBag(WeatherInterface::URL_WEATHER);
@@ -162,7 +159,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherByGeographicCoordinates()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $latitude = new Latitude(123);
         $longitude = new Longitude(123);
@@ -203,7 +200,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherWithinRectangleZone()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $bbox = new BoundingBox(5, 5, 5, 5, 5);
         $cluster = new Cluster();
@@ -244,7 +241,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherInCycle()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $latitude = new Latitude(3);
         $longitude = new Longitude(4);
@@ -287,8 +284,7 @@ class WeatherTest extends WeatherBase
 
     public function testWeatherForSeveralCityIds()
     {
-
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $ids = [new CityId(1), new CityId(2)];
         $cityIds = new CityIds($ids);

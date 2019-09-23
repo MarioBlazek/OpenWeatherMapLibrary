@@ -12,7 +12,7 @@ class DateTimeTest extends TestCase
 {
     public function testItGeneratesValidParameter()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $input = new DateTime();
 

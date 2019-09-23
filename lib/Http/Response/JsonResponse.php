@@ -9,12 +9,12 @@ final class JsonResponse implements ResponseInterface
     /**
      * @var array|string
      */
-    protected $data;
+    private $data;
 
     /**
      * @var int
      */
-    protected $httpCode;
+    private $httpCode;
 
     /**
      * Response constructor.
@@ -96,7 +96,7 @@ final class JsonResponse implements ResponseInterface
     public function getMessage(): string
     {
         if (is_array($this->data) && array_key_exists('message', $this->data)) {
-            return (string)$this->data['message'];
+            return (string) $this->data['message'];
         }
 
         return '';
@@ -109,7 +109,7 @@ final class JsonResponse implements ResponseInterface
      *
      * @return bool
      */
-    protected function isValidJson($string): bool
+    private function isValidJson($string): bool
     {
         if (!is_string($string)) {
             return false;

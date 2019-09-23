@@ -6,5 +6,4 @@ namespace Marek\OpenWeatherMap\API\Value\Response;
 
 abstract class APIResponse
 {
-
 }

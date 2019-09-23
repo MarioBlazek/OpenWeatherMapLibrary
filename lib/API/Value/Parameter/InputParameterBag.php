@@ -9,17 +9,17 @@ final class InputParameterBag
     /**
      * @var array
      */
-    protected $getParameters = [];
+    private $getParameters = [];
 
     /**
      * @var array
      */
-    protected $uriParameters = [];
+    private $uriParameters = [];
 
     /**
      * @var string
      */
-    protected $url;
+    private $url;
 
     /**
      * InputParameterBag constructor.

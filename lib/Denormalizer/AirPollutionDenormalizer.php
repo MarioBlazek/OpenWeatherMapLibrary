@@ -14,7 +14,6 @@ class AirPollutionDenormalizer extends AbstractDenormalizer
     public function denormalize(array $data, APIResponse $response): APIResponse
     {
         if ($response instanceof CarbonMonoxide) {
-
             $response->time = $this->getValue('time', $data, \DateTimeInterface::class);
 
             $location = new GeographicCoordinates();
@@ -25,7 +24,6 @@ class AirPollutionDenormalizer extends AbstractDenormalizer
 
             $polutions = [];
             foreach ($data['data'] as $datum) {
-
                 $pollution = new AirPollution();
                 $pollution->precision = $datum['precision'];
                 $pollution->pressure = $datum['pressure'];

@@ -36,7 +36,7 @@ class HourForecastTest extends WeatherBase
 
     public function testFetchForecastByCityName()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $cityName = new CityName('Zagreb');
         $parameterBag = new InputParameterBag(HourForecastInterface::BASE_URL);
@@ -76,7 +76,7 @@ class HourForecastTest extends WeatherBase
 
     public function testFetchForecastByCityId()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $cityId = new CityId(12345);
         $parameterBag = new InputParameterBag(HourForecastInterface::BASE_URL);
@@ -116,7 +116,7 @@ class HourForecastTest extends WeatherBase
 
     public function testFetchForecastByZipCode()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $zipCode = new ZipCode(12345);
         $parameterBag = new InputParameterBag(HourForecastInterface::BASE_URL);
@@ -156,7 +156,7 @@ class HourForecastTest extends WeatherBase
 
     public function testFetchForecastByGeographicCoordinates()
     {
-        $this->markTestSkipped();
+        self::markTestSkipped();
 
         $latitude = new Latitude(10);
         $longitude = new Longitude(15);

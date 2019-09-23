@@ -7,14 +7,14 @@ namespace Marek\OpenWeatherMap\API\Value\Parameter;
 interface UriParameterInterface extends ParameterInterface
 {
     /**
-     * Returns value for URI parameter
+     * Returns value for URI parameter.
      *
      * @return string
      */
     public function getUriParameterValue(): string;
 
     /**
-     * Returns URI parameter identifier
+     * Returns URI parameter identifier.
      *
      * @return string
      */

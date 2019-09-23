@@ -53,7 +53,6 @@ class WeatherDenormalizer extends AbstractDenormalizer
         $weather->weather = $innerWeather;
         $weather->dt = empty($data['dt']) ? null : new \DateTimeImmutable("@{$data['dt']}");
 
-
         return $weather;
     }
 

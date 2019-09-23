@@ -13,7 +13,7 @@ final class SymfonyHttpClient implements HttpClientInterface
     /**
      * @var BaseHttpClientInterface
      */
-    protected $innerClient;
+    private $innerClient;
 
     public function __construct(BaseHttpClientInterface $innerClient)
     {
@@ -24,9 +24,9 @@ final class SymfonyHttpClient implements HttpClientInterface
     {
         $response = $this->innerClient->request('GET', $url);
 
-
         return new JsonResponse(
-            $response->getContent(), $response->getStatusCode()
+            $response->getContent(),
+            $response->getStatusCode()
         );
     }
 }

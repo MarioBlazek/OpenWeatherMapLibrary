@@ -28,6 +28,4 @@ class UltravioletIndex extends APIResponse
      * @var float
      */
     public $value;
-
-
 }

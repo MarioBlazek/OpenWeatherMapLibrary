@@ -7,13 +7,13 @@ namespace Marek\OpenWeatherMap\Denormalizer;
 use Marek\OpenWeatherMap\API\Value\Response\APIResponse;
 use Marek\OpenWeatherMap\API\Value\Response\Clouds;
 use Marek\OpenWeatherMap\API\Value\Response\HourForecast\AggregatedHourForecast;
+use Marek\OpenWeatherMap\API\Value\Response\HourForecast\HourForecast;
 use Marek\OpenWeatherMap\API\Value\Response\Main;
 use Marek\OpenWeatherMap\API\Value\Response\Rain;
 use Marek\OpenWeatherMap\API\Value\Response\Snow;
 use Marek\OpenWeatherMap\API\Value\Response\Sys;
 use Marek\OpenWeatherMap\API\Value\Response\WeatherValue;
 use Marek\OpenWeatherMap\API\Value\Response\Wind;
-use Marek\OpenWeatherMap\API\Value\Response\HourForecast\HourForecast;
 
 class HourForecastDenormalizer extends AbstractDenormalizer
 {
