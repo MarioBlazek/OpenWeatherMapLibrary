@@ -26,7 +26,7 @@ class CityIds implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         $values = [];
         foreach ($this->cityIds as $cityId) {
@@ -39,7 +39,7 @@ class CityIds implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'id';
     }

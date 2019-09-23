@@ -42,7 +42,7 @@ class BoundingBox implements GetParameterInterface
      * @param float $latitudeTop
      * @param int $zoom
      */
-    public function __construct($longitudeLeft, $latitudeBottom, $longitudeRight, $latitudeTop, $zoom)
+    public function __construct(float $longitudeLeft, float $latitudeBottom, float $longitudeRight, float $latitudeTop, int $zoom)
     {
         $this->longitudeLeft = $longitudeLeft;
         $this->latitudeBottom = $latitudeBottom;
@@ -54,7 +54,7 @@ class BoundingBox implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return (string) $this->longitudeLeft
             . ',' . (string) $this->latitudeBottom
@@ -66,7 +66,7 @@ class BoundingBox implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'bbox';
     }

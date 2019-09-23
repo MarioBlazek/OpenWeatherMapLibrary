@@ -24,7 +24,7 @@ class ZipCode implements GetParameterInterface
      * @param int $zip
      * @param string|null $countryCode
      */
-    public function __construct($zip, $countryCode = null)
+    public function __construct(int $zip, ?string $countryCode = null)
     {
         $this->zip = $zip;
         $this->countryCode = $countryCode;
@@ -33,7 +33,7 @@ class ZipCode implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         if (null === $this->countryCode) {
             return (string) $this->zip;
@@ -45,7 +45,7 @@ class ZipCode implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'zip';
     }

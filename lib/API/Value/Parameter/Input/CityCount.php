@@ -18,7 +18,7 @@ class CityCount implements GetParameterInterface
      *
      * @param int $cnt
      */
-    public function __construct($cnt = 10)
+    public function __construct(int $cnt = 10)
     {
         $this->cnt = $cnt;
     }
@@ -26,7 +26,7 @@ class CityCount implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return (string) $this->cnt;
     }
@@ -34,7 +34,7 @@ class CityCount implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'cnt';
     }

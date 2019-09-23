@@ -17,6 +17,8 @@ class Longitude implements GetParameterInterface
     /**
      * Longitude constructor.
      *
+     * @throws \Marek\OpenWeatherMap\API\Exception\InvalidArgumentException
+     *
      * @param float $longitude
      */
     public function __construct(float $longitude)
@@ -28,7 +30,7 @@ class Longitude implements GetParameterInterface
     /**
      * @return float
      */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->longitude;
     }
@@ -36,7 +38,7 @@ class Longitude implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return (string) $this->longitude;
     }
@@ -44,11 +46,16 @@ class Longitude implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'lon';
     }
 
+    /**
+     * @param float $longitude
+     *
+     * @throws \Marek\OpenWeatherMap\API\Exception\InvalidArgumentException
+     */
     protected function validate(float $longitude): void
     {
         if ($longitude < -180 || $longitude > 180) {

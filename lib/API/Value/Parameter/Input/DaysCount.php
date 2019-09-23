@@ -18,7 +18,7 @@ class DaysCount implements GetParameterInterface
      *
      * @param int $numberOfDays
      */
-    public function __construct($numberOfDays = 10)
+    public function __construct(int $numberOfDays = 10)
     {
         $this->count = $numberOfDays;
     }
@@ -26,7 +26,7 @@ class DaysCount implements GetParameterInterface
     /**
      * @return int
      */
-    public function getCount()
+    public function getCount(): int
     {
         return $this->count;
     }
@@ -34,7 +34,7 @@ class DaysCount implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return (string) $this->count;
     }
@@ -42,7 +42,7 @@ class DaysCount implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'cnt';
     }

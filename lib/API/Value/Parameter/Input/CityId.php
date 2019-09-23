@@ -18,7 +18,7 @@ class CityId implements GetParameterInterface
      *
      * @param int $cityId
      */
-    public function __construct($cityId)
+    public function __construct(int $cityId)
     {
         $this->cityId = $cityId;
     }
@@ -26,7 +26,7 @@ class CityId implements GetParameterInterface
     /**
      * @return int
      */
-    public function getCityId()
+    public function getCityId(): int
     {
         return $this->cityId;
     }
@@ -34,7 +34,7 @@ class CityId implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return (string) $this->cityId;
     }
@@ -42,7 +42,7 @@ class CityId implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'id';
     }

@@ -9,20 +9,20 @@ use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
 class GeographicCoordinates implements UriParameterInterface
 {
     /**
-     * @var Latitude
+     * @var \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude
      */
     protected $latitude;
 
     /**
-     * @var Longitude
+     * @var \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude
      */
     protected $longitude;
 
     /**
      * GeographicCoordinates constructor.
      *
-     * @param Latitude $latitude
-     * @param Longitude $longitude
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude $latitude
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude $longitude
      */
     public function __construct(Latitude $latitude, Longitude $longitude)
     {
@@ -31,17 +31,17 @@ class GeographicCoordinates implements UriParameterInterface
     }
 
     /**
-     * @return Latitude
+     * @return \Marek\OpenWeatherMap\API\Value\Parameter\Input\Latitude
      */
-    public function getLatitude()
+    public function getLatitude(): Latitude
     {
         return $this->latitude;
     }
 
     /**
-     * @return Longitude
+     * @return \Marek\OpenWeatherMap\API\Value\Parameter\Input\Longitude
      */
-    public function getLongitude()
+    public function getLongitude(): Longitude
     {
         return $this->longitude;
     }
@@ -49,7 +49,7 @@ class GeographicCoordinates implements UriParameterInterface
     /**
      * @return string
      */
-    public function getUriParameterValue()
+    public function getUriParameterValue(): string
     {
         return (string) $this->latitude->getLatitude() .
             ',' .
@@ -59,7 +59,7 @@ class GeographicCoordinates implements UriParameterInterface
     /**
      * @return string
      */
-    public function getUriParameterName()
+    public function getUriParameterName(): string
     {
         return 'location';
     }

@@ -4,7 +4,7 @@ namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 class DateTimeEnd extends DateTime
 {
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'end';
     }

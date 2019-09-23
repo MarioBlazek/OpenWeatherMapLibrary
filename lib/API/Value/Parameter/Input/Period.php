@@ -7,15 +7,21 @@ namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 class Period
 {
     /**
-     * @var DateTimeStart
+     * @var \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeStart
      */
     private $start;
 
     /**
-     * @var DateTimeEnd
+     * @var \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeEnd
      */
     private $end;
 
+    /**
+     * Period constructor.
+     *
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeStart $start
+     * @param \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeEnd $end
+     */
     public function __construct(DateTimeStart $start, DateTimeEnd $end)
     {
         $this->start = $start;
@@ -23,7 +29,7 @@ class Period
     }
 
     /**
-     * @return DateTimeStart
+     * @return \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeStart
      */
     public function getStart(): DateTimeStart
     {
@@ -31,7 +37,7 @@ class Period
     }
 
     /**
-     * @return DateTimeEnd
+     * @return \Marek\OpenWeatherMap\API\Value\Parameter\Input\DateTimeEnd
      */
     public function getEnd(): DateTimeEnd
     {

@@ -22,7 +22,7 @@ class Cluster implements GetParameterInterface
      *
      * @param string $selection
      */
-    public function __construct($selection = self::YES)
+    public function __construct(string $selection = self::YES)
     {
         $this->selection = $selection;
     }
@@ -38,7 +38,7 @@ class Cluster implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         return $this->selection;
     }
@@ -46,7 +46,7 @@ class Cluster implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'cluster';
     }

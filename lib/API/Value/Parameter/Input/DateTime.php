@@ -6,6 +6,7 @@ namespace Marek\OpenWeatherMap\API\Value\Parameter\Input;
 
 use Marek\OpenWeatherMap\API\Value\Parameter\GetParameterInterface;
 use Marek\OpenWeatherMap\API\Value\Parameter\UriParameterInterface;
+use DateTimeInterface;
 
 class DateTime implements GetParameterInterface, UriParameterInterface
 {
@@ -19,7 +20,7 @@ class DateTime implements GetParameterInterface, UriParameterInterface
      *
      * @param \DateTimeInterface $datetime
      */
-    public function __construct(\DateTimeInterface $datetime)
+    public function __construct(DateTimeInterface $datetime)
     {
         $this->datetime = $datetime;
     }
@@ -27,7 +28,7 @@ class DateTime implements GetParameterInterface, UriParameterInterface
     /**
      * @return string
      */
-    public function getDateTime()
+    public function getDateTime(): DateTimeInterface
     {
         return $this->datetime;
     }
@@ -35,22 +36,22 @@ class DateTime implements GetParameterInterface, UriParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
-        return $this->datetime->getTimestamp();
+        return (string)$this->datetime->getTimestamp();
     }
 
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         throw new \RuntimeException('Not implemented.');
     }
 
-    public function getUriParameterValue()
+    public function getUriParameterValue(): string
     {
         return $this->datetime->format('Y-m-d\TH:i:s\Z');
     }
 
-    public function getUriParameterName()
+    public function getUriParameterName(): string
     {
         return 'datetime';
     }

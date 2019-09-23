@@ -24,7 +24,7 @@ class CityName implements GetParameterInterface
      * @param string $name
      * @param string|null $code
      */
-    public function __construct($name, $code = null)
+    public function __construct(string $name, ?string $code = null)
     {
         $this->name = $name;
         $this->code = $code;
@@ -33,15 +33,15 @@ class CityName implements GetParameterInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -49,7 +49,7 @@ class CityName implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterValue()
+    public function getGetParameterValue(): string
     {
         if (null === $this->code) {
             return $this->name;
@@ -61,7 +61,7 @@ class CityName implements GetParameterInterface
     /**
      * {@inheritdoc}
      */
-    public function getGetParameterName()
+    public function getGetParameterName(): string
     {
         return 'q';
     }
